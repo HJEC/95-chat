@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    height: 30%;
+    width: 30%;
+}
+
+input {
+    margin: 10px;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.welcome_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
