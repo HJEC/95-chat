@@ -59,7 +59,7 @@ export default class Registration extends React.Component {
                     type="password"
                     onChange={e => this.handleChange(e)}
                 />
-                <button onClick={e => this.submit()}>register</button>
+                <button onClick={() => this.submit()}>register</button>
                 <Link to="/login">Log in</Link>
             </div>
         );
