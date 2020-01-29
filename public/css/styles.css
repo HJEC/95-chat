@@ -8,6 +8,12 @@ img {
     width: 30%;
 }
 
+a {
+    margin: 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
 input {
     margin: 10px;
 }
@@ -17,8 +23,7 @@ input {
     flex-direction: column;
     align-items: center;
 }
-.welcome_form {
+.form {
     display: flex;
-    flex-direction: column;
     align-items: center;
 }

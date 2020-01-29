@@ -1,5 +1,6 @@
 import React from "react";
-import axios from "axios"; // this component imports axios from the bundle.js.
+import axios from "../axios"; // this component imports axios from the bundle.js.
+import { Link } from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ export default class Registration extends React.Component {
     }
     render() {
         return (
-            <div className="welcome_form">
+            <div className="form">
                 {this.state.error && <div className="error">Oops!</div>}
                 <input
                     name="first"
@@ -59,6 +60,7 @@ export default class Registration extends React.Component {
                     onChange={e => this.handleChange(e)}
                 />
                 <button onClick={e => this.submit()}>register</button>
+                <Link to="/login">Log in</Link>
             </div>
         );
     }

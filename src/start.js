@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Welcome from "./welcome";
+import Welcome from "./components/welcome";
 
 console.log("Start JS.");
 console.log("location: ", location.pathname);

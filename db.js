@@ -12,3 +12,9 @@ exports.addUser = (first, last, email, password) => {
         )
         .then(({ rows }) => rows);
 };
+
+exports.logIn = email => {
+    return db
+        .query(`SELECT email, password, id FROM users WHERE email = '${email}'`)
+        .then(({ rows }) => rows);
+};
