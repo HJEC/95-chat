@@ -13,8 +13,13 @@ exports.addUser = (first, last, email, password) => {
         .then(({ rows }) => rows);
 };
 
-exports.updateImage = email => {
-    return db.query(`UPDATE users SET image WHERE email = $1`, [email]);
+exports.updateImage = (image, email) => {
+    return db
+        .query(`UPDATE users SET image = $1 WHERE email = $2 RETURNING image`, [
+            image,
+            email
+        ])
+        .then(({ rows }) => rows);
 };
 
 exports.getUser = email => {

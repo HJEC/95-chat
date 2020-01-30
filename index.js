@@ -139,12 +139,34 @@ app.get("/user", async (req, res) => {
 });
 
 // UPLOAD IMAGE //
+// app.post("/upload", uploader.single("file"), upload, (req, res) => {
+//     let imageUrl = config.s3Url + req.file.filename;
+//     let email = req.session.email;
+//     updateImage(imageUrl, email)
+//         .then(image => {
+//             console.log("update image result: ", image);
+//             req.session.image = image;
+//             res.json({
+//                 success: true,
+//                 image: imageUrl
+//             });
+//         })
+//         .catch(err => {
+//             console.log("failed to upload image: ", err);
+//             res.json(false);
+//         });
+// });
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     let imageUrl = config.s3Url + req.file.filename;
+    let email = req.session.email;
     try {
-        let result = await updateImage(imageUrl);
-        console.log("update image result: ", result);
-        res.json(result);
+        let image = await updateImage(imageUrl, email);
+        console.log("update image result: ", image[0]);
+        // req.session.image = image[0].image;
+        res.json({
+            success: true,
+            image: imageUrl
+        });
     } catch (err) {
         console.log("failed to upload image: ", err);
         res.json(false);
