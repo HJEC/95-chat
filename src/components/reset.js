@@ -8,11 +8,6 @@ export default class Reset extends React.Component {
         this.state = {
             step: 1
         };
-
-        // this.handleChange = this.handleChange.bind(this);
-        // this.checkEmail = this.checkEmail.bind(this);
-        // this.resetPassword = this.resetPassword.bind(this);
-        // this.resetScreen = this.resetScreen.bind(this);
     }
 
     handleChange(e) {
@@ -43,7 +38,7 @@ export default class Reset extends React.Component {
             .post("/reset", {
                 email: this.state.email,
                 code: this.state.code,
-                password: this.state.password
+                newPassword: this.state.newPassword
             })
             .then(({ data }) => {
                 console.log("reset: ", data);
@@ -88,14 +83,14 @@ export default class Reset extends React.Component {
                     />
                     <h2>Please enter your new password</h2>
                     <input
-                        name="password"
-                        placeholder="password"
+                        name="newPassword"
+                        placeholder="enter new password"
                         onChange={e => this.handleChange(e)}
                     />
                     <button onClick={() => this.resetPassword()}>
                         reset password
                     </button>
-                    <a href="/register">go back to register</a>
+                    <a href="/login">go back to register</a>
                 </div>
             );
         } else if (step == 3) {

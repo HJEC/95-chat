@@ -5,5 +5,6 @@ CREATE TABLE users(
     first VARCHAR NOT NULL,
     last VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE,
-    password VARCHAR NOT NULL
+    password VARCHAR NOT NULL,
+    image VARCHAR
 );

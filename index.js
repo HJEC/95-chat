@@ -1,17 +1,51 @@
 // EXPRESS //
-const express = require("express");
-const app = express();
-const compression = require("compression");
+const express = require("express"),
+    app = express(),
+    compression = require("compression");
 // SECURITY //
-const cookieSession = require("cookie-session");
-const secrets = require("./secrets.json");
-const csurf = require("csurf");
-const { hashPass, compare } = require("./bcrypt");
-const cryptoRandomString = require("crypto-random-string");
+const cookieSession = require("cookie-session"),
+    secrets = require("./secrets.json"),
+    csurf = require("csurf"),
+    cryptoRandomString = require("crypto-random-string"),
+    { hashPass, compare } = require("./bcrypt");
 // FUNCTIONS //
-const { addUser, getUser, storeCode, verify, updatePassword } = require("./db");
+const {
+    addUser,
+    getUser,
+    storeCode,
+    verify,
+    updatePassword,
+    updateImage
+} = require("./db");
 const { sendEmail } = require("./ses");
+const { upload } = require("./s3");
 
+// IMAGE UPLOAD BOILER PLATE //
+const multer = require("multer"),
+    uidSafe = require("uid-safe"),
+    path = require("path"),
+    config = require("./config");
+
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
+// __IMAGE UPLOAD__//
+
+// APP USE //
 app.use(compression());
 app.use(express.json());
 app.use(
@@ -20,9 +54,7 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
-
 app.use(csurf());
-
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
@@ -33,13 +65,12 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
-
 app.use(express.static("./public"));
-
 app.use(function(req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
 });
+// __USE__
 
 // REGISTRATION PAGE //
 app.get("/registration", (req, res) => {
@@ -50,43 +81,31 @@ app.get("/registration", (req, res) => {
     }
 });
 
-app.post("/register", (req, res) => {
-    console.log("post request body: ", req.body);
+app.post("/register", async (req, res) => {
+    let { first, last, email, password } = req.body;
+    try {
+        const hash = await hashPass(password);
+        const result = await addUser(first, last, email, hash);
 
-    let first = req.body.first,
-        last = req.body.last,
-        email = req.body.email,
-        password = req.body.password;
-
-    hashPass(password).then(hashedPass => {
-        addUser(first, last, email, hashedPass)
-            .then(result => {
-                req.session.userId = result[0];
-
-                console.log("cookie attached!: ", req.session.userId);
-                res.json(result[0]);
-            })
-            .catch(err => {
-                console.log("error in register post: ", err);
-                res.json(false);
-            });
-    });
+        req.session.userId = result[0].id;
+        req.session.email = result[0].email;
+        res.json(result[0]);
+        console.log("cookie attached!: ", req.session.userId);
+    } catch (err) {
+        console.log("error in register post: ", err);
+        res.json(false);
+    }
 });
 
 // LOGIN PAGE //
 app.post("/loginUser", (req, res) => {
-    let email = req.body.email,
-        password = req.body.password;
-
+    let { email, password } = req.body;
     getUser(email)
         .then(data => {
-            console.log("data: ", data);
-
-            compare(password, data[0].password).then(result => {
-                console.log("login result: ", result);
-                if (result) {
+            compare(password, data[0].password).then(isTrue => {
+                if (isTrue) {
                     req.session.userId = data[0].id;
-                    console.log("login cookie: ", req.session.userId);
+                    req.session.email = data[0].email;
                     res.json(data[0]);
                 } else {
                     console.log("login compare failed");
@@ -100,79 +119,80 @@ app.post("/loginUser", (req, res) => {
         });
 });
 
+// GET USER INFO //
+
+app.get("/user", async (req, res) => {
+    let email = req.session.email;
+    //get user image, info, first, last, bio
+    // TODO: check database for null, then show default image.
+    try {
+        let rows = await getUser(email);
+        res.json({
+            first: rows[0].first,
+            last: rows[0].last,
+            id: rows[0].id,
+            image: rows[0].image || "/default.jpg"
+        });
+    } catch (err) {
+        console.log("failed to get user on app load", err);
+    }
+});
+
+// UPLOAD IMAGE //
+app.post("/upload", uploader.single("file"), upload, async (req, res) => {
+    let imageUrl = config.s3Url + req.file.filename;
+    try {
+        let result = await updateImage(imageUrl);
+        console.log("update image result: ", result);
+        res.json(result);
+    } catch (err) {
+        console.log("failed to upload image: ", err);
+        res.json(false);
+    }
+});
+
 // RESET PASSWORD //
 
-app.post("/recover", (req, res) => {
+app.post("/recover", async (req, res) => {
     let email = req.body.email;
     let subject = `Soc_Net: reset password`;
     const secretCode = cryptoRandomString({
         length: 6
     });
-
-    getUser(email)
-        .then(data => {
-            console.log("email exists: ", data);
-            let name = data[0].first;
-
-            let message = `Hi ${name}, here is your reset code: ${secretCode}. Please use this in the reset password form.`;
-
-            if (data) {
-                res.json(data[0]);
-
-                sendEmail(email, message, subject)
-                    .then(() => {
-                        console.log("sendEmail succesful!");
-                    })
-                    .catch(err => {
-                        console.log("sendEmail failed...", err);
-                        res.json(false);
-                    });
-
-                storeCode(email, secretCode)
-                    .then(data => {
-                        console.log("storeCode succesful!", data);
-                    })
-                    .catch(err => {
-                        console.log("storeCode failed...", err);
-                        res.json(false);
-                    });
-            }
-        })
-        .catch(err => {
-            console.log("email does not exist: ", err);
-            res.json(false);
-        });
+    try {
+        let data = await getUser(email);
+        let name = data[0].first;
+        let message = `Hi ${name}, here is your reset code: ${secretCode}.`;
+        if (data) {
+            res.json(data[0]);
+            await sendEmail(email, message, subject);
+            console.log("sendEmail succesful.");
+            await storeCode(email, secretCode);
+        }
+    } catch (err) {
+        console.log("sendEmail failed: ", err);
+        res.json(false);
+    }
 });
 
-app.post("/reset", (req, res) => {
-    let email = req.body.email;
-    let code = req.body.code;
-    let password = req.body.password;
-
-    verify(email).then(data => {
-        console.log("verify attempted: ", data);
+app.post("/reset", async (req, res) => {
+    let { email, code, newPassword } = req.body;
+    try {
+        let data = await verify(email);
         console.log("data: ", data[0].code);
-
         if (code == data[0].code) {
-            hashPass(password)
-                .then(hashedPass => {
-                    updatePassword(hashedPass, email)
-                        .then(response => {
-                            console.log(
-                                "updatePassword succesful!: ",
-                                response
-                            );
-                            res.json(data[0]);
-                        })
-                        .catch(err => {
-                            console.log("updatePassword failed...", err);
-                        });
-                })
-                .catch(err => {
-                    console.log("hashPass failed...", err);
-                });
+            let hash = await hashPass(newPassword);
+            let response = await updatePassword(hash, email);
+            console.log("async updatePassword success: ", response);
+            res.json(data[0]);
+        } else {
+            console.log("verify failed");
+            res.json(false);
         }
-    });
+    } catch (err) {
+        console.log("async updatePassword failed: ", err);
+        res.json(false);
+    }
 });
 
 // ERROR HANDLER //
@@ -191,5 +211,5 @@ app.get("*", function(req, res) {
 
 //__router__//
 app.listen(8080, function() {
-    console.log("I'm listening.");
+    console.log("See you space cowboy");
 });
