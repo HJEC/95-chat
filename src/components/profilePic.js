@@ -6,8 +6,12 @@ export default function ProfilePic(props) {
 
     return (
         <div>
-            <img src={props.image} alt={name} onClick={clickHandler} />
-            <h1> you are in profile pic </h1>
+            <img
+                src={props.image}
+                alt={name}
+                onClick={clickHandler}
+                className="profilePic"
+            />
         </div>
     );
 }

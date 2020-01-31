@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./../axios";
 import ProfilePic from "./profilePic";
+import Profile from "./profile";
 import Uploader from "./upload";
 
 export default class App extends React.Component {
@@ -33,7 +34,10 @@ export default class App extends React.Component {
                     last={this.state.last}
                 />
                 {this.state.uploaderIsVisibile && (
-                    <Uploader setImageUrl={image => this.setState({ image })} />
+                    <Uploader
+                        setImageUrl={image => this.setState({ image })}
+                        image={this.state.image}
+                    />
                 )}
             </div>
         );

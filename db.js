@@ -24,10 +24,7 @@ exports.updateImage = (image, email) => {
 
 exports.getUser = email => {
     return db
-        .query(
-            `SELECT first, last, email, password, id FROM users WHERE email = $1`,
-            [email]
-        )
+        .query(`SELECT * FROM users WHERE email = $1`, [email])
         .then(({ rows }) => rows);
 };
 

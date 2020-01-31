@@ -1,41 +1,28 @@
 import React from "react";
 import axios from "../axios"; // this component imports axios from the bundle.js.
 
-export default class Upload extends React.Component {
+export default class Uploader extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { file: null };
+        this.state = {};
     }
     setFile(e) {
-        this.setState({ file: e.target.files[0] });
-        console.log("NEW FILE: ", this.state.file);
+        this.file = e.target.files[0];
+        console.log("NEW FILE: ", this.file);
     }
 
-    formSubmit(e) {
+    upload(e) {
         e.preventDefault();
-        this.upload(this.state.file)
-            .then(() => {
-                this.setState.updated = true;
-                console.log("FORM SUBMITTED!");
-            })
-            .catch(err => {
-                console.log("form failed", err);
-            });
-    }
 
-    upload(file) {
-        console.log("value of file: ", file);
         var formData = new FormData();
         // We need to use formData to send a file to the server
-        formData.append("file", file);
+        formData.append("file", this.file);
 
         axios
             .post("/upload", formData)
-            .then(({ response }) => {
+            .then(response => {
                 console.log("response from POST /upload: ", response);
-                if (response.success) {
-                    this.setState.imageurl = response.image;
-                }
+                this.props.setImageUrl(response.data);
             })
             .catch(function(err) {
                 console.log("CLIENT UPLOAD ERROR:", err);
@@ -43,15 +30,17 @@ export default class Upload extends React.Component {
     }
     render() {
         return (
-            <form onSubmit={e => this.formSubmit(e)}>
+            <div>
+                <h1>change your profile image</h1>
                 <input
                     name="image"
                     type="file"
                     accept="image/*"
                     onChange={e => this.setFile(e)}
                 />
-                <button type="submit">UPLOAD</button>
-            </form>
+                <button onClick={e => this.upload(e)}>UPLOAD</button>
+            </div>
         );
     }
 }
+// onClick={setImageUrl}

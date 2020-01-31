@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import Welcome from "./components/welcome";
 import App from "./components/app";
 
-console.log("Start JS.");
-console.log("location: ", location.pathname);
+console.log("start.js location: ", location.pathname);
 
 let elem;
 
