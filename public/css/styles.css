@@ -25,6 +25,10 @@ p {
 
 input {
     margin: 10px;
+    cursor: pointer;
+}
+button {
+    cursor: pointer;
 }
 
 .welcome {
@@ -66,8 +70,8 @@ input {
     position: absolute;
     top: 10px;
     left: 50px;
-    max-width: 125px;
-    max-height: 125px;
+    max-width: 130px;
+    max-height: 130px;
 }
 .userImage img {
     position: absolute;
@@ -78,6 +82,7 @@ input {
     object-fit: cover;
     border: 3px solid peachpuff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .imageUploader {
@@ -96,4 +101,11 @@ input {
 .imageUploader input {
     width: 50%;
     font-size: 0.8rem;
+}
+
+.profileImage {
+    cursor: pointer;
+    max-width: 200px;
+    max-height: 200px;
+    display: inline-block;
 }

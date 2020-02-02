@@ -52,7 +52,7 @@ export default class bioEditor extends React.Component {
 
     async submit() {
         try {
-            await axios.post("/change-bio", this.state.bio);
+            await axios.post("/change-bio", { bio: this.state.bio });
             this.props.setBio(this.state.bio);
             this.toggleState();
         } catch (err) {

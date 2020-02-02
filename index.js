@@ -135,7 +135,8 @@ app.get("/user", async (req, res) => {
             first: rows[0].first,
             last: rows[0].last,
             id: rows[0].id,
-            image: rows[0].image || "/default.jpg"
+            image: rows[0].image || "/default.jpg",
+            bio: rows[0].bio
         });
     } catch (err) {
         console.log("failed to get user on app load", err);
@@ -162,7 +163,8 @@ app.post("/upload", uploader.single("file"), upload, async (req, res) => {
 // UPDATE BIOGRAPHY //
 app.post("/change-bio", async (req, res) => {
     let email = req.session.email;
-    let bio = req.session.bio;
+    let bio = req.body.bio;
+    console.log("session data: ", req.body);
     try {
         let data = await updateBio(email, bio);
         console.log("update bio result: ", data[0]);

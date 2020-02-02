@@ -14,10 +14,13 @@ export default class Welcome extends React.Component {
                 <h1 className="title">
                     Welcome to{" "}
                     <span className="sub_title">
-                        P.T.L.M.W.A.C.T.B.T.M.D.A.M.B.T.W
+                        P.T.L.M.W.A.T.C.T.B.T.M.D.M.B.T.W
                     </span>
                     !
                 </h1>
+                <h2>
+                    (people-that-like-movies-with-animals-that-can-talk-but-their-mouths-dont-move-because-thats-weird)
+                </h2>
                 <img src="dogcat.png" className="dogcat" />
                 <HashRouter>
                     <div className="welcome">
