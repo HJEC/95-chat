@@ -18,7 +18,7 @@ export default function Uploader({ setImageUrl, toggleUploader }) {
         }
     }
     return (
-        <div>
+        <div className="imageUploader">
             <h1>change your profile image</h1>
             <input
                 name="image"

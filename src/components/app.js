@@ -35,7 +35,7 @@ export default class App extends React.Component {
             <div>
                 <div>
                     <div className="logo">
-                        <img src="/siphon_philter.jpg" alt="logo" />
+                        <img src="networklogo.svg" alt="logo" />
                     </div>
                     <ProfilePic
                         className="userImage"

@@ -15,7 +15,8 @@ const {
     storeCode,
     verify,
     updatePassword,
-    updateImage
+    updateImage,
+    updateBio
 } = require("./db");
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
@@ -128,7 +129,6 @@ app.post("/loginUser", (req, res) => {
 app.get("/user", async (req, res) => {
     let email = req.session.email;
     //get user image, info, first, last, bio
-    // TODO: check database for null, then show default image.
     try {
         let rows = await getUser(email);
         res.json({
@@ -156,6 +156,20 @@ app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     } catch (err) {
         console.log("failed to upload image: ", err);
         res.json(false);
+    }
+});
+
+// UPDATE BIOGRAPHY //
+app.post("/change-bio", async (req, res) => {
+    let email = req.session.email;
+    let bio = req.session.bio;
+    try {
+        let data = await updateBio(email, bio);
+        console.log("update bio result: ", data[0]);
+        res.sendStatus(200);
+    } catch (err) {
+        console.log("failed to update bio - index-178: ", err);
+        res.sendStatus(500);
     }
 });
 

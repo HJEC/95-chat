@@ -22,6 +22,14 @@ exports.updateImage = (image, email) => {
         .then(({ rows }) => rows);
 };
 
+exports.updateBio = (email, bio) => {
+    return db
+        .query(`UPDATE users SET bio = $2 WHERE email = $1 RETURNING bio`, [
+            email,
+            bio
+        ])
+        .then(({ rows }) => rows);
+};
 exports.getUser = email => {
     return db
         .query(`SELECT * FROM users WHERE email = $1`, [email])

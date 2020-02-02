@@ -1,7 +1,8 @@
 import React from "react";
+import axios from "../axios";
 
 export default class bioEditor extends React.Component {
-    Constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             edited: false,
@@ -11,19 +12,32 @@ export default class bioEditor extends React.Component {
     addBio() {
         return (
             <div>
-                <button onClick={() => this.toggleState}>
+                <button onClick={() => this.toggleState()}>
                     Edit your Profile
                 </button>
+            </div>
+        );
+    }
+    changeBio() {
+        return (
+            <div>
+                <p>{this.props.bio}</p>
+                <textarea onChange={e => this.handleChange(e)} />
+                <button onClick={() => this.submit()}>submit new bio</button>
             </div>
         );
     }
     showBio() {
         return (
             <div>
-                <p>{this.state.bio}</p>
+                <p>{this.props.bio}</p>
+                <button onClick={() => this.toggleState()}>
+                    change your bio
+                </button>
             </div>
         );
     }
+
     toggleState() {
         this.setState({
             edited: !this.state.edited
@@ -36,14 +50,25 @@ export default class bioEditor extends React.Component {
         });
     }
 
+    async submit() {
+        try {
+            await axios.post("/change-bio", this.state.bio);
+            this.props.setBio(this.state.bio);
+            this.toggleState();
+        } catch (err) {
+            console.log("Error in bio submit - line 67: ", err);
+        }
+    }
+
     render() {
+        console.log("biostate is: ", this.state);
         return (
             <div>
                 {this.state.edited
-                    ? this.showBio
+                    ? this.changeBio()
                     : this.state.bio
-                    ? this.showBio
-                    : this.addBio}
+                    ? this.showBio()
+                    : this.addBio()}
             </div>
         );
     }
