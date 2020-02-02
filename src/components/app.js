@@ -8,11 +8,20 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: ""
+            uploaderIsVisible: false
         };
     }
-    componentDidMount() {
-        axios.get("/user").then(({ data }) => this.setState(data));
+
+    async componentDidMount() {
+        const { data } = await axios.get("/user");
+        this.setState(data);
+        console.log("state data: ", data);
+    }
+    toggleUploader() {
+        this.setState({
+            uploaderIsVisible: !this.state.uploaderIsVisible
+        });
+        console.log("state: ", this.state);
     }
 
     render() {
@@ -24,21 +33,42 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img src="/siphon_philter.jpg" alt="logo" />
-                <ProfilePic
-                    clickHandler={() =>
-                        this.setState({ uploaderIsVisibile: true })
-                    }
-                    image={this.state.image}
+                <div>
+                    <div className="logo">
+                        <img src="/siphon_philter.jpg" alt="logo" />
+                    </div>
+                    <ProfilePic
+                        className="userImage"
+                        toggleUploader={() => {
+                            this.toggleUploader();
+                        }}
+                        image={this.state.image}
+                        first={this.state.first}
+                        last={this.state.last}
+                    />
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            setImageUrl={image => this.setState({ image })}
+                            toggleUploader={() => this.toggleUploader()}
+                        />
+                    )}
+                </div>
+                <Profile
                     first={this.state.first}
                     last={this.state.last}
+                    bio={this.state.bio}
+                    setBio={bio => this.setState({ bio })}
+                    profilePic={
+                        <ProfilePic
+                            className="profileImage"
+                            id={this.state.id}
+                            first={this.state.first}
+                            last={this.state.last}
+                            image={this.state.image}
+                            toggleUploader={() => this.toggleUploader()}
+                        />
+                    }
                 />
-                {this.state.uploaderIsVisibile && (
-                    <Uploader
-                        setImageUrl={image => this.setState({ image })}
-                        image={this.state.image}
-                    />
-                )}
             </div>
         );
     }

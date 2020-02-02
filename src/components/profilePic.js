@@ -1,16 +1,12 @@
 import React from "react";
 
 export default function ProfilePic(props) {
-    const name = props.first + " " + props.last;
-    const clickHandler = props.clickHandler;
-
     return (
-        <div>
+        <div className={props.className}>
             <img
                 src={props.image}
-                alt={name}
-                onClick={clickHandler}
-                className="profilePic"
+                alt={`${props.first} ${props.last}`}
+                onClick={props.toggleUploader}
             />
         </div>
     );

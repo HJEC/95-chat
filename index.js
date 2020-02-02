@@ -1,4 +1,4 @@
-// EXPRESS //
+// EXPRESS / COMPRESSION //
 const express = require("express"),
     app = express(),
     compression = require("compression");
@@ -48,6 +48,7 @@ const uploader = multer({
 // APP USE //
 app.use(compression());
 app.use(express.json());
+
 app.use(
     cookieSession({
         secret: secrets.SESSION_SECRET,
@@ -55,6 +56,8 @@ app.use(
     })
 );
 app.use(csurf());
+
+// SERVE FILE IN DEVELOPMENT OR PRODUCTION //
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
@@ -65,6 +68,7 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
 app.use(express.static("./public"));
 app.use(function(req, res, next) {
     res.cookie("mytoken", req.csrfToken());
@@ -75,7 +79,7 @@ app.use(function(req, res, next) {
 // REGISTRATION PAGE //
 app.get("/registration", (req, res) => {
     if (req.session.userId) {
-        res.redirect("/");
+        res.redirect("/login");
     } else {
         res.sendFile(__dirname + "/index.html");
     }
@@ -138,6 +142,7 @@ app.get("/user", async (req, res) => {
     }
 });
 
+// UPLOAD NEW PROFILE PHOTO //
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     let imageUrl = config.s3Url + req.file.filename;
     let email = req.session.email;
@@ -177,7 +182,7 @@ app.post("/recover", async (req, res) => {
         res.json(false);
     }
 });
-
+// SET NEW PASSWORD //
 app.post("/reset", async (req, res) => {
     let { email, code, newPassword } = req.body;
     try {

@@ -35,6 +35,7 @@ export default class Registration extends React.Component {
             }); // create error to set this.state.error
     }
     render() {
+        console.log("register live");
         return (
             <div className="form">
                 {this.state.error && <div className="error">Oops!</div>}

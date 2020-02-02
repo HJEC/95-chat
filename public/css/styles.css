@@ -6,7 +6,6 @@
 }
 
 img {
-    /* height: 100px; */
     width: 250px;
 }
 
@@ -41,4 +40,15 @@ input {
 
 .loading {
     margin: auto;
+}
+
+.userImage img {
+    position: absolute;
+    top: 15px;
+    right: 50px;
+    max-width: 125px;
+    max-height: 125px;
+    object-fit: cover;
+    border: 3px solid peachpuff;
+    border-radius: 10px;
 }
