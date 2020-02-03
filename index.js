@@ -1,7 +1,10 @@
 // EXPRESS / COMPRESSION //
 const express = require("express"),
     app = express(),
-    compression = require("compression");
+    compression = require("compression"),
+    url = require("url"),
+    querystring = require("querystring");
+
 // SECURITY //
 const cookieSession = require("cookie-session"),
     secrets = require("./secrets.json"),
@@ -12,6 +15,7 @@ const cookieSession = require("cookie-session"),
 const {
     addUser,
     getUser,
+    getReqUser,
     storeCode,
     verify,
     updatePassword,
@@ -49,6 +53,11 @@ const uploader = multer({
 // APP USE //
 app.use(compression());
 app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: false
+    })
+);
 
 app.use(
     cookieSession({
@@ -143,6 +152,21 @@ app.get("/user", async (req, res) => {
     }
 });
 
+// GET OTHER USER //
+app.get("/api/user/:id", async (req, res) => {
+    console.log("req id: ", req.params.id);
+
+    let data = await getReqUser(req.params.id);
+    console.log("req user data: ", data[0]);
+    res.json({
+        friendFirst: data[0].first,
+        friendlast: data[0].last,
+        friendid: data[0].id,
+        friendimage: data[0].image || "/default.jpg",
+        friendbio: data[0].bio
+    });
+});
+
 // UPLOAD NEW PROFILE PHOTO //
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     let imageUrl = config.s3Url + req.file.filename;
@@ -164,7 +188,6 @@ app.post("/upload", uploader.single("file"), upload, async (req, res) => {
 app.post("/change-bio", async (req, res) => {
     let email = req.session.email;
     let bio = req.body.bio;
-    console.log("session data: ", req.body);
     try {
         let data = await updateBio(email, bio);
         console.log("update bio result: ", data[0]);

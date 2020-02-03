@@ -61,7 +61,6 @@ export default class bioEditor extends React.Component {
     }
 
     render() {
-        console.log("biostate is: ", this.state);
         return (
             <div>
                 {this.state.edited

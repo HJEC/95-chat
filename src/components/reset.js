@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "../axios";
-import { Link } from "react-router-dom";
 
 export default class Reset extends React.Component {
     constructor(props) {
@@ -80,6 +79,7 @@ export default class Reset extends React.Component {
                         name="code"
                         placeholder="code"
                         onChange={e => this.handleChange(e)}
+                        keys={this.state.step}
                     />
                     <h2>Please enter your new password</h2>
                     <input

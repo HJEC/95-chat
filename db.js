@@ -36,6 +36,12 @@ exports.getUser = email => {
         .then(({ rows }) => rows);
 };
 
+exports.getReqUser = id => {
+    return db
+        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .then(({ rows }) => rows);
+};
+
 exports.storeCode = (email, code) => {
     return db.query(
         `INSERT INTO reset (email, code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $2, created_at = now() RETURNING id, code`,
