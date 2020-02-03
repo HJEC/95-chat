@@ -26,8 +26,13 @@ export class OtherProfile extends React.Component {
     render() {
         console.log("state:", this.state);
         return (
-            <div className="otherUser">
+            <div>
                 <h1>long time no see cowboy</h1>
+                <p>
+                    {this.state.first} {this.state.last}
+                </p>
+                <img src={this.state.image || "/default.jpg"} />
+                <p>{this.state.bio}</p>
             </div>
         );
     }

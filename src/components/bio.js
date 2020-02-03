@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "../axios";
 
-export default class bioEditor extends React.Component {
+export default class Bio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +29,7 @@ export default class bioEditor extends React.Component {
     }
     showBio() {
         return (
-            <div>
+            <div className="showbio">
                 <p>{this.props.bio}</p>
                 <button onClick={() => this.toggleState()}>
                     change your bio

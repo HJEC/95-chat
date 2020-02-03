@@ -158,13 +158,7 @@ app.get("/api/user/:id", async (req, res) => {
 
     let data = await getReqUser(req.params.id);
     console.log("req user data: ", data[0]);
-    res.json({
-        friendFirst: data[0].first,
-        friendlast: data[0].last,
-        friendid: data[0].id,
-        friendimage: data[0].image || "/default.jpg",
-        friendbio: data[0].bio
-    });
+    res.json(data[0]);
 });
 
 // UPLOAD NEW PROFILE PHOTO //
