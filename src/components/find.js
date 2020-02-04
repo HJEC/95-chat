@@ -2,29 +2,40 @@ import React, { useState, useEffect } from "react";
 import axios from "../axios";
 
 export default function Find() {
-    const [newUsers, setNewUsers] = useState(true);
-    const [find, setFind] = useState("");
-    const [reqUsers, setReqUsers] = useState("");
-
-    useEffect(() => {
-        async () => {
-            const { data } = await axios.get("/find/start");
-            setNewUsers(data);
-        };
-    }, []);
+    const [users, setUsers] = useState([]);
+    const [find, setFind] = useState(null);
 
     useEffect(() => {
         (async () => {
-            try {
-                const { data } = await axios.get(`/search/${find}`);
-                setReqUsers(data);
-            } catch (e) {
-                console.log(e);
-            }
+            let { data } = await axios.get("/api/find/start");
+            console.log("new users: ", data);
+            setUsers(data);
         })();
+    }, []);
+
+    useEffect(() => {
+        let ignore;
+        if (find) {
+            (async () => {
+                try {
+                    console.log("here");
+                    let { data } = await axios.get(`/api/find/${find}`);
+                    if (!ignore) {
+                        setUsers(data);
+                    }
+                    console.log("search results: ", users);
+                } catch (err) {
+                    console.log("error in find users find - 23", err);
+                }
+            })();
+            return () => {
+                ignore = true;
+            };
+        }
     }, [find]);
 
-    const findRequest = ({ target }) => {
+    const onChange = ({ target }) => {
+        console.log("target: ", target.value);
         setFind(target.value);
     };
 
@@ -32,30 +43,24 @@ export default function Find() {
         <div>
             <h1>search for friends</h1>
             <input
-                onChange={findRequest}
+                onChange={onChange}
                 type="text"
                 placeholder="search for friends"
             />
             {!find && <p>newbies:</p>}
-            {!find &&
-                newUsers.map(i => {
-                    <div>
-                        <img src={i.image} />
-                        <p>
-                            {i.first} {i.last}
-                        </p>
-                    </div>;
-                })}
             {find && <h2>Search:{find}</h2>}
-            {find &&
-                reqUsers.map(i => {
-                    <div>
-                        <img src={i.image} />
-                        <p>
-                            {i.first} {i.last}
-                        </p>
-                    </div>;
-                })}
+            {users.map((i, idx) => {
+                return (
+                    <a href={`user/${i.id}`} key={idx}>
+                        <div>
+                            <img src={i.image} />
+                            <p>
+                                {i.first} {i.last}
+                            </p>
+                        </div>
+                    </a>
+                );
+            })}
         </div>
     );
 }

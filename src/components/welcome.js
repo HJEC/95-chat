@@ -28,7 +28,6 @@ export default class Welcome extends React.Component {
                         <Route exact path="/" component={Registration} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/reset" component={Reset} />
-                        <Route exact path="/find" component={Find} />
                     </div>
                 </HashRouter>
             </div>

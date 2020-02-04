@@ -3,7 +3,8 @@ import axios from "./../axios";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
-import { BrowserRouter, Route } from "react-router-dom";
+import Find from "./find";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import { OtherProfile } from "./otherProfile";
 
 export default class App extends React.Component {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
     async componentDidMount() {
         const { data } = await axios.get("/user");
         this.setState(data);
-        console.log("state data: ", data);
+        // console.log("state data: ", data);
     }
     toggleUploader() {
         this.setState({
@@ -44,6 +45,7 @@ export default class App extends React.Component {
                         <div className="logo">
                             <img src="/networklogo.svg" alt="logo" />
                         </div>
+                        <Link to="/find">find friends</Link>
                         <ProfilePic
                             className="userImage"
                             toggleUploader={() => {
@@ -79,6 +81,7 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route path="/user/:id" component={OtherProfile} />
+                    <Route path="/find" component={Find} />
                 </div>
             </BrowserRouter>
         );

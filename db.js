@@ -43,16 +43,16 @@ exports.getReqUser = id => {
 };
 
 exports.newUsers = () => {
-    return db.query(
-        `SELECT * FROM users ORDER BY id DESC LIMIT 3`.then(({ rows }) => rows)
-    );
+    return db
+        .query(`SELECT * FROM users ORDER BY id DESC LIMIT 3`)
+        .then(({ rows }) => rows);
 };
 
-exports.findUsers = search => {
+exports.findUsers = name => {
     return db
         .query(
-            `SELECT * FROM users WHERE first ILIKE = $1 OR last ILIKE = $1 ORDER BY id LIMIT 4`,
-            [search + "%"]
+            `SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1 OR CONCAT(first, ' ', last) ILIKE $1 ORDER BY id LIMIT 4`,
+            [name + "%"]
         )
         .then(({ rows }) => rows);
 };
