@@ -3,7 +3,7 @@ import axios from "../axios";
 
 export default function Find() {
     const [users, setUsers] = useState([]);
-    const [find, setFind] = useState(null);
+    const [find, setFind] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -36,6 +36,9 @@ export default function Find() {
 
     const onChange = ({ target }) => {
         console.log("target: ", target.value);
+        if (target.value == " ") {
+            target.value = target.value.replace(/ +/g, "");
+        }
         setFind(target.value);
     };
 
