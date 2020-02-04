@@ -42,6 +42,21 @@ exports.getReqUser = id => {
         .then(({ rows }) => rows);
 };
 
+exports.newUsers = () => {
+    return db.query(
+        `SELECT * FROM users ORDER BY id DESC LIMIT 3`.then(({ rows }) => rows)
+    );
+};
+
+exports.findUsers = search => {
+    return db
+        .query(
+            `SELECT * FROM users WHERE first ILIKE = $1 OR last ILIKE = $1 ORDER BY id LIMIT 4`,
+            [search + "%"]
+        )
+        .then(({ rows }) => rows);
+};
+
 exports.storeCode = (email, code) => {
     return db.query(
         `INSERT INTO reset (email, code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $2, created_at = now() RETURNING id, code`,

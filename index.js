@@ -16,6 +16,8 @@ const {
     addUser,
     getUser,
     getReqUser,
+    newUsers,
+    findUsers,
     storeCode,
     verify,
     updatePassword,
@@ -159,6 +161,19 @@ app.get("/api/user/:id", async (req, res) => {
     let data = await getReqUser(req.params.id);
     console.log("req user data: ", data[0]);
     res.json(data[0]);
+});
+
+// FIND USERS //
+
+app.get("/find/start", async (req, res) => {
+    console.log("looking for 3 new users");
+    try {
+        let data = await newUsers();
+        console.log("new users data: ", data);
+        res.json(data);
+    } catch (err) {
+        console.log("Error in find new users - index - 176");
+    }
 });
 
 // UPLOAD NEW PROFILE PHOTO //
