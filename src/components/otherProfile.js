@@ -1,39 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../axios";
+import FriendRequest from "./friendRequest";
 
-export class OtherProfile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+export default function OtherProfile(props) {
+    const [friend, setFriend] = useState();
 
-    async componentDidMount() {
-        // console.log("this.props.match: ", this.props.match.params.id);
-        let otherID = this.props.match.params.id;
-        let { data } = await axios.get(`/api/user/${otherID}`);
-        this.setState(data);
-        console.log("returned data: ", data);
+    useEffect(() => {
+        (async () => {
+            let otherId = props.params;
+            let { data } = await axios.get(`/api/user/${otherId}`);
+            console.log("found friend: ", data);
+            console.log("param: ", props.params);
+            console.log("id: ", props.userId);
+            setFriend(data);
+            if (props.params == props.userId || props.params == null) {
+                props.history.push("/");
+            }
+        })();
+    }, []);
 
-        if (
-            this.props.match.params.id == this.state.userID ||
-            this.props.match.params.id == null
-        ) {
-            //now we redirect back to profilePic
-            this.props.history.push("/");
-        }
-    }
-
-    render() {
-        console.log("state:", this.state);
+    if (friend) {
         return (
             <div>
                 <h1>long time no see cowboy</h1>
                 <p>
-                    {this.state.first} {this.state.last}
+                    {friend.first} {friend.last}
                 </p>
-                <img src={this.state.image || "/default.jpg"} />
-                <p>{this.state.bio}</p>
+                <img src={friend.image || "/default.jpg"} />
+                <p>{friend.bio}</p>
             </div>
         );
+    } else {
+        return <img src="/loading.gif" />;
     }
 }
+// <FriendRequest />

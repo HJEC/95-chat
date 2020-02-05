@@ -4,8 +4,8 @@ import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
 import Find from "./find";
+import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import { OtherProfile } from "./otherProfile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -18,12 +18,16 @@ export default class App extends React.Component {
     async componentDidMount() {
         const { data } = await axios.get("/user");
         this.setState(data);
-        // console.log("state data: ", data);
+        console.log("history", history);
     }
+
     toggleUploader() {
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
+    }
+    push() {
+        history.replaceState({}, "", "/");
     }
 
     render() {
@@ -80,7 +84,19 @@ export default class App extends React.Component {
                             />
                         )}
                     />
-                    <Route path="/user/:id" component={OtherProfile} />
+                    <Route
+                        path="/user/:id"
+                        render={props => (
+                            <OtherProfile
+                                userId={this.state.id}
+                                history={props.history}
+                                params={window.location.pathname.replace(
+                                    "/user/",
+                                    ""
+                                )}
+                            />
+                        )}
+                    />
                     <Route path="/find" component={Find} />
                 </div>
             </BrowserRouter>

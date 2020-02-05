@@ -157,6 +157,8 @@ app.get("/user", async (req, res) => {
 
 // GET OTHER USER //
 app.get("/api/user/:id", async (req, res) => {
+    console.log("req params server: ", req.params);
+    console.log("user ID", req.session.userId);
     let data = await getReqUser(req.params.id);
     res.json(data[0]);
 });
