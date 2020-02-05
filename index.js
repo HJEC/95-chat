@@ -105,16 +105,17 @@ app.post("/register", async (req, res) => {
 
         req.session.userId = result[0].id;
         req.session.email = result[0].email;
-        res.json(result[0]);
+        res.json({ success: true, data: result[0] });
         console.log("cookie attached!: ", req.session.userId);
     } catch (err) {
         console.log("error in register post: ", err);
-        res.json(false);
+        res.json({ success: false });
     }
 });
 
 // LOGIN PAGE //
 app.post("/loginUser", (req, res) => {
+    console.log("body data:", req.body);
     let { email, password } = req.body;
     getUser(email)
         .then(data => {
@@ -122,10 +123,10 @@ app.post("/loginUser", (req, res) => {
                 if (isTrue) {
                     req.session.userId = data[0].id;
                     req.session.email = data[0].email;
-                    res.json(data[0]);
+                    res.json({ success: true });
                 } else {
                     console.log("login compare failed");
-                    res.json(false);
+                    res.json({ success: false });
                 }
             });
         })

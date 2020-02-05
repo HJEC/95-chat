@@ -1,68 +1,29 @@
 import React from "react";
-import axios from "../axios"; // this component imports axios from the bundle.js.
 import { Link } from "react-router-dom";
+import useAuthSubmit from "./hooks/useAuthSubmit";
+import useStatefulFields from "./hooks/useStatefulFields";
 
-export default class Registration extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    handleChange(e) {
-        //this[e.target.name] e.target.value; - setting value in the instance.
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-    submit() {
-        // axios.post("/register", this.state) - this will post the entire state object.
-        console.log("state object: ", this.state);
-        axios
-            .post("/register", {
-                first: this.state.first,
-                last: this.state.last,
-                email: this.state.email,
-                password: this.state.password
-            })
-            .then(({ data }) => {
-                console.log("submit button data: ", data);
-                if (data.id) {
-                    //it worked
-                    location.replace("/"); // on success, the page will be replaced with the next one
-                } else {
-                    //failure
-                    this.setState({ error: true });
-                }
-            }); // create error to set this.state.error
-    }
-    render() {
-        console.log("register live");
-        return (
-            <div className="form">
-                {this.state.error && <div className="error">Oops!</div>}
-                <input
-                    name="first"
-                    placeholder="first"
-                    onChange={e => this.handleChange(e)}
-                />
-                <input
-                    name="last"
-                    placeholder="last"
-                    onChange={e => this.handleChange(e)}
-                />
-                <input
-                    name="email"
-                    placeholder="email"
-                    onChange={e => this.handleChange(e)}
-                />
-                <input
-                    name="password"
-                    placeholder="password"
-                    type="password"
-                    onChange={e => this.handleChange(e)}
-                />
-                <button onClick={() => this.submit()}>register</button>
-                <Link to="/login">Log in</Link>
-            </div>
-        );
-    }
+export default function Registration() {
+    const [values, handleChange] = useStatefulFields();
+    const [submit, error] = useAuthSubmit("/register", values);
+
+    return (
+        <div className="form">
+            <input name="first" placeholder="first" onChange={handleChange} />
+            <input name="last" placeholder="last" onChange={handleChange} />
+            <input name="email" placeholder="email" onChange={handleChange} />
+            <input
+                name="password"
+                placeholder="password"
+                type="password"
+                onChange={handleChange}
+            />
+            <button onClick={submit}>register</button>
+            <br />
+            {error && (
+                <div className="error">Invalid registration, try again.</div>
+            )}
+            <Link to="/login">Log in</Link>
+        </div>
+    );
 }
