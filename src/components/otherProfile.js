@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
-import FriendRequest from "./friendRequest";
+import UseFriendRequest from "./friendRequest";
 
 export default function OtherProfile(props) {
     const [friend, setFriend] = useState();
@@ -12,7 +12,6 @@ export default function OtherProfile(props) {
             let { data } = await axios.get(`/api/user/${otherId}`);
             console.log("found friend: ", data);
             console.log("param: ", otherId);
-            console.log("id: ", props.userId);
             setFriend(data);
             if (otherId == props.userId || otherId == null) {
                 props.history.push("/");
@@ -28,8 +27,8 @@ export default function OtherProfile(props) {
                     {friend.first} {friend.last}
                 </p>
                 <img src={friend.image || "/default.jpg"} />
-                <p>{friend.bio}</p>
-                <FriendRequest />
+                <p>{friend.bio || "No bio yet"}</p>
+                <UseFriendRequest recipient={otherId} userId={props.userId} />
             </div>
         );
     } else {

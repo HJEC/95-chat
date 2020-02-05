@@ -14,15 +14,17 @@ const cookieSession = require("cookie-session"),
 // FUNCTIONS //
 const {
     addUser,
+    updateImage,
+    updateBio,
     getUser,
     getReqUser,
     newUsers,
     findUsers,
-    storeCode,
+    isFriend,
+    requestFriendship,
     verify,
-    updatePassword,
-    updateImage,
-    updateBio
+    storeCode,
+    updatePassword
 } = require("./db");
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
@@ -60,7 +62,6 @@ app.use(
         extended: false
     })
 );
-
 app.use(
     cookieSession({
         secret: secrets.SESSION_SECRET,
@@ -96,7 +97,6 @@ app.get("/registration", (req, res) => {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
 app.post("/register", async (req, res) => {
     let { first, last, email, password } = req.body;
     try {
@@ -112,10 +112,9 @@ app.post("/register", async (req, res) => {
         res.json({ success: false });
     }
 });
-
 // LOGIN PAGE //
 app.post("/loginUser", (req, res) => {
-    console.log("body data:", req.body);
+    console.log("login data:", req.body);
     let { email, password } = req.body;
     getUser(email)
         .then(data => {
@@ -135,12 +134,9 @@ app.post("/loginUser", (req, res) => {
             res.json(false);
         });
 });
-
 // GET USER INFO //
-
 app.get("/user", async (req, res) => {
     let email = req.session.email;
-    //get user image, info, first, last, bio
     try {
         let rows = await getUser(email);
         res.json({
@@ -155,24 +151,21 @@ app.get("/user", async (req, res) => {
     }
 });
 
+//       GET/FIND OTHER USERS       //
 // GET OTHER USER //
 app.get("/api/user/:id", async (req, res) => {
-    console.log("req params server: ", req.params);
-    console.log("user ID", req.session.userId);
     let data = await getReqUser(req.params.id);
     res.json(data[0]);
 });
-
 // FIND USERS //
 app.get("/api/find/start", async (req, res) => {
     try {
         let data = await newUsers();
         res.json(data);
     } catch (err) {
-        console.log("Error in find new users - index - 176", err);
+        console.log("ERR /api/find/start", err);
     }
 });
-
 app.get("/api/find/:user", async (req, res) => {
     console.log("looking for req user", req.params.user);
     try {
@@ -184,6 +177,27 @@ app.get("/api/find/:user", async (req, res) => {
     }
 });
 
+//      FRIEND REQUESTS            //
+app.get("/is-friend/:friend", async (req, res) => {
+    let { friend } = req.params,
+        { userId } = req.session;
+    try {
+        let data = await isFriend(userId, friend);
+        console.log("is friend data: ", data[0]);
+        res.json(data);
+    } catch (err) {
+        console.log("ERR is-friend", err);
+        res.json({ success: false });
+    }
+});
+
+app.post("/request-friendship/:friend", async (req, res) => {
+    let data = await requestFriendship(req.session.userId, req.params.friend);
+    console.log("req friend:", data);
+    res.json({ friendState: "requested" });
+});
+
+//      UPDATE USER       //
 // UPLOAD NEW PROFILE PHOTO //
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     let imageUrl = config.s3Url + req.file.filename;
@@ -200,7 +214,6 @@ app.post("/upload", uploader.single("file"), upload, async (req, res) => {
         res.json(false);
     }
 });
-
 // UPDATE BIOGRAPHY //
 app.post("/change-bio", async (req, res) => {
     let email = req.session.email;
@@ -215,8 +228,8 @@ app.post("/change-bio", async (req, res) => {
     }
 });
 
+//       RESET PASS      //
 // RESET PASSWORD //
-
 app.post("/recover", async (req, res) => {
     let email = req.body.email;
     let subject = `Soc_Net: reset password`;
@@ -263,7 +276,6 @@ app.post("/reset", async (req, res) => {
 process.on("uncaughtException", function(err) {
     console.log("uncaught error:", err);
 });
-
 // THIS MUST BE THE LAST ROUTE //
 app.get("*", function(req, res) {
     if (!req.session.userId) {
