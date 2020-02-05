@@ -4,20 +4,21 @@ import FriendRequest from "./friendRequest";
 
 export default function OtherProfile(props) {
     const [friend, setFriend] = useState();
+    let otherId = props.match.params.id;
+    let key = props.match.url;
 
     useEffect(() => {
         (async () => {
-            let otherId = props.params;
             let { data } = await axios.get(`/api/user/${otherId}`);
             console.log("found friend: ", data);
-            console.log("param: ", props.params);
+            console.log("param: ", otherId);
             console.log("id: ", props.userId);
             setFriend(data);
-            if (props.params == props.userId || props.params == null) {
+            if (otherId == props.userId || otherId == null) {
                 props.history.push("/");
             }
         })();
-    }, []);
+    }, [key]);
 
     if (friend) {
         return (
@@ -28,10 +29,10 @@ export default function OtherProfile(props) {
                 </p>
                 <img src={friend.image || "/default.jpg"} />
                 <p>{friend.bio}</p>
+                <FriendRequest />
             </div>
         );
     } else {
         return <img src="/loading.gif" />;
     }
 }
-// <FriendRequest />

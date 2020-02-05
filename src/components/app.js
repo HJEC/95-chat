@@ -18,7 +18,6 @@ export default class App extends React.Component {
     async componentDidMount() {
         const { data } = await axios.get("/user");
         this.setState(data);
-        console.log("history", history);
     }
 
     toggleUploader() {
@@ -90,10 +89,7 @@ export default class App extends React.Component {
                             <OtherProfile
                                 userId={this.state.id}
                                 history={props.history}
-                                params={window.location.pathname.replace(
-                                    "/user/",
-                                    ""
-                                )}
+                                match={props.match}
                             />
                         )}
                     />
