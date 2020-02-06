@@ -136,6 +136,11 @@ app.post("/loginUser", (req, res) => {
             res.json(false);
         });
 });
+// LOGOUT //
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/register");
+});
 // GET USER INFO //
 app.get("/user", async (req, res) => {
     let email = req.session.email;

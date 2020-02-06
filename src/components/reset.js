@@ -46,7 +46,6 @@ export default class Reset extends React.Component {
                         step: 3
                     });
                 } else {
-                    //failure
                     this.setState({ error: true });
                 }
             });
@@ -79,11 +78,12 @@ export default class Reset extends React.Component {
                         name="code"
                         placeholder="code"
                         onChange={e => this.handleChange(e)}
-                        keys={this.state.step}
+                        key={this.state.step}
                     />
                     <h2>Please enter your new password</h2>
                     <input
                         name="newPassword"
+                        type="password"
                         placeholder="enter new password"
                         onChange={e => this.handleChange(e)}
                     />

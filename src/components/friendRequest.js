@@ -4,6 +4,7 @@ import axios from "../axios";
 export default function UseFriendRequest({ recipient, userId }) {
     const [status, setStatus] = useState();
     const [url, setUrl] = useState();
+    const [friendState, setFriendState] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -25,21 +26,12 @@ export default function UseFriendRequest({ recipient, userId }) {
                 setUrl("/cancel-friendship");
             }
         })();
-    });
+    }, [friendState]);
 
     async function submit() {
         const data = await axios.post(`${url}/${recipient}`);
-        console.log("post friend data: ", data);
-        if (!data.accepted || data.friendState == "requested") {
-            console.log("friendstate: ", data.friendstate);
-            setStatus("cancel friend request");
-        } else if (data.friendState == "cancelled") {
-            console.log("friendstate: ", data.friendstate);
-            setStatus("send friend request");
-        } else if (data.friendState == "accepted") {
-            console.log("friendstate: ", data.friendstate);
-            setStatus("end friendship");
-        }
+        console.log("post friend data: ", data.data);
+        setFriendState(data.data.friendState);
     }
 
     return <button onClick={submit}>{status}</button>;

@@ -94,6 +94,7 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route path="/find" component={Find} />
+                    <a href="/logout">log out</a>
                 </div>
             </BrowserRouter>
         );
