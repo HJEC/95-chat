@@ -22,6 +22,8 @@ const {
     findUsers,
     isFriend,
     requestFriendship,
+    cancelFriendship,
+    acceptFriendship,
     verify,
     storeCode,
     updatePassword
@@ -184,7 +186,7 @@ app.get("/is-friend/:friend", async (req, res) => {
     try {
         let data = await isFriend(userId, friend);
         console.log("is friend data: ", data[0]);
-        res.json(data);
+        res.json(data[0]);
     } catch (err) {
         console.log("ERR is-friend", err);
         res.json({ success: false });
@@ -195,6 +197,20 @@ app.post("/request-friendship/:friend", async (req, res) => {
     let data = await requestFriendship(req.session.userId, req.params.friend);
     console.log("req friend:", data);
     res.json({ friendState: "requested" });
+});
+
+app.post("/cancel-friendship/:friend", async (req, res) => {
+    let data = await cancelFriendship(req.session.userId, req.params.friend);
+    console.log("cancel friend: ", data);
+    res.json({ friendState: "cancelled" });
+});
+
+app.post("/accept-friendship/:friend", async (req, res) => {
+    let sender = req.params.friend,
+        recipient = req.session.userId;
+    let data = await acceptFriendship(sender, recipient);
+    console.log("accept friend:", data);
+    res.json({ friendState: "accepted" });
 });
 
 //      UPDATE USER       //

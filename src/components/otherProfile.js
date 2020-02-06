@@ -11,7 +11,6 @@ export default function OtherProfile(props) {
         (async () => {
             let { data } = await axios.get(`/api/user/${otherId}`);
             console.log("found friend: ", data);
-            console.log("param: ", otherId);
             setFriend(data);
             if (otherId == props.userId || otherId == null) {
                 props.history.push("/");

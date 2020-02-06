@@ -3,38 +3,41 @@ import axios from "../axios";
 
 export default function UseFriendRequest({ recipient, userId }) {
     const [status, setStatus] = useState();
-    let url;
+    const [url, setUrl] = useState();
 
     useEffect(() => {
         (async () => {
-            const data = await axios.get(`/is-friend/${recipient}`);
+            const { data } = await axios.get(`/is-friend/${recipient}`);
             console.log("is-friend data:", data);
-            if (!data.rows) {
+            if (!data) {
                 setStatus("send friend request");
-                url = "/request-friendship";
-            } else if (!data.rows.accepted) {
-                if (data.rows.sender_id == userId) {
+                setUrl("/request-friendship");
+            } else if (!data.accepted) {
+                if (data.sender_id == userId) {
                     setStatus("cancel friend request");
-                    url = "/cancel-friendship";
+                    setUrl("/cancel-friendship");
                 } else {
                     setStatus("accept friend request");
-                    url = "/accept-friendship";
+                    setUrl("/accept-friendship");
                 }
-            } else if (data.rows.accepted) {
+            } else if (data.accepted) {
                 setStatus("end friendship");
-                url = "/cancel-friendship";
+                setUrl("/cancel-friendship");
             }
         })();
-    }, [status]);
+    });
 
     async function submit() {
-        const data = axios.post(`${url}/${recipient}`);
+        const data = await axios.post(`${url}/${recipient}`);
         console.log("post friend data: ", data);
-        if (data.friendState == "requested") {
+        if (!data.accepted || data.friendState == "requested") {
+            console.log("friendstate: ", data.friendstate);
             setStatus("cancel friend request");
         } else if (data.friendState == "cancelled") {
+            console.log("friendstate: ", data.friendstate);
             setStatus("send friend request");
         } else if (data.friendState == "accepted") {
+            console.log("friendstate: ", data.friendstate);
             setStatus("end friendship");
         }
     }

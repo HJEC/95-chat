@@ -87,14 +87,16 @@ exports.findUsers = name => {
 };
 
 //   FRIEND REQUEST QUERIES    //
-exports.isFriend = (userId, recipient) => {
+exports.isFriend = (sender, recipient) => {
     return db
         .query(
-            `SELECT accepted
+            `SELECT *
              FROM friendships
-             WHERE sender_id = $1
-             AND recipient_id = $2`,
-            [userId, recipient]
+             WHERE (sender_id = $1
+             AND recipient_id = $2)
+             OR (sender_id = $2
+            AND recipient_id = $1)`,
+            [sender, recipient]
         )
         .then(({ rows }) => rows);
 };
@@ -104,6 +106,27 @@ exports.requestFriendship = (userId, recipient) => {
         `INSERT INTO friendships (sender_id, recipient_id)
         VALUES ($1, $2)`,
         [userId, recipient]
+    );
+};
+
+exports.cancelFriendship = (userId, recipient) => {
+    return db.query(
+        `DELETE FROM friendships
+        WHERE (sender_id = $1
+        AND recipient_id = $2)
+        OR (sender_id = $2
+        AND recipient_id = $1)`,
+        [userId, recipient]
+    );
+};
+
+exports.acceptFriendship = (sender, recipient) => {
+    return db.query(
+        `UPDATE friendships
+        SET accepted = true
+        WHERE sender_id = $1
+        AND recipient_id = $2`,
+        [sender, recipient]
     );
 };
 
