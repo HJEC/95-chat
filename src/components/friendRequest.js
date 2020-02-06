@@ -29,9 +29,9 @@ export default function UseFriendRequest({ recipient, userId }) {
     }, [friendState]);
 
     async function submit() {
-        const data = await axios.post(`${url}/${recipient}`);
-        console.log("post friend data: ", data.data);
-        setFriendState(data.data.friendState);
+        const { data } = await axios.post(`${url}/${recipient}`);
+        console.log("post friend data: ", data);
+        setFriendState(data.friendState);
     }
 
     return <button onClick={submit}>{status}</button>;
