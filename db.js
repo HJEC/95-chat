@@ -133,17 +133,20 @@ exports.acceptFriendship = (sender, recipient) => {
 //     GET FRIENDSHIPS        //
 
 exports.friendships = userId => {
-    return db.query(
-        `
-    SELECT users.id, first, last, image, accepted
+    return db
+        .query(
+            `
+    SELECT users.id, first, last, image, sender_id, accepted
     FROM friendships
     JOIN users
     ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
     OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = false AND sender_id = $1 AND recipient_id = users.id)
     OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
 `,
-        [userId]
-    );
+            [userId]
+        )
+        .then(({ rows }) => rows);
 };
 //    RESET PASSWORD QUERIES   //
 exports.storeCode = (email, code) => {

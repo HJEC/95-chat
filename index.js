@@ -109,7 +109,6 @@ app.post("/register", async (req, res) => {
         req.session.userId = result[0].id;
         req.session.email = result[0].email;
         res.json({ success: true, data: result[0] });
-        console.log("cookie attached!: ", req.session.userId);
     } catch (err) {
         console.log("error in register post: ", err);
         res.json({ success: false });
@@ -117,7 +116,6 @@ app.post("/register", async (req, res) => {
 });
 // LOGIN PAGE //
 app.post("/loginUser", (req, res) => {
-    console.log("login data:", req.body);
     let { email, password } = req.body;
     getUser(email)
         .then(data => {
@@ -175,13 +173,11 @@ app.get("/api/find/start", async (req, res) => {
     }
 });
 app.get("/api/find/:user", async (req, res) => {
-    console.log("looking for req user", req.params.user);
     try {
         let data = await findUsers(req.params.user);
-        console.log("search users data: ", data);
         res.json(data);
     } catch (err) {
-        console.log("Error in find req users - index 186", err);
+        console.log("Error in /api/find:user :", err);
     }
 });
 
@@ -200,32 +196,30 @@ app.get("/is-friend/:friend", async (req, res) => {
 });
 
 app.post("/request-friendship/:friend", async (req, res) => {
-    let data = await requestFriendship(req.session.userId, req.params.friend);
-    console.log("req friend:", data);
+    await requestFriendship(req.session.userId, req.params.friend);
     res.json({ friendState: "requested" });
 });
 
 app.post("/cancel-friendship/:friend", async (req, res) => {
-    let data = await cancelFriendship(req.session.userId, req.params.friend);
-    console.log("cancel friend: ", data);
+    await cancelFriendship(req.session.userId, req.params.friend);
     res.json({ friendState: "cancelled" });
 });
 
 app.post("/accept-friendship/:friend", async (req, res) => {
     let sender = req.params.friend,
         recipient = req.session.userId;
-    let data = await acceptFriendship(sender, recipient);
-    console.log("accept friend:", data);
+    await acceptFriendship(sender, recipient);
     res.json({ friendState: "accepted" });
 });
 
 //          FRIENDSHIPS          //
 // FRIEND/WANNABE DATA //
-app.get("/friends", async (req, res) => {
+app.get("/friends-wannabes", async (req, res) => {
     let data = await friendships(req.session.userId);
-    console.log("friends/wannabe data:", data);
+    console.log("wannabe data:", data);
     res.json(data);
 });
+
 //      UPDATE USER       //
 // UPLOAD NEW PROFILE PHOTO //
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {
@@ -233,7 +227,6 @@ app.post("/upload", uploader.single("file"), upload, async (req, res) => {
     let email = req.session.email;
     try {
         let image = await updateImage(imageUrl, email);
-        console.log("update image result: ", image[0].image);
         let url = image[0].image;
         if (image) {
             res.json(url);
@@ -248,11 +241,10 @@ app.post("/change-bio", async (req, res) => {
     let email = req.session.email;
     let bio = req.body.bio;
     try {
-        let data = await updateBio(email, bio);
-        console.log("update bio result: ", data[0]);
+        await updateBio(email, bio);
         res.sendStatus(200);
     } catch (err) {
-        console.log("failed to update bio - index-178: ", err);
+        console.log("failed to update bio: ", err);
         res.sendStatus(500);
     }
 });
@@ -272,7 +264,6 @@ app.post("/recover", async (req, res) => {
         if (data) {
             res.json(data[0]);
             await sendEmail(email, message, subject);
-            console.log("sendEmail succesful.");
             await storeCode(email, secretCode);
         }
     } catch (err) {
@@ -285,11 +276,9 @@ app.post("/reset", async (req, res) => {
     let { email, code, newPassword } = req.body;
     try {
         let data = await verify(email);
-        console.log("data: ", data[0].code);
         if (code == data[0].code) {
             let hash = await hashPass(newPassword);
-            let response = await updatePassword(hash, email);
-            console.log("async updatePassword success: ", response);
+            await updatePassword(hash, email);
             res.json(data[0]);
         } else {
             console.log("verify failed");
