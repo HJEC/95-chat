@@ -24,6 +24,7 @@ const {
     requestFriendship,
     cancelFriendship,
     acceptFriendship,
+    friendships,
     verify,
     storeCode,
     updatePassword
@@ -218,6 +219,13 @@ app.post("/accept-friendship/:friend", async (req, res) => {
     res.json({ friendState: "accepted" });
 });
 
+//          FRIENDSHIPS          //
+// FRIEND/WANNABE DATA //
+app.get("/friends", async (req, res) => {
+    let data = await friendships(req.session.userId);
+    console.log("friends/wannabe data:", data);
+    res.json(data);
+});
 //      UPDATE USER       //
 // UPLOAD NEW PROFILE PHOTO //
 app.post("/upload", uploader.single("file"), upload, async (req, res) => {

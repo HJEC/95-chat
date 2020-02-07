@@ -4,6 +4,7 @@ import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
 import Find from "./find";
+import Friends from "./friends";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -49,6 +50,7 @@ export default class App extends React.Component {
                             <img src="/networklogo.svg" alt="logo" />
                         </div>
                         <Link to="/find">find friends</Link>
+                        <Link to="/friends">Friendships</Link>
                         <ProfilePic
                             className="userImage"
                             toggleUploader={() => {
@@ -94,6 +96,10 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route path="/find" component={Find} />
+                    <Route
+                        path="/friends"
+                        render={() => <Friends userId={this.state.id} />}
+                    />
                     <a href="/logout">log out</a>
                 </div>
             </BrowserRouter>
