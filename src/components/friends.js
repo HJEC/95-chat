@@ -24,7 +24,11 @@ export default function Friends(props) {
     const penders = useSelector(
         state =>
             state.friends &&
-            state.friends.filter(friend => friend.sender_id == props.userId)
+            state.friends.filter(friend => {
+                if (friend.sender_id == props.userId) {
+                    if (friend.accepted == 0) return friend;
+                }
+            })
     );
 
     console.log("friends:", friends);
@@ -42,7 +46,12 @@ export default function Friends(props) {
         <div className="friendships">
             {friends.map(friend => (
                 <div className="friend" key={friend.id}>
-                    <img src={friend.image} />
+                    <a href={`/user/${friend.id}`} key={friend.id}>
+                        <img src={friend.image} />
+                        <p>
+                            {friend.first} {friend.last}
+                        </p>
+                    </a>
                     <div className="end">
                         <button
                             onClick={() => dispatch(endFriendship(friend.id))}
@@ -58,15 +67,20 @@ export default function Friends(props) {
     const requestedFriend = (
         <div className="requestedFriends">
             {requests.map(request => (
-                <div className="friend" key={request.id}>
-                    <img src={request.image} />
+                <div className="request" key={request.id}>
+                    <a href={`/user/${request.id}`} key={request.id}>
+                        <img src={request.image} />
+                        <p>
+                            {request.first} {request.last}
+                        </p>
+                    </a>
                     <div className="end">
                         <button
                             onClick={() =>
                                 dispatch(acceptFriendship(request.id))
                             }
                         >
-                            accept friendship
+                            accept request
                         </button>
                     </div>
                 </div>
@@ -78,12 +92,17 @@ export default function Friends(props) {
         <div className="pendingFriends">
             {penders.map(penders => (
                 <div className="friend" key={penders.id}>
-                    <img src={penders.image} />
+                    <a href={`/user/${penders.id}`} key={penders.id}>
+                        <img src={penders.image} />
+                        <p>
+                            {penders.first} {penders.last}
+                        </p>
+                    </a>
                     <div className="end">
                         <button
                             onClick={() => dispatch(endFriendship(penders.id))}
                         >
-                            cancel friendship
+                            cancel request
                         </button>
                     </div>
                 </div>
