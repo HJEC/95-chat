@@ -7,7 +7,7 @@ import Uploader from "./upload";
 import Find from "./find";
 import Friends from "./friends";
 import OtherProfile from "./otherProfile";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -26,9 +26,6 @@ export default class App extends React.Component {
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
-    }
-    push() {
-        history.replaceState({}, "", "/");
     }
 
     render() {
@@ -96,11 +93,8 @@ export default class App extends React.Component {
                         path="/friends"
                         render={() => <Friends userId={this.state.id} />}
                     />
-                    <a href="/logout">log out</a>
                 </div>
             </BrowserRouter>
         );
     }
 }
-
-// <Route path="/friends" component={Friends} />;

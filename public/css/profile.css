@@ -1,0 +1,27 @@
+.profileEditor {
+}
+
+.profileImage {
+    cursor: pointer;
+    max-width: 200px;
+    max-height: 200px;
+    display: inline-block;
+}
+
+.imageUploader {
+    position: fixed;
+    left: 35%;
+    top: 20%;
+    width: 500px;
+    height: 200px;
+    background: peachpuff;
+    border-bottom: 3px solid orange;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.imageUploader input {
+    width: 50%;
+    font-size: 0.8rem;
+}

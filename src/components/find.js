@@ -25,7 +25,7 @@ export default function Find() {
                     }
                     console.log("search results: ", users);
                 } catch (err) {
-                    console.log("error in find users find - 23", err);
+                    console.log("error in find find", err);
                 }
             })();
             return () => {

@@ -29,9 +29,9 @@ export default function Friends(props) {
             )
     );
 
-    console.log("friends:", friends);
-    console.log("requests:", requests);
-    console.log("penders:", penders);
+    // console.log("friends:", friends);
+    // console.log("requests:", requests);
+    // console.log("penders:", penders);
     useEffect(() => {
         dispatch(getFriendsWannabes());
     }, []);

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./components/welcome";
-import App from "./components/app";
+import App from "./components/app_";
 import { Provider } from "react-redux";
 
 import { createStore, applyMiddleware } from "redux";
@@ -17,7 +17,11 @@ const store = createStore(
 let elem;
 
 if (location.pathname == "/registration") {
-    elem = <Welcome />;
+    elem = (
+        <Provider store={store}>
+            <Welcome />
+        </Provider>
+    );
 } else {
     elem = (
         <Provider store={store}>

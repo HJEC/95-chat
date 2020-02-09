@@ -9,6 +9,9 @@
     src: url("/fonts/ChicagoFLF.ttf") format("woff");
 }
 main {
+    min-height: 100vh;
+    height: 100%;
+    /* TODO: download this png */
     background: url(
 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQYV2NkYGD4z8DAwMgABXAGNgGwSgwVAFbmAgXQdISfAAAAAElFTkSuQmCC
    )
@@ -50,41 +53,4 @@ button {
 
 .loading {
     margin: auto;
-}
-
-.userImage img {
-    position: absolute;
-    top: 15px;
-    right: 50px;
-    max-width: 125px;
-    max-height: 125px;
-    object-fit: cover;
-    border: 3px solid peachpuff;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.imageUploader {
-    position: fixed;
-    left: 35%;
-    top: 20%;
-    width: 500px;
-    height: 200px;
-    background: peachpuff;
-    border-bottom: 3px solid orange;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-.imageUploader input {
-    width: 50%;
-    font-size: 0.8rem;
-}
-
-.profileImage {
-    cursor: pointer;
-    max-width: 200px;
-    max-height: 200px;
-    display: inline-block;
 }
