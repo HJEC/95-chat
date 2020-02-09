@@ -15,20 +15,18 @@ export default function Friends(props) {
     const requests = useSelector(
         state =>
             state.friends &&
-            state.friends.filter(friend => {
-                if (friend.accepted == 0) {
-                    if (friend.sender_id != props.userId) return friend;
-                }
-            })
+            state.friends.filter(
+                friend =>
+                    friend.accepted == 0 && friend.sender_id != props.userId
+            )
     );
     const penders = useSelector(
         state =>
             state.friends &&
-            state.friends.filter(friend => {
-                if (friend.sender_id == props.userId) {
-                    if (friend.accepted == 0) return friend;
-                }
-            })
+            state.friends.filter(
+                friend =>
+                    friend.sender_id == props.userId && friend.accepted == 0
+            )
     );
 
     console.log("friends:", friends);

@@ -27,3 +27,10 @@ export async function endFriendship(id) {
         id
     };
 }
+
+export async function setTime() {
+    return {
+        type: "SET_TIME",
+        dt: new Date().toLocaleString()
+    };
+}

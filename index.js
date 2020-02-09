@@ -1,9 +1,7 @@
 // EXPRESS / COMPRESSION //
 const express = require("express"),
     app = express(),
-    compression = require("compression"),
-    url = require("url"),
-    querystring = require("querystring");
+    compression = require("compression");
 
 // SECURITY //
 const cookieSession = require("cookie-session"),
@@ -115,25 +113,20 @@ app.post("/register", async (req, res) => {
     }
 });
 // LOGIN PAGE //
-app.post("/loginUser", (req, res) => {
+app.post("/loginUser", async (req, res) => {
     let { email, password } = req.body;
-    getUser(email)
-        .then(data => {
-            compare(password, data[0].password).then(isTrue => {
-                if (isTrue) {
-                    req.session.userId = data[0].id;
-                    req.session.email = data[0].email;
-                    res.json({ success: true });
-                } else {
-                    console.log("login compare failed");
-                    res.json({ success: false });
-                }
-            });
-        })
-        .catch(err => {
-            console.log("Error in login: ", err);
-            res.json(false);
-        });
+    try {
+        const data = await getUser(email);
+        const isTrue = await compare(password, data[0].password);
+        if (isTrue) {
+            req.session.userId = data[0].id;
+            req.session.email = data[0].email;
+            res.json({ success: true });
+        }
+    } catch (err) {
+        console.log("login compare failed", err);
+        res.json({ success: false });
+    }
 });
 // LOGOUT //
 app.get("/logout", (req, res) => {

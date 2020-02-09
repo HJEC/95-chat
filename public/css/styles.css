@@ -2,19 +2,29 @@
     margin: 0;
     box-sizing: border-box;
     font-size: 20px;
-    font-family: "Montserrat", sans-serif;
+    font-family: "chicagoFLF";
 }
-
+@font-face {
+    font-family: "chicagoFLF";
+    src: url("/fonts/ChicagoFLF.ttf") format("woff");
+}
+main {
+    background: url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQYV2NkYGD4z8DAwMgABXAGNgGwSgwVAFbmAgXQdISfAAAAAElFTkSuQmCC
+   )
+        repeat;
+}
 img {
     width: 250px;
     height: 250px;
+    image-rendering: pixelated;
+    filter: grayscale(50%) sepia(30%);
 }
 
 h1 {
     font-size: 1.5rem;
 }
 a {
-    margin: 20px;
     text-decoration: none;
     font-size: 0.7rem;
 }
@@ -32,24 +42,6 @@ button {
     cursor: pointer;
 }
 
-.welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.title {
-    margin: 30px;
-}
-.sub_title {
-    font-size: 1.8rem;
-    color: rgb(242, 86, 10);
-    text-decoration: underline;
-}
-.dogcat {
-    position: relative;
-    top: 42px;
-    pointer-events: none;
-}
 .form {
     display: flex;
     flex-direction: column;
@@ -60,20 +52,6 @@ button {
     margin: auto;
 }
 
-.logo {
-    position: relative;
-    height: 150px;
-    margin: 0px auto 20px auto;
-    border-bottom: 3px solid peachpuff;
-}
-
-.logo img {
-    position: absolute;
-    top: 10px;
-    left: 50px;
-    max-width: 130px;
-    max-height: 130px;
-}
 .userImage img {
     position: absolute;
     top: 15px;

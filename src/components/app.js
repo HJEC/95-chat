@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./../axios";
+import HeaderBar from "./headerBar";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
@@ -45,22 +46,17 @@ export default class App extends React.Component {
                             toggleUploader={() => this.toggleUploader()}
                         />
                     )}
-                    <header>
-                        <div className="logo">
-                            <img src="/networklogo.svg" alt="logo" />
-                        </div>
-                        <Link to="/find">find friends</Link>
-                        <Link to="/friends">Friendships</Link>
-                        <ProfilePic
-                            className="userImage"
-                            toggleUploader={() => {
-                                this.toggleUploader();
-                            }}
-                            image={this.state.image}
-                            first={this.state.first}
-                            last={this.state.last}
-                        />
-                    </header>
+                    <HeaderBar userId={this.state.id} />
+                    <ProfilePic
+                        className="userImage"
+                        toggleUploader={() => {
+                            this.toggleUploader();
+                        }}
+                        image={this.state.image}
+                        first={this.state.first}
+                        last={this.state.last}
+                    />
+
                     <Route
                         exact
                         path="/"

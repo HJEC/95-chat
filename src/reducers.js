@@ -14,18 +14,24 @@ export default function reducer(state = {}, action) {
         //...(spread operator) - will copy everything (arrays and objects), and allow for additional information.
         // Object.assign - make copies of objects
     }
-    if (action.type == "ACCEPT_FRIENDSHIP" || action.type == "END_FRIENDSHIP") {
+    if (action.type == "ACCEPT_FRIENDSHIP") {
         state = {
             ...state,
             friends: state.friends.map(i => {
                 if (i.id == action.id) {
                     return {
                         ...i,
-                        accepted: action.type == "ACCEPT_FRIENDSHIP"
+                        accepted: true
                     };
                 }
                 return i;
             })
+        };
+    }
+    if (action.type == "END_FRIENDSHIP") {
+        state = {
+            ...state,
+            friends: state.friends.filter(i => i.id !== action.id)
         };
     }
     return state;

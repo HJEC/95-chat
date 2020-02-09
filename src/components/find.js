@@ -56,7 +56,7 @@ export default function Find() {
                 return (
                     <a href={`user/${i.id}`} key={idx}>
                         <div>
-                            <img src={i.image} />
+                            <img src={i.image || "/default.png"} />
                             <p>
                                 {i.first} {i.last}
                             </p>

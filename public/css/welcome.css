@@ -1,0 +1,27 @@
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.welcome_title {
+    margin: 30px;
+}
+.sub_title {
+    font-size: 1.8rem;
+    color: rgb(242, 86, 10);
+    text-decoration: underline;
+}
+
+canvas {
+    position: relative;
+    top: 42px;
+    pointer-events: none;
+    filter: grayscale(50%) sepia(30%);
+}
+
+.dogcat {
+    height: auto;
+    position: relative;
+    top: 42px;
+    pointer-events: none;
+}

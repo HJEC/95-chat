@@ -139,10 +139,10 @@ exports.friendships = userId => {
     SELECT users.id, first, last, image, sender_id, accepted
     FROM friendships
     JOIN users
-    ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
-    OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
-    OR (accepted = false AND sender_id = $1 AND recipient_id = users.id)
-    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+    ON (recipient_id = $1 AND sender_id = users.id)
+    OR (true AND recipient_id = $1 AND sender_id = users.id)
+    OR (sender_id = $1 AND recipient_id = users.id)
+    OR (true AND sender_id = $1 AND recipient_id = users.id)
 `,
             [userId]
         )
