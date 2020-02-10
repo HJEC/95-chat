@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./components/welcome";
-import App from "./components/app_";
+import App from "./components/app";
 import { Provider } from "react-redux";
 
 import { createStore, applyMiddleware } from "redux";

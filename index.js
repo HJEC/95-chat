@@ -2,6 +2,8 @@
 const express = require("express"),
     app = express(),
     compression = require("compression");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" }); //<-Add heroku origin here: hjec.network.herokuapp:*
 
 // SECURITY //
 const cookieSession = require("cookie-session"),
@@ -297,6 +299,8 @@ app.get("*", function(req, res) {
 });
 
 //__router__//
-app.listen(8080, function() {
-    console.log("See you space cowboy");
+server.listen(8080, () => console.log("See you space cowboy"));
+
+io.on("connection", socket => {
+    console.log("CONNECTION", socket.id);
 });

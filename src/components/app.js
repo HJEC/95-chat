@@ -1,100 +1,89 @@
-import React from "react";
-import axios from "./../axios";
+// REACT //
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route } from "react-router-dom";
+import { setUserId, setBio, toggleUploader } from "../actions";
+// COMPONENTS //
 import HeaderBar from "./headerBar";
+import Window from "./window";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
 import Find from "./find";
 import Friends from "./friends";
 import OtherProfile from "./otherProfile";
-import { BrowserRouter, Route } from "react-router-dom";
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            uploaderIsVisible: false
-        };
+export default function App() {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const uploaderIsVisible = useSelector(state => state.visibility);
+    const window_visibility = useSelector(state => state.window_visibility);
+
+    useEffect(() => {
+        dispatch(setUserId());
+    }, []);
+
+    if (!user) {
+        return null;
     }
-
-    async componentDidMount() {
-        const { data } = await axios.get("/user");
-        this.setState(data);
-    }
-
-    toggleUploader() {
-        this.setState({
-            uploaderIsVisible: !this.state.uploaderIsVisible
-        });
-    }
-
-    render() {
-        if (!this.state.id) {
-            return (
-                <img src="loading.gif" alt="loading.." className="loading" />
-            );
-        }
-        return (
-            <BrowserRouter>
-                <div>
-                    {this.state.uploaderIsVisible && (
-                        <Uploader
-                            setImageUrl={image => this.setState({ image })}
-                            toggleUploader={() => this.toggleUploader()}
+    return (
+        <BrowserRouter>
+            {user.length == 0 && (
+                <img src="/loading.gif" alt="loading.." className="loading" />
+            )}
+            <div>
+                {uploaderIsVisible && <Uploader />}
+                <HeaderBar userId={user.id} />
+                <ProfilePic
+                    className="userImage"
+                    toggleUploader={() => dispatch(toggleUploader())}
+                    image={user.image}
+                    first={user.first}
+                    last={user.last}
+                />
+                {window_visibility && <Window />}
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <Profile
+                            first={user.first}
+                            last={user.last}
+                            bio={user.bio}
+                            setBio={bio => {
+                                dispatch(setBio(bio));
+                            }}
+                            profilePic={
+                                <ProfilePic
+                                    className="profileImage"
+                                    id={user.userId}
+                                    first={user.first}
+                                    last={user.last}
+                                    image={user.image}
+                                    toggleUploader={() =>
+                                        dispatch(toggleUploader())
+                                    }
+                                />
+                            }
                         />
                     )}
-                    <HeaderBar userId={this.state.id} />
-                    <ProfilePic
-                        className="userImage"
-                        toggleUploader={() => {
-                            this.toggleUploader();
-                        }}
-                        image={this.state.image}
-                        first={this.state.first}
-                        last={this.state.last}
-                    />
-
-                    <Route
-                        exact
-                        path="/"
-                        render={() => (
-                            <Profile
-                                first={this.state.first}
-                                last={this.state.last}
-                                bio={this.state.bio}
-                                setBio={bio => this.setState({ bio })}
-                                profilePic={
-                                    <ProfilePic
-                                        className="profileImage"
-                                        id={this.state.id}
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        image={this.state.image}
-                                        toggleUploader={() =>
-                                            this.toggleUploader()
-                                        }
-                                    />
-                                }
-                            />
-                        )}
-                    />
-                    <Route
-                        path="/user/:id"
-                        render={props => (
-                            <OtherProfile
-                                userId={this.state.id}
-                                history={props.history}
-                                match={props.match}
-                            />
-                        )}
-                    />
-                    <Route path="/find" component={Find} />
-                    <Route
-                        path="/friends"
-                        render={() => <Friends userId={this.state.id} />}
-                    />
-                </div>
-            </BrowserRouter>
-        );
-    }
+                />
+                <Route
+                    path="/user/:id"
+                    render={props => (
+                        <OtherProfile
+                            userId={user.userId}
+                            history={props.history}
+                            match={props.match}
+                        />
+                    )}
+                />
+                <Route path="/find" component={Find} />
+                <Route
+                    path="/friends"
+                    render={() => <Friends userId={user.userId} />}
+                />
+            </div>
+        </BrowserRouter>
+    );
 }

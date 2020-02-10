@@ -21,10 +21,11 @@ export function toggleUploader() {
     };
 }
 
-export function setImage(image) {
+export async function setImage(formData) {
+    const { data } = await axios.post("/upload", formData);
     return {
         type: "SET_IMAGE",
-        image: image
+        image: data
     };
 }
 
@@ -62,10 +63,8 @@ export async function endFriendship(id) {
     };
 }
 
-export async function setTime() {
-    let dt = new Date();
+export function toggleWindow() {
     return {
-        type: "SET_TIME",
-        time: dt.toLocaleString()
+        type: "WINDOW_VISIBILITY"
     };
 }

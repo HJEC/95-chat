@@ -66,10 +66,10 @@ export default function reducer(state = {}, action) {
             friends: state.friends.filter(i => i.id !== action.id)
         };
     }
-    if (action.type == "SET_TIME") {
+    if (action.type == "WINDOW_VISIBILITY") {
         state = {
             ...state,
-            time: action.time
+            window_visibility: !state.window_visibility
         };
     }
     return state;

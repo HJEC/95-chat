@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setTime } from "../actions";
-import { useDispatch, useSelector } from "react-redux";
+import { toggleWindow } from "../actions";
 
 export default function HeaderBar(props) {
-    // const dispatch = useDispatch();
-    // const time = useSelector(state => state.time);
+    const dispatch = useDispatch();
     const [time, setTime] = useState();
 
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         dispatch(setTime());
-    //     }, 1000);
-    // });
     setInterval(() => {
         setTime(new Date().toLocaleString());
     }, 1000);
@@ -41,7 +35,14 @@ export default function HeaderBar(props) {
                 </a>
             )}
             <span id="date_time">{time}</span>
-            <img src="/svgs/qmark.svg" alt="q bubble" id="q_mark" />
+            <img
+                src="/svgs/qmark.svg"
+                alt="q bubble"
+                id="q_mark"
+                onClick={() => {
+                    dispatch(toggleWindow());
+                }}
+            />
             <img src="/svgs/bmac.svg" alt="bmac" id="bmac" />
         </header>
     );

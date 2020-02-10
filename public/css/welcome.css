@@ -12,9 +12,13 @@
     text-decoration: underline;
 }
 
+#chat_logo {
+    height: 200px;
+}
+
 canvas {
     position: relative;
-    top: 42px;
+    top: 50px;
     pointer-events: none;
     filter: grayscale(50%) sepia(30%);
 }

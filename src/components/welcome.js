@@ -14,19 +14,10 @@ export default class Welcome extends React.Component {
         return (
             <div className="welcome">
                 <HeaderBar />
-                <h1 className="welcome_title">
-                    Welcome to{" "}
-                    <span className="sub_title">
-                        P.T.L.M.W.A.T.C.T.B.T.M.D.M.B.T.W
-                    </span>
-                    !
-                </h1>
-                <h2>
-                    (people-that-like-movies-with-animals-that-can-talk-but-their-mouths-dont-move-because-thats-weird)
-                </h2>
+                <img src="/svgs/95chat.svg" alt="95chat logo" id="chat_logo" />
                 <Pixelify
                     src={"dogcat.png"}
-                    pixelSize={4}
+                    pixelSize={3}
                     className="dogcat"
                     fillTransparencyColor="rgba(148, 143, 249, 0)"
                     width={280}
@@ -44,3 +35,14 @@ export default class Welcome extends React.Component {
         );
     }
 }
+// <h1 className="welcome_title">
+//     Welcome to{" "}
+//     <span className="sub_title">
+//         P.T.L.M.W.A.T.C.T.B.T.M.D.M.B.T.W
+//     </span>
+//     !
+// </h1>
+
+// <h2>
+//     (people-that-like-movies-with-animals-that-can-talk-but-their-mouths-dont-move-because-thats-weird)
+// </h2>

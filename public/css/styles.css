@@ -3,6 +3,7 @@
     box-sizing: border-box;
     font-size: 20px;
     font-family: "chicagoFLF";
+    cursor: url("/cursor_small.png"), auto;
 }
 @font-face {
     font-family: "chicagoFLF";
@@ -21,7 +22,7 @@ img {
     width: 250px;
     height: 250px;
     image-rendering: pixelated;
-    filter: grayscale(50%) sepia(30%);
+    filter: grayscale(60%) sepia(30%);
 }
 
 h1 {
@@ -53,4 +54,13 @@ button {
 
 .loading {
     margin: auto;
+}
+
+/* SELECTION LASSO */
+.react-selection-rectangle {
+    pointer-events: none;
+    transition: opacity 0.4s;
+    position: absolute;
+    background-color: rgba(204, 204, 204 0);
+    border: 1px dotted black;
 }

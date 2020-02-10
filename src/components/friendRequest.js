@@ -9,7 +9,7 @@ export default function UseFriendRequest({ recipient, userId }) {
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`/is-friend/${recipient}`);
-            console.log("is-friend data:", data);
+            // console.log("is-friend data:", data);
             if (!data) {
                 setStatus("send friend request");
                 setUrl("/request-friendship");
@@ -30,7 +30,6 @@ export default function UseFriendRequest({ recipient, userId }) {
 
     async function submit() {
         const { data } = await axios.post(`${url}/${recipient}`);
-        console.log("post friend data: ", data);
         setFriendState(data.friendState);
     }
 

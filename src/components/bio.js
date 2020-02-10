@@ -6,7 +6,7 @@ export default class Bio extends React.Component {
         super(props);
         this.state = {
             edited: false,
-            bio: this.props.bio
+            bio: props.bio
         };
     }
     addBio() {
@@ -53,10 +53,11 @@ export default class Bio extends React.Component {
     async submit() {
         try {
             await axios.post("/change-bio", { bio: this.state.bio });
+            console.log("STATE BIO: ", this.state.bio);
             this.props.setBio(this.state.bio);
             this.toggleState();
         } catch (err) {
-            console.log("Error in bio submit - line 67: ", err);
+            console.log("Error in bio submit - line 59: ", err);
         }
     }
 
