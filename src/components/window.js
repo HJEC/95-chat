@@ -6,29 +6,22 @@ import { toggleWindow } from "../actions";
 
 export default function Window() {
     const dispatch = useDispatch();
-    const [windowSize, setWindowSize] = useState();
+    const [sizes, setSizes] = useState();
 
-    useEffect(() => {
-        setWindowSize({ x: 300, y: 200, width: 500, height: 300 });
-        console.log("window:", windowSize);
-    }, []);
     function enlarge() {
         console.log("clicked!");
-        setWindowSize({ x: 20, y: 20, width: 800, height: 800 });
+        setSizes({ width: "90vw", height: "90vh" });
     }
 
     return (
         <Rnd
-            style={{
-                cursor: "arrow"
-            }}
-            default={windowSize || { x: 300, y: 200, width: 500, height: 300 }}
+            size={sizes || ""}
+            default={{ x: 300, y: 200, width: 400, height: 300 }}
             minWidth="400"
             minHeight="250"
-            className="window_outer"
+            className={"window_outer"}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
-            resizeHandleWrapperClass="window_resizer"
             enableResizing={{
                 top: false,
                 right: false,
@@ -47,7 +40,7 @@ export default function Window() {
                         dispatch(toggleWindow());
                     }}
                 ></span>
-                <span className="spacer handle">
+                <span className="spacer handle left">
                     <i></i>
                     <i></i>
                     <i></i>
@@ -56,7 +49,7 @@ export default function Window() {
                     <i></i>
                 </span>
                 <span className="modal_name handle">COMPONENT</span>
-                <span className="spacer handle">
+                <span className="spacer handle right">
                     <i></i>
                     <i></i>
                     <i></i>
