@@ -10,16 +10,6 @@
     z-index: 1 !important;
 }
 
-div .default {
-    width: 400px;
-    height: 300px;
-}
-div .large {
-    top: 30px;
-    width: 100vw;
-    height: 90vh;
-}
-
 .drag_header {
     display: grid;
     grid-template-columns: 20px 1fr 150px 1fr 20px;

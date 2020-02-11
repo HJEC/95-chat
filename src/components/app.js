@@ -12,6 +12,7 @@ import Uploader from "./upload";
 import Find from "./find";
 import Friends from "./friends";
 import OtherProfile from "./otherProfile";
+import { Chat } from "./globalChat";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function App() {
                     first={user.first}
                     last={user.last}
                 />
-                {window_visibility && <Window />}
+                {window_visibility && <Window title="HELPER" />}
                 <Route
                     exact
                     path="/"
@@ -84,6 +85,7 @@ export default function App() {
                     render={() => <Friends userId={user.userId} />}
                 />
             </div>
+            <Route exact path="/chat" component={Chat} />
         </BrowserRouter>
     );
 }

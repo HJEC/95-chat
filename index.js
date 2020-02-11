@@ -27,7 +27,9 @@ const {
     friendships,
     verify,
     storeCode,
-    updatePassword
+    updatePassword,
+    postMessage,
+    getMessages
 } = require("./db");
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
@@ -65,12 +67,17 @@ app.use(
         extended: false
     })
 );
-app.use(
-    cookieSession({
-        secret: secrets.SESSION_SECRET,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+
+const cookieSessionMiddleware = cookieSession({
+    secret: secrets.SESSION_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
 app.use(csurf());
 
 // SERVE FILE IN DEVELOPMENT OR PRODUCTION //
@@ -298,9 +305,29 @@ app.get("*", function(req, res) {
     }
 });
 
-//__router__//
+//__ ROUTER __//
 server.listen(8080, () => console.log("See you space cowboy"));
 
-io.on("connection", socket => {
-    console.log("CONNECTION", socket.id);
+// __ SOCKETS __ //
+io.on("connection", async function(socket) {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+    let messageData = await getMessages();
+    console.log("CHAT MESSAGES - index 319: ", messageData);
+
+    io.sockets.emit("chatMessages", messageData);
+
+    socket.on("post message", async msg => {
+        console.log("server message:", msg);
+        await postMessage(userId, msg);
+        io.sockets.emit("incoming message", msg);
+    });
+
+    //time to emit this message
+
+    // go and get the last 10 chat messages from DB
+    // (we will need a new table and query...)
 });

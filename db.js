@@ -180,3 +180,23 @@ exports.updatePassword = (password, email) => {
         [password, email]
     );
 };
+
+//     CHAT QUERIES     //
+
+exports.postMessage = (userId, message) => {
+    return db.query(
+        `INSERT INTO globalchat (sender_id, message) VALUES ($1, $2)`,
+        [userId, message]
+    );
+};
+
+exports.getMessages = () => {
+    return db
+        .query(
+            `SELECT globalchat.id as id, sender_id, message, first, last, image
+            FROM globalchat JOIN users
+            ON globalchat.sender_id = users.id
+            ORDER BY globalchat.id DESC LIMIT 10`
+        )
+        .then(({ rows }) => rows);
+};

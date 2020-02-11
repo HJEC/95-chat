@@ -1,0 +1,7 @@
+.chat_container {
+    height: 300px;
+    width: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 40px;
+}

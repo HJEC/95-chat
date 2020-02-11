@@ -4,18 +4,18 @@ import { Rnd } from "react-rnd";
 import { useDispatch } from "react-redux";
 import { toggleWindow } from "../actions";
 
-export default function Window() {
+export default function Window(props) {
     const dispatch = useDispatch();
-    const [sizes, setSizes] = useState();
+    const [windowSize, setWindowSize] = useState("");
 
     function enlarge() {
         console.log("clicked!");
-        setSizes({ width: "90vw", height: "90vh" });
+        setWindowSize({ "min-width": 600, "min-height": 400 });
     }
 
     return (
         <Rnd
-            size={sizes || ""}
+            style={windowSize}
             default={{ x: 300, y: 200, width: 400, height: 300 }}
             minWidth="400"
             minHeight="250"
@@ -48,7 +48,7 @@ export default function Window() {
                     <i></i>
                     <i></i>
                 </span>
-                <span className="modal_name handle">COMPONENT</span>
+                <span className="modal_name handle">{props.title}</span>
                 <span className="spacer handle right">
                     <i></i>
                     <i></i>
@@ -63,17 +63,3 @@ export default function Window() {
         </Rnd>
     );
 }
-// <ResizableBox
-//     className="window_outer"
-//     handle={<span className="window_resizer" />}
-//     draggableOpts={{ grid: [25, 25] }}
-//     width={200}
-//     height={200}
-// >
-//     <Draggable
-//         handle=".handle"
-//         defaultPosition={{ x: 300, y: 100 }}
-//         position={null}
-//         grid={[25, 25]}
-//         scale={1}
-// >

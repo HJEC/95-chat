@@ -66,6 +66,18 @@ export default function reducer(state = {}, action) {
             friends: state.friends.filter(i => i.id !== action.id)
         };
     }
+    if (action.type == "POST_MESSAGE") {
+        state = {
+            ...state,
+            chatMessages: state.chatMessages.concat(action.message)
+        };
+    }
+    if (action.type == "GET_MESSAGES") {
+        state = {
+            ...state,
+            chatMessages: action.chatMessages
+        };
+    }
     if (action.type == "WINDOW_VISIBILITY") {
         state = {
             ...state,

@@ -1,6 +1,14 @@
 //src/actions.js
 import axios from "./axios";
 
+// TOGGLE UPLOADER //
+export function toggleUploader() {
+    return {
+        type: "TOGGLE_UPLOADER"
+    };
+}
+
+// GET / SET USER INFO //
 export async function setUserId() {
     const { data } = await axios.get("/user");
     return {
@@ -12,12 +20,6 @@ export async function setUserId() {
             image: data.image,
             bio: data.bio
         }
-    };
-}
-
-export function toggleUploader() {
-    return {
-        type: "TOGGLE_UPLOADER"
     };
 }
 
@@ -35,6 +37,8 @@ export function setBio(bio) {
         bio: bio
     };
 }
+
+// FRIENDSHIP ACTIONS //
 
 export async function getFriendsWannabes() {
     // axios requests to server
@@ -63,6 +67,23 @@ export async function endFriendship(id) {
     };
 }
 
+// CHAT ACTIONS //
+
+export function postMessage(message) {
+    return {
+        type: "POST_MESSAGE",
+        message: message
+    };
+}
+
+export function chatMessages(msgsData) {
+    return {
+        type: "GET_MESSAGES",
+        chatMessages: msgsData
+    };
+}
+
+// MODAL WINDOW ACTIONS //
 export function toggleWindow() {
     return {
         type: "WINDOW_VISIBILITY"
