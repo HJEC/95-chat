@@ -35,6 +35,7 @@ header {
     margin: auto 15px;
     color: black;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .links:hover {

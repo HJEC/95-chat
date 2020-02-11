@@ -3,9 +3,8 @@ import { socket } from "../socket.js";
 import { useSelector } from "react-redux";
 import Window from "./window";
 
-export function Chat() {
+export default function Chat() {
     let chatMessages = useSelector(state => state && state.chatMessages);
-    chatMessages = chatMessages.reverse();
     console.log("chatMessages: ", chatMessages);
 
     const elemRef = useRef();
@@ -34,14 +33,15 @@ export function Chat() {
                 {chatMessages.length > 0 &&
                     chatMessages.map((i, idx) => {
                         return (
-                            <div className="chat_block" key={idx}>
+                            <div className="message_block" key={idx}>
                                 <a href={`user/${i.sender_id}`}>
-                                    <div>
-                                        <img src={i.image || "/default.png"} />
-                                        <p>
-                                            {i.first} {i.last}
-                                        </p>
-                                    </div>
+                                    <img
+                                        src={i.image || "/default.png"}
+                                        className="chat_image"
+                                    />
+                                    <p className="chat_name">
+                                        {i.first} {i.last}
+                                    </p>
                                 </a>
                                 <p className="chat_message">{i.message}</p>
                             </div>

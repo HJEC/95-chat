@@ -29,7 +29,8 @@ const {
     storeCode,
     updatePassword,
     postMessage,
-    getMessages
+    getMessages,
+    chatPoster
 } = require("./db");
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
@@ -315,19 +316,23 @@ io.on("connection", async function(socket) {
     }
 
     const userId = socket.request.session.userId;
+
     let messageData = await getMessages();
-    console.log("CHAT MESSAGES - index 319: ", messageData);
+    messageData = messageData.reverse();
 
     io.sockets.emit("chatMessages", messageData);
 
     socket.on("post message", async msg => {
-        console.log("server message:", msg);
+        const data = await chatPoster(userId);
+
         await postMessage(userId, msg);
-        io.sockets.emit("incoming message", msg);
+        let content = {
+            sender_id: userId,
+            message: msg,
+            first: data.first,
+            last: data.last,
+            image: data.image
+        };
+        io.sockets.emit("incoming message", content);
     });
-
-    //time to emit this message
-
-    // go and get the last 10 chat messages from DB
-    // (we will need a new table and query...)
 });

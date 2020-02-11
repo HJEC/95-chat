@@ -21,10 +21,9 @@ export default function OtherProfile(props) {
     if (friend) {
         return (
             <div>
-                <h1>long time no see cowboy</h1>
-                <p>
+                <h1>
                     {friend.first} {friend.last}
-                </p>
+                </h1>
                 <img src={friend.image || "/default.jpg"} />
                 <p>{friend.bio || "No bio yet"}</p>
                 <UseFriendRequest recipient={otherId} userId={props.userId} />

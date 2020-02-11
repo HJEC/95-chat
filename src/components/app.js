@@ -12,7 +12,7 @@ import Uploader from "./upload";
 import Find from "./find";
 import Friends from "./friends";
 import OtherProfile from "./otherProfile";
-import { Chat } from "./globalChat";
+import Chat from "./globalChat";
 
 export default function App() {
     const dispatch = useDispatch();

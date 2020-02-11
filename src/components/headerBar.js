@@ -22,6 +22,9 @@ export default function HeaderBar(props) {
             <Link to="/friends" className="links">
                 <span className="underline">friend</span>ships
             </Link>
+            <Link to="/chat" className="links">
+                <span className="underline">global</span> chat
+            </Link>
         </div>
     );
 

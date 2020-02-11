@@ -200,3 +200,9 @@ exports.getMessages = () => {
         )
         .then(({ rows }) => rows);
 };
+
+exports.chatPoster = id => {
+    return db
+        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .then(({ rows }) => rows[0]);
+};
