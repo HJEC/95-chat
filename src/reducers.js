@@ -14,12 +14,6 @@ export default function reducer(state = {}, action) {
         };
     }
 
-    if (action.type == "TOGGLE_UPLOADER") {
-        state = {
-            ...state,
-            visibility: !state.visibility
-        };
-    }
     if (action.type == "SET_IMAGE") {
         state = {
             ...state,
@@ -83,6 +77,24 @@ export default function reducer(state = {}, action) {
             state = {
                 ...state,
                 showChat: !state.showChat
+            };
+        }
+        if (action.windowName == "info") {
+            state = {
+                ...state,
+                showInfo: !state.showInfo
+            };
+        }
+        if (action.windowName == "profile") {
+            state = {
+                ...state,
+                showProfile: !state.showProfile
+            };
+        }
+        if (action.windowName == "upload") {
+            state = {
+                ...state,
+                showUpload: !state.showUpload
             };
         }
     }

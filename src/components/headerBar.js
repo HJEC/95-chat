@@ -13,9 +13,14 @@ export default function HeaderBar(props) {
 
     const logInHeader = (
         <div id="links_container">
-            <Link to="/" className="links">
+            <p
+                className="links"
+                onClick={() => {
+                    dispatch(toggleWindow("profile"));
+                }}
+            >
                 <span className="underline">your</span> profile
-            </Link>
+            </p>
             <Link to="/find" className="links">
                 <span className="underline">find</span> friends
             </Link>
@@ -48,7 +53,7 @@ export default function HeaderBar(props) {
                 alt="q bubble"
                 id="q_mark"
                 onClick={() => {
-                    dispatch(toggleWindow());
+                    dispatch(toggleWindow("info"));
                 }}
             />
             <img src="/svgs/bmac.svg" alt="bmac" id="bmac" />

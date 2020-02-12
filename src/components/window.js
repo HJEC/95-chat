@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
 
 import { useDispatch } from "react-redux";
@@ -9,6 +9,8 @@ export default function Window(props) {
     const [width, setWidth] = useState();
     const [height, setHeight] = useState();
     const [toggle, setToggle] = useState(false);
+    const [zIndex, setZIndex] = useState(false);
+    let elemRef = useRef();
 
     useEffect(() => {
         if (!toggle) {
@@ -23,10 +25,11 @@ export default function Window(props) {
 
     return (
         <Rnd
+            ref={elemRef}
             default={props.default}
-            minWidth={!width ? 550 : 800}
+            minWidth={!width ? 500 : 800}
             minHeight={!height ? 350 : 550}
-            className={"window_outer"}
+            className={zIndex ? "window_outer front" : "window_outer back"}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
             enableResizing={{
@@ -39,6 +42,7 @@ export default function Window(props) {
                 bottomLeft: false,
                 topLeft: false
             }}
+            onClick={() => setZIndex(!zIndex)}
         >
             <div className="drag_header">
                 <span

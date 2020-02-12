@@ -4,21 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import { setUserId, setBio, toggleUploader } from "../actions";
 // COMPONENTS //
+import Chat from "./globalChat";
+import Find from "./find";
+import Friends from "./friends";
 import HeaderBar from "./headerBar";
-import Window from "./window";
+import Info from "./info";
+import OtherProfile from "./otherProfile";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
-import Find from "./find";
-import Friends from "./friends";
-import OtherProfile from "./otherProfile";
-import Chat from "./globalChat";
 
 export default function App() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
-    const uploaderIsVisible = useSelector(state => state.visibility);
+    // state conditionals to open relevant modal windows
     const showChat = useSelector(state => state.showChat);
+    const showInfo = useSelector(state => state.showInfo);
+    const showProfile = useSelector(state => state.showProfile);
+    const showUpload = useSelector(state => state.showUpload);
 
     useEffect(() => {
         dispatch(setUserId());
@@ -36,7 +39,6 @@ export default function App() {
                 <img src="/loading.gif" alt="loading.." className="loading" />
             )}
             <div>
-                {uploaderIsVisible && <Uploader />}
                 <HeaderBar userId={user.id} />
                 <ProfilePic
                     className="userImage"
@@ -47,32 +49,6 @@ export default function App() {
                 />
 
                 <Route
-                    exact
-                    path="/"
-                    render={() => (
-                        <Profile
-                            first={user.first}
-                            last={user.last}
-                            bio={user.bio}
-                            setBio={bio => {
-                                dispatch(setBio(bio));
-                            }}
-                            profilePic={
-                                <ProfilePic
-                                    className="profileImage"
-                                    id={user.userId}
-                                    first={user.first}
-                                    last={user.last}
-                                    image={user.image}
-                                    toggleUploader={() =>
-                                        dispatch(toggleUploader())
-                                    }
-                                />
-                            }
-                        />
-                    )}
-                />
-                <Route
                     path="/user/:id"
                     render={props => (
                         <OtherProfile
@@ -82,16 +58,65 @@ export default function App() {
                         />
                     )}
                 />
+
                 <Route path="/find" component={Find} />
+
                 <Route
                     path="/friends"
                     render={() => <Friends userId={user.userId} />}
                 />
             </div>
+
+            {showProfile && (
+                <Profile
+                    first={user.first}
+                    last={user.last}
+                    bio={user.bio}
+                    setBio={bio => {
+                        dispatch(setBio(bio));
+                    }}
+                    profilePic={
+                        <ProfilePic
+                            className="profileImage"
+                            id={user.userId}
+                            first={user.first}
+                            last={user.last}
+                            image={user.image}
+                            toggleUploader={() => dispatch(toggleUploader())}
+                        />
+                    }
+                />
+            )}
             {showChat && <Chat />}
+            {showInfo && <Info />}
+            {showUpload && <Uploader />}
         </BrowserRouter>
     );
 }
-// {window_visibility && <Window title="HELPER" />}
 
-// <Route exact path="/chat" component={Chat} />
+// <Route
+//     exact
+//     path="/"
+//     render={() => (
+//         <Profile
+//             first={user.first}
+//             last={user.last}
+//             bio={user.bio}
+//             setBio={bio => {
+//                 dispatch(setBio(bio));
+//             }}
+//             profilePic={
+//                 <ProfilePic
+//                     className="profileImage"
+//                     id={user.userId}
+//                     first={user.first}
+//                     last={user.last}
+//                     image={user.image}
+//                     toggleUploader={() =>
+//                         dispatch(toggleUploader())
+//                     }
+//                 />
+//             }
+//         />
+//     )}
+// />

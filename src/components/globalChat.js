@@ -84,38 +84,3 @@ export default function Chat() {
         />
     );
 }
-
-// <div className="chat">
-//     <h1> Chat Room</h1>
-//     <div className="chat_container" ref={elemRef}>
-//         {chatMessages.length > 0 &&
-//             chatMessages.map((i, idx) => {
-//                 return (
-//                     <div
-//                         className={
-//                             i.sender_id == user
-//                                 ? "message_block_right"
-//                                 : "message_block_left"
-//                         }
-//                         key={idx}
-//                     >
-//                         <a href={`user/${i.sender_id}`}>
-//                             <img
-//                                 src={i.image || "/default.png"}
-//                                 className="chat_image"
-//                             />
-//                             <p className="chat_name">
-//                                 {i.first} {i.last}
-//                             </p>
-//                         </a>
-//                         <p className="chat_message">{i.message}</p>
-//                     </div>
-//                 );
-//             })}
-//     </div>
-//     <textarea
-//         className="chat_textarea"
-//         placeholder="say something to the chat:"
-//         onKeyDown={keyCheck}
-//     ></textarea>
-// </div>
