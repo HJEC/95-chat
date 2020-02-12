@@ -15,7 +15,6 @@ export default function Window(props) {
             setWidth(false);
             setHeight(false);
         }
-        console.log("toggle state:", toggle);
         if (toggle) {
             setWidth(true);
             setHeight(true);
@@ -45,7 +44,7 @@ export default function Window(props) {
                 <span
                     className="window_close_box"
                     onClick={() => {
-                        dispatch(toggleWindow());
+                        dispatch(toggleWindow(props.windowName));
                     }}
                 ></span>
                 <span className="spacer handle left">

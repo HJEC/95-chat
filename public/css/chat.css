@@ -21,12 +21,14 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAGUlEQVQYV2
     display: flex;
     height: 150px;
     width: 100%;
+    padding-left: 4px;
 }
 .message_block_right {
     display: flex;
     flex-direction: row-reverse;
     height: 150px;
     width: 100%;
+    padding-right: 4px;
 }
 
 .message_block a {
@@ -37,13 +39,17 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAGUlEQVQYV2
     width: 100px;
     height: 100px;
     padding: 1px;
-    box-shadow: inset 1px 1px 0 0 #fff, 3px 3px 0 rgba(0, 0, 0, 0.2);
     border-bottom: 1px dotted black;
     border-left: 1px dotted black;
     border-radius: 8px;
     cursor: pointer;
 }
-
+.chat_left {
+    box-shadow: inset 1px 1px 0 0 #fff, 3px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.chat_right {
+    box-shadow: inset 1px 1px 0 0 #fff, -3px 4px 0 rgba(0, 0, 0, 0.2);
+}
 .chat_name {
     margin: 10px;
     font-size: 0.6rem;
@@ -59,7 +65,6 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAGUlEQVQYV2
     margin-top: 5px;
     padding: 15px;
     background: #fff;
-    box-shadow: inset 1px 1px 0 0 #fff, 4px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
@@ -68,4 +73,11 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAGUlEQVQYV2
     height: 15%;
     margin: 0px auto;
     resize: none;
+}
+
+.chat_textarea:focus {
+    outline: none !important;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    box-shadow: inset 1px 1px 0 0 #fff, 3px 6px 0 rgba(0, 0, 0, 0.2);
 }

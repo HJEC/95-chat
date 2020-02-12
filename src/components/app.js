@@ -18,7 +18,7 @@ export default function App() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     const uploaderIsVisible = useSelector(state => state.visibility);
-    const window_visibility = useSelector(state => state.window_visibility);
+    const showChat = useSelector(state => state.showChat);
 
     useEffect(() => {
         dispatch(setUserId());
@@ -45,7 +45,7 @@ export default function App() {
                     first={user.first}
                     last={user.last}
                 />
-                {window_visibility && <Window title="HELPER" />}
+
                 <Route
                     exact
                     path="/"
@@ -88,7 +88,10 @@ export default function App() {
                     render={() => <Friends userId={user.userId} />}
                 />
             </div>
-            <Route exact path="/chat" component={Chat} />
+            {showChat && <Chat />}
         </BrowserRouter>
     );
 }
+// {window_visibility && <Window title="HELPER" />}
+
+// <Route exact path="/chat" component={Chat} />

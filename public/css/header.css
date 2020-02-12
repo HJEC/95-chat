@@ -7,7 +7,7 @@ header {
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 75px 1fr 1fr 100px 250px 70px 100px;
-    align-items: flex-end;
+    align-items: center;
     text-align: center;
 }
 
@@ -33,7 +33,7 @@ header {
 .links {
     padding: 5px;
     height: auto;
-    margin: auto 15px 0 15px;
+    margin: auto 15px auto 15px;
     color: black;
     white-space: nowrap;
     cursor: pointer;
@@ -58,17 +58,17 @@ header {
 }
 #q_mark {
     grid-column: 6 / span 1;
-    height: 35px;
+    height: 32px;
     width: 30px;
-    margin: 0px 20px;
+    margin: 5px 20px;
     cursor: help;
 }
 
 #bmac {
     grid-column: 7 / span 1;
-    height: 33px;
+    height: 30px;
     width: 30px;
-    margin: 0px 25px;
+    margin: 5px 25px;
     cursor: pointer;
 }
 

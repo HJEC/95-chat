@@ -84,8 +84,9 @@ export function chatMessages(msgsData) {
 }
 
 // MODAL WINDOW ACTIONS //
-export function toggleWindow() {
+export function toggleWindow(name) {
     return {
-        type: "WINDOW_VISIBILITY"
+        type: "WINDOW_VISIBILITY",
+        windowName: name
     };
 }

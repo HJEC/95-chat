@@ -45,13 +45,25 @@ export default function Chat() {
                                 <a href={`user/${i.sender_id}`}>
                                     <img
                                         src={i.image || "/default.png"}
-                                        className="chat_image"
+                                        className={
+                                            i.sender_id == user
+                                                ? "chat_image chat_right"
+                                                : "chat_image chat_left"
+                                        }
                                     />
                                     <p className="chat_name">
                                         {i.first} {i.last}
                                     </p>
                                 </a>
-                                <p className="chat_message">{i.message}</p>
+                                <p
+                                    className={
+                                        i.sender_id == user
+                                            ? "chat_message chat_right"
+                                            : "chat_message chat_left"
+                                    }
+                                >
+                                    {i.message}
+                                </p>
                             </div>
                         );
                     })}
@@ -68,6 +80,7 @@ export default function Chat() {
             compToRender={chatComponent}
             title="'95 CHAT"
             default={{ x: 300, y: 200, width: 550, height: 450 }}
+            windowName="chat"
         />
     );
 }

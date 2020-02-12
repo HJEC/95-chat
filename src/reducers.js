@@ -79,10 +79,12 @@ export default function reducer(state = {}, action) {
         };
     }
     if (action.type == "WINDOW_VISIBILITY") {
-        state = {
-            ...state,
-            window_visibility: !state.window_visibility
-        };
+        if (action.windowName == "chat") {
+            state = {
+                ...state,
+                showChat: !state.showChat
+            };
+        }
     }
     return state;
 }
