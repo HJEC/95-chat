@@ -314,6 +314,7 @@ io.on("connection", async function(socket) {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
+    console.log("socket id:", socket.id);
 
     const userId = socket.request.session.userId;
 

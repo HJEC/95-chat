@@ -1,15 +1,30 @@
 .chat {
+    width: 85%;
+    height: 100%;
+    max-width: 100%;
+    margin: auto;
 }
 .chat_container {
-    height: 300px;
-    width: 600px;
+    height: 65%;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    margin: 40px;
+    margin: 20px auto;
+    padding: 5px;
+    border-radius: 10px;
+    background: url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAGUlEQVQYV2NkYGD4z8DAwMgABXAGNgGwSgA0kQIER6sh6AAAAABJRU5ErkJggg==   )
+        repeat;
 }
 
-.message_block {
+.message_block_left {
     display: flex;
+    height: 150px;
+    width: 100%;
+}
+.message_block_right {
+    display: flex;
+    flex-direction: row-reverse;
     height: 150px;
     width: 100%;
 }
@@ -40,10 +55,17 @@
 }
 
 .chat_message {
-    width: 100%;
+    width: 90%;
     margin-top: 5px;
     padding: 15px;
     background: #fff;
-    border-bottom: 2px dotted black;
+    box-shadow: inset 1px 1px 0 0 #fff, 4px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+}
+
+.chat_textarea {
+    width: 100%;
+    height: 15%;
+    margin: 0px auto;
+    resize: none;
 }

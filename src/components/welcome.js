@@ -13,6 +13,9 @@ export default class Welcome extends React.Component {
     render() {
         return (
             <div className="welcome">
+                <div className="crt_black">
+                    <div className="crt_window" />
+                </div>
                 <HeaderBar />
                 <img src="/svgs/95chat.svg" alt="95chat logo" id="chat_logo" />
                 <Pixelify

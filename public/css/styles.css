@@ -64,3 +64,19 @@ button {
     background-color: rgba(204, 204, 204 0);
     border: 1px dotted black;
 }
+
+/*  CRT BORDER */
+
+.crt_black {
+    z-index: 110;
+    position: fixed;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 13px solid black;
+    box-shadow: 0 0 0px 0px black inset;
+    border-radius: 30px;
+    overflow: hidden;
+    pointer-events: none;
+}

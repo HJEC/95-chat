@@ -6,19 +6,27 @@ import { toggleWindow } from "../actions";
 
 export default function Window(props) {
     const dispatch = useDispatch();
-    const [windowSize, setWindowSize] = useState("");
+    const [width, setWidth] = useState();
+    const [height, setHeight] = useState();
+    const [toggle, setToggle] = useState(false);
 
-    function enlarge() {
-        console.log("clicked!");
-        setWindowSize({ "min-width": 600, "min-height": 400 });
-    }
+    useEffect(() => {
+        if (!toggle) {
+            setWidth(false);
+            setHeight(false);
+        }
+        console.log("toggle state:", toggle);
+        if (toggle) {
+            setWidth(true);
+            setHeight(true);
+        }
+    }, [toggle]);
 
     return (
         <Rnd
-            style={windowSize}
-            default={{ x: 300, y: 200, width: 400, height: 300 }}
-            minWidth="400"
-            minHeight="250"
+            default={props.default}
+            minWidth={!width ? 550 : 800}
+            minHeight={!height ? 350 : 550}
             className={"window_outer"}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
@@ -57,8 +65,14 @@ export default function Window(props) {
                     <i></i>
                     <i></i>
                 </span>
-                <span className="window_larger_box" onClick={enlarge} />
+                <span
+                    className="window_larger_box"
+                    onClick={() => {
+                        setToggle(!toggle);
+                    }}
+                />
             </div>
+            {props.compToRender}
             <span className="window_resizer" />
         </Rnd>
     );

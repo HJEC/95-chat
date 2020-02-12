@@ -29,6 +29,9 @@ export default function App() {
     }
     return (
         <BrowserRouter>
+            <div className="crt_black">
+                <div className="crt_window" />
+            </div>
             {user.length == 0 && (
                 <img src="/loading.gif" alt="loading.." className="loading" />
             )}
