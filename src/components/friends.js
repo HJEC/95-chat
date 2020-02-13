@@ -44,6 +44,8 @@ export default function Friends(props) {
     const onDrop = event => {
         let end_id = event.dataTransfer.getData("id");
         console.log("drop id:", end_id);
+        var audio = new Audio("/delete.mp3");
+        audio.play();
         dispatch(endFriendship(end_id));
     };
 
@@ -141,7 +143,7 @@ export default function Friends(props) {
                     onDragOver={event => onDragOver(event)}
                     onDrop={event => onDrop(event)}
                 />
-                <p className="trashcan_subtext">delete friend</p>
+                <p className="trashcan_subtext">TRASH</p>
             </div>
         </div>
     );

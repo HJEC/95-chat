@@ -111,12 +111,13 @@
     height: 100px;
     cursor: crosshair;
 }
+
 .trashcan:hover {
     background-image: url("/svgs/trash_icon_open.svg");
     height: 110px;
 }
 .trashcan:active {
-    background-image: url("/svgs/trash_icon_open.svg");
+    background-image: url("/svgs/trash_icon_fat_2.svg");
     height: 110px;
 }
 .trashcan_subtext {

@@ -6,6 +6,7 @@ import { toggleWindow } from "../actions";
 export default function HeaderBar(props) {
     const dispatch = useDispatch();
     const [time, setTime] = useState();
+    const [showSelect, setShowSelect] = useState();
 
     setInterval(() => {
         setTime(new Date().toLocaleString());
@@ -43,6 +44,17 @@ export default function HeaderBar(props) {
         </div>
     );
 
+    const selectBox = (
+        <ul id="bmac_select">
+            <li>connect four</li>
+            <li>mine-sweeper</li>
+            <li>snake</li>
+            <li>tetris</li>
+            <li>asteroids</li>
+            <li>galaga</li>
+        </ul>
+    );
+
     return (
         <header>
             {props.userId && (
@@ -68,7 +80,15 @@ export default function HeaderBar(props) {
                     dispatch(toggleWindow("info"));
                 }}
             />
-            {props.userId && <img src="/svgs/bmac.svg" alt="bmac" id="bmac" />}
+            {props.userId && (
+                <img
+                    src="/svgs/bmac.svg"
+                    alt="bmac"
+                    id="bmac"
+                    onClick={() => setShowSelect(!showSelect)}
+                />
+            )}
+            {showSelect && selectBox}
         </header>
     );
 }

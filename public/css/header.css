@@ -72,6 +72,26 @@ header {
     cursor: pointer;
 }
 
+#bmac_select {
+    z-index: 10;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background-color: #fff;
+    list-style-type: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+#bmac_select li {
+    padding: 10px 15px;
+    font-size: 0.7rem;
+}
+#bmac_select li:hover {
+    background-color: #000;
+    color: #fff;
+}
+
 /*  USER IMAGE */
 .floating_image {
     position: absolute;
