@@ -3,12 +3,9 @@ import { socket } from "../socket.js";
 import { useSelector } from "react-redux";
 import Window from "./window";
 
-export default function Chat() {
+export default function Chat(props) {
     let chatMessages = useSelector(state => state && state.chatMessages);
     let user = useSelector(state => state.user.id);
-
-    console.log("chatMessages: ", chatMessages);
-    console.log("user: ", user);
 
     const elemRef = useRef();
 
@@ -81,6 +78,7 @@ export default function Chat() {
             title="'95 CHAT"
             default={{ x: 785, y: 50, width: 550, height: 450 }}
             windowName="chat"
+            setIndex={props.setIndex}
         />
     );
 }

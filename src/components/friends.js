@@ -29,9 +29,6 @@ export default function Friends(props) {
             )
     );
 
-    // console.log("friends:", friends);
-    // console.log("requests:", requests);
-    // console.log("penders:", penders);
     useEffect(() => {
         dispatch(getFriendsWannabes());
     }, []);
@@ -41,7 +38,7 @@ export default function Friends(props) {
     }
 
     const friendships = (
-        <div className="friendships">
+        <div className="relationships">
             {friends.map(friend => (
                 <div className="friend" key={friend.id}>
                     <a href={`/user/${friend.id}`} key={friend.id}>
@@ -63,7 +60,7 @@ export default function Friends(props) {
     );
 
     const requestedFriend = (
-        <div className="requestedFriends">
+        <div className="relationships">
             {requests.map(request => (
                 <div className="request" key={request.id}>
                     <a href={`/user/${request.id}`} key={request.id}>
@@ -87,7 +84,7 @@ export default function Friends(props) {
     );
 
     const pendingFriends = (
-        <div className="pendingFriends">
+        <div className="relationships">
             {penders.map(penders => (
                 <div className="friend" key={penders.id}>
                     <a href={`/user/${penders.id}`} key={penders.id}>
@@ -125,6 +122,10 @@ export default function Friends(props) {
             {penders.length == 0 && <p>You havent sent any requests</p>}
             {!!penders.length && <p>here are your pending requests</p>}
             {!!penders.length && pendingFriends}
+            <div className="floating_can">
+                <div className="trashcan" />
+                <p className="trashcan_subtext">delete friend</p>
+            </div>
         </div>
     );
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import Window from "./window";
 import { useDispatch } from "react-redux";
-import { setImage, toggleUploader } from "../actions";
+import { setImage, toggleWindow } from "../actions";
 
-export default function Uploader() {
+export default function Uploader(props) {
     const dispatch = useDispatch();
     async function upload(e) {
         e.preventDefault();
@@ -11,7 +11,7 @@ export default function Uploader() {
         var formData = new FormData();
         formData.append("file", e.target.files[0]);
         dispatch(setImage(formData));
-        dispatch(toggleUploader());
+        dispatch(toggleWindow("upload"));
     }
 
     const uploaderComponent = (
@@ -33,8 +33,9 @@ export default function Uploader() {
         <Window
             compToRender={uploaderComponent}
             title="UPLOAD IMAGE"
-            default={{ x: 685, y: 520, width: 500, height: 300 }}
+            default={{ x: 185, y: 220, width: 500, height: 300 }}
             windowName="upload"
+            setIndex={props.setIndex}
         />
     );
 }

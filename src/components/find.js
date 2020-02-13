@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Window from "./window";
 import axios from "../axios";
 
-export default function Find() {
+export default function Find(props) {
     const [users, setUsers] = useState([]);
     const [find, setFind] = useState("");
 
@@ -83,6 +83,7 @@ export default function Find() {
             title="FIND FRIENDS"
             default={{ x: 20, y: 50, width: 750, height: 450 }}
             windowName="find"
+            setIndex={props.setIndex}
         />
     );
 }

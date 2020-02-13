@@ -8,7 +8,7 @@ export default function Registration() {
     const [submit, error] = useAuthSubmit("/register", values);
 
     return (
-        <div className="form">
+        <div className="register_form">
             <input name="first" placeholder="first" onChange={handleChange} />
             <input name="last" placeholder="last" onChange={handleChange} />
             <input name="email" placeholder="email" onChange={handleChange} />
@@ -19,9 +19,14 @@ export default function Registration() {
                 onChange={handleChange}
             />
             <button onClick={submit}>register</button>
-            <br />
+
             {error && (
-                <div className="error">Invalid registration, try again.</div>
+                <div>
+                    <br />
+                    <div className="error">
+                        Invalid registration, try again.
+                    </div>
+                </div>
             )}
             <Link to="/login">Log in</Link>
         </div>

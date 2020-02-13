@@ -13,6 +13,7 @@ import OtherProfile from "./otherProfile";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
 import Uploader from "./upload";
+import UserImage from "./userImage";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -27,7 +28,6 @@ export default function App() {
     useEffect(() => {
         dispatch(setUserId());
     }, []);
-
     if (!user) {
         return null;
     }
@@ -41,37 +41,21 @@ export default function App() {
             )}
             <div>
                 <HeaderBar userId={user.id} />
-                <div className="floating_image">
-                    <ProfilePic
-                        className="userImage"
-                        image={user.image}
-                        first={user.first}
-                        last={user.last}
-                    />
-                    <p
-                        className="userImage_subtext"
-                        onClick={() => {
-                            dispatch(toggleWindow("upload"));
-                        }}
-                    >
-                        CHANGE IMAGE
-                    </p>
-                </div>
+                <UserImage user={user} />
 
                 <Route
                     path="/user/:id"
                     render={props => (
                         <OtherProfile
-                            userId={user.userId}
+                            userId={user.id}
                             history={props.history}
                             match={props.match}
                         />
                     )}
                 />
-
                 <Route
                     path="/friends"
-                    render={() => <Friends userId={user.userId} />}
+                    render={() => <Friends userId={user.id} />}
                 />
             </div>
 
@@ -101,30 +85,3 @@ export default function App() {
         </BrowserRouter>
     );
 }
-
-// <Route
-//     exact
-//     path="/"
-//     render={() => (
-//         <Profile
-//             first={user.first}
-//             last={user.last}
-//             bio={user.bio}
-//             setBio={bio => {
-//                 dispatch(setBio(bio));
-//             }}
-//             profilePic={
-//                 <ProfilePic
-//                     className="profileImage"
-//                     id={user.userId}
-//                     first={user.first}
-//                     last={user.last}
-//                     image={user.image}
-//                     toggleUploader={() =>
-//                         dispatch(toggleUploader())
-//                     }
-//                 />
-//             }
-//         />
-//     )}
-// />

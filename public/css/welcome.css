@@ -1,19 +1,14 @@
 .welcome {
     display: flex;
-    flex-direction: column;
     align-items: center;
-}
-.welcome_title {
-    margin: 30px;
-}
-.sub_title {
-    font-size: 1.8rem;
-    color: rgb(242, 86, 10);
-    text-decoration: underline;
+    width: auto;
+    height: auto%;
 }
 
 #chat_logo {
-    height: 200px;
+    margin: 100px 200px;
+    height: 250px;
+    width: 300px;
 }
 
 canvas {
@@ -28,4 +23,40 @@ canvas {
     position: relative;
     top: 42px;
     pointer-events: none;
+}
+
+.welcome_right {
+    margin: 50px 100px 50px 50px;
+}
+
+.welcome_right button {
+    margin: 10px;
+}
+
+.welcome_right a {
+    padding: 10px 15px;
+    margin: auto 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #000;
+}
+.welcome_right a:hover {
+    color: rgb(135, 135, 135);
+}
+
+.welcome_right a:active {
+    color: #fff;
+    background-color: black;
+}
+
+/* RESET FORM */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.reset h1 {
+    margin-top: 30px;
 }

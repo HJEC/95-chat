@@ -1,7 +1,7 @@
 import React from "react";
 import Window from "./window";
 
-export default function Info() {
+export default function Info(props) {
     const infoComponent = (
         <div className="info_main">
             <h1 className="info_title">What is &apos;95-Chat?</h1>
@@ -37,7 +37,7 @@ export default function Info() {
         <Window
             compToRender={infoComponent}
             title="INFO"
-            default={{ x: 1350, y: 50, width: 400, height: 400 }}
+            default={{ x: 450, y: 150, width: 400, height: 400 }}
             windowName="info"
         />
     );

@@ -21,6 +21,9 @@ export default function HeaderBar(props) {
             >
                 <span className="underline">your</span> profile
             </p>
+            <Link to="/friends" className="links">
+                <span className="underline">friend</span>ships
+            </Link>
             <p
                 className="links"
                 onClick={() => {
@@ -29,9 +32,6 @@ export default function HeaderBar(props) {
             >
                 <span className="underline">find</span> friends
             </p>
-            <Link to="/friends" className="links">
-                <span className="underline">friend</span>ships
-            </Link>
             <p
                 className="links"
                 onClick={() => {
@@ -45,7 +45,14 @@ export default function HeaderBar(props) {
 
     return (
         <header>
-            <img src="/svgs/minichat.svg" alt="logo" id="logo" />
+            {props.userId && (
+                <Link to="/">
+                    <img src="/svgs/minichat.svg" alt="logo" id="logo" />
+                </Link>
+            )}
+            {!props.userId && (
+                <img src="/svgs/minichat.svg" alt="logo" id="logo" />
+            )}
             {props.userId && logInHeader}
             {props.userId && (
                 <a href="/logout" className="links" id="log_out">
@@ -61,7 +68,7 @@ export default function HeaderBar(props) {
                     dispatch(toggleWindow("info"));
                 }}
             />
-            <img src="/svgs/bmac.svg" alt="bmac" id="bmac" />
+            {props.userId && <img src="/svgs/bmac.svg" alt="bmac" id="bmac" />}
         </header>
     );
 }

@@ -20,13 +20,18 @@ export default function OtherProfile(props) {
 
     if (friend) {
         return (
-            <div>
-                <h1>
-                    {friend.first} {friend.last}
-                </h1>
-                <img src={friend.image || "/default.jpg"} />
-                <p>{friend.bio || "No bio yet"}</p>
-                <UseFriendRequest recipient={otherId} userId={props.userId} />
+            <div className="other_profile">
+                <div className="other_profile_left">
+                    <h1>
+                        {friend.first} {friend.last}
+                    </h1>
+                    <img src={friend.image || "/default.jpg"} />
+                    <p>{friend.bio || "No bio yet"}</p>
+                    <UseFriendRequest
+                        recipient={otherId}
+                        userId={props.userId}
+                    />
+                </div>
             </div>
         );
     } else {

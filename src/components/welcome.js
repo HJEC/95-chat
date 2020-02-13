@@ -1,23 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Registration from "./registration";
 import HeaderBar from "./headerBar";
 import Login from "./login";
+import Info from "./info";
 import Reset from "./reset";
 import { HashRouter, Route } from "react-router-dom";
 import { Pixelify } from "react-pixelify";
 
-export default class Welcome extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <div className="welcome">
-                <div className="crt_black">
-                    <div className="crt_window" />
-                </div>
-                <HeaderBar />
-                <img src="/svgs/95chat.svg" alt="95chat logo" id="chat_logo" />
+export default function Welcome() {
+    const showInfo = useSelector(state => state.showInfo);
+    return (
+        <div className="welcome">
+            <div className="crt_black">
+                <div className="crt_window" />
+            </div>
+            <HeaderBar />
+            <img src="/svgs/95chat.svg" alt="95chat logo" id="chat_logo" />
+            <div className="welcome_right">
                 <Pixelify
                     src={"dogcat.png"}
                     pixelSize={3}
@@ -27,6 +27,7 @@ export default class Welcome extends React.Component {
                     height={170}
                     id="dogcat"
                 />
+                {showInfo && <Info />}
                 <HashRouter>
                     <div className="welcome">
                         <Route exact path="/" component={Registration} />
@@ -35,17 +36,6 @@ export default class Welcome extends React.Component {
                     </div>
                 </HashRouter>
             </div>
-        );
-    }
+        </div>
+    );
 }
-// <h1 className="welcome_title">
-//     Welcome to{" "}
-//     <span className="sub_title">
-//         P.T.L.M.W.A.T.C.T.B.T.M.D.M.B.T.W
-//     </span>
-//     !
-// </h1>
-
-// <h2>
-//     (people-that-like-movies-with-animals-that-can-talk-but-their-mouths-dont-move-because-thats-weird)
-// </h2>

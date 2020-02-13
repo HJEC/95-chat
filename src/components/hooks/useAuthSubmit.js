@@ -5,7 +5,6 @@ export default function useAuthSubmit(url, values) {
     const [error, setError] = useState(false);
 
     const submit = () => {
-        console.log("values:", values);
         axios
             .post(url, values)
             .then(({ data }) => {

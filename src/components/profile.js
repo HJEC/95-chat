@@ -19,8 +19,9 @@ export default function Profile({ first, last, profilePic, bio, setBio }) {
         <Window
             compToRender={profileComponent}
             title="YOUR PROFILE"
-            default={{ x: 20, y: 520, width: 650, height: 375 }}
+            default={{ x: 20, y: 220, width: 650, height: 375 }}
             windowName="profile"
+            setIndex={props.setIndex}
         />
     );
 }
