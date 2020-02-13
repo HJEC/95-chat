@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
-import { setUserId, setBio, toggleUploader } from "../actions";
+import { setUserId, setBio, toggleWindow } from "../actions";
 // COMPONENTS //
 import Chat from "./globalChat";
 import Find from "./find";
@@ -19,6 +19,7 @@ export default function App() {
     const user = useSelector(state => state.user);
     // state conditionals to open relevant modal windows
     const showChat = useSelector(state => state.showChat);
+    const showFinder = useSelector(state => state.showFinder);
     const showInfo = useSelector(state => state.showInfo);
     const showProfile = useSelector(state => state.showProfile);
     const showUpload = useSelector(state => state.showUpload);
@@ -40,13 +41,22 @@ export default function App() {
             )}
             <div>
                 <HeaderBar userId={user.id} />
-                <ProfilePic
-                    className="userImage"
-                    toggleUploader={() => dispatch(toggleUploader())}
-                    image={user.image}
-                    first={user.first}
-                    last={user.last}
-                />
+                <div className="floating_image">
+                    <ProfilePic
+                        className="userImage"
+                        image={user.image}
+                        first={user.first}
+                        last={user.last}
+                    />
+                    <p
+                        className="userImage_subtext"
+                        onClick={() => {
+                            dispatch(toggleWindow("upload"));
+                        }}
+                    >
+                        CHANGE IMAGE
+                    </p>
+                </div>
 
                 <Route
                     path="/user/:id"
@@ -58,8 +68,6 @@ export default function App() {
                         />
                     )}
                 />
-
-                <Route path="/find" component={Find} />
 
                 <Route
                     path="/friends"
@@ -82,12 +90,12 @@ export default function App() {
                             first={user.first}
                             last={user.last}
                             image={user.image}
-                            toggleUploader={() => dispatch(toggleUploader())}
                         />
                     }
                 />
             )}
             {showChat && <Chat />}
+            {showFinder && <Find />}
             {showInfo && <Info />}
             {showUpload && <Uploader />}
         </BrowserRouter>

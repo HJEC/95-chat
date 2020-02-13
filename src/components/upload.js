@@ -17,19 +17,23 @@ export default function Uploader() {
     const uploaderComponent = (
         <div className="imageUploader">
             <h1 className="upload_title">change your profile image</h1>
-            <input
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={e => upload(e)}
-            />
+            <label className="upload_button">
+                select new image
+                <input
+                    name="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={e => upload(e)}
+                    id="file_upload"
+                />
+            </label>
         </div>
     );
     return (
         <Window
             compToRender={uploaderComponent}
             title="UPLOAD IMAGE"
-            default={{ x: 300, y: 200, width: 500, height: 300 }}
+            default={{ x: 685, y: 520, width: 500, height: 300 }}
             windowName="upload"
         />
     );

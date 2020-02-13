@@ -21,9 +21,14 @@ export default function HeaderBar(props) {
             >
                 <span className="underline">your</span> profile
             </p>
-            <Link to="/find" className="links">
+            <p
+                className="links"
+                onClick={() => {
+                    dispatch(toggleWindow("find"));
+                }}
+            >
                 <span className="underline">find</span> friends
-            </Link>
+            </p>
             <Link to="/friends" className="links">
                 <span className="underline">friend</span>ships
             </Link>

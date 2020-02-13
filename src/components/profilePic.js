@@ -7,7 +7,7 @@ export default function ProfilePic(props) {
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <div className="profile_photo">
             <img
                 src={props.image}
                 alt={`${props.first} ${props.last}`}

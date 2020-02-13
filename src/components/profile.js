@@ -5,10 +5,12 @@ import Window from "./window";
 export default function Profile({ first, last, profilePic, bio, setBio }) {
     const profileComponent = (
         <div className="profileEditor">
-            {profilePic}
-            <div className="profileInfo">
-                <p>{`${first} ${last}`}</p>
-                <Bio bio={bio} setBio={setBio} />
+            <div className="pic_wrapper">
+                {profilePic}
+                <div className="profile_info">
+                    <p className="profile_name">{`${first} ${last}`}</p>
+                    <Bio bio={bio} setBio={setBio} />
+                </div>
             </div>
         </div>
     );
@@ -17,7 +19,7 @@ export default function Profile({ first, last, profilePic, bio, setBio }) {
         <Window
             compToRender={profileComponent}
             title="YOUR PROFILE"
-            default={{ x: 300, y: 200, width: 550, height: 450 }}
+            default={{ x: 20, y: 520, width: 650, height: 375 }}
             windowName="profile"
         />
     );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Window from "./window";
 import axios from "../axios";
 
 export default function Find() {
@@ -18,7 +19,6 @@ export default function Find() {
         if (find) {
             (async () => {
                 try {
-                    console.log("here");
                     let { data } = await axios.get(`/api/find/${find}`);
                     if (!ignore) {
                         setUsers(data);
@@ -42,28 +42,47 @@ export default function Find() {
         setFind(target.value);
     };
 
-    return (
-        <div>
-            <h1>search for friends</h1>
+    const findComponent = (
+        <div className="find_container">
+            <h1 className="find_title">search for friends</h1>
+
+            {!find && <p className="newbies">newbies:</p>}
+            {find && <h2>Search: {find}</h2>}
+            <div className="friends_row">
+                {users.map((i, idx) => {
+                    return (
+                        <a
+                            href={`user/${i.id}`}
+                            key={idx}
+                            className="individual_friend_block"
+                        >
+                            <div>
+                                <img
+                                    src={i.image || "/default.png"}
+                                    className="find_image"
+                                />
+                                <p>
+                                    {i.first} {i.last}
+                                </p>
+                            </div>
+                        </a>
+                    );
+                })}
+            </div>
             <input
                 onChange={onChange}
                 type="text"
                 placeholder="search for friends"
             />
-            {!find && <p>newbies:</p>}
-            {find && <h2>Search:{find}</h2>}
-            {users.map((i, idx) => {
-                return (
-                    <a href={`user/${i.id}`} key={idx}>
-                        <div>
-                            <img src={i.image || "/default.png"} />
-                            <p>
-                                {i.first} {i.last}
-                            </p>
-                        </div>
-                    </a>
-                );
-            })}
         </div>
+    );
+
+    return (
+        <Window
+            compToRender={findComponent}
+            title="FIND FRIENDS"
+            default={{ x: 20, y: 50, width: 750, height: 450 }}
+            windowName="find"
+        />
     );
 }

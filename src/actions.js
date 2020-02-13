@@ -1,13 +1,6 @@
 //src/actions.js
 import axios from "./axios";
 
-// TOGGLE UPLOADER //
-export function toggleUploader() {
-    return {
-        type: "TOGGLE_UPLOADER"
-    };
-}
-
 // GET / SET USER INFO //
 export async function setUserId() {
     const { data } = await axios.get("/user");

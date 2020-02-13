@@ -29,7 +29,7 @@ export default function Window(props) {
             default={props.default}
             minWidth={!width ? 500 : 800}
             minHeight={!height ? 350 : 550}
-            className={zIndex ? "window_outer front" : "window_outer back"}
+            className={zIndex ? "window_outer front" : "window_outer"}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
             enableResizing={{

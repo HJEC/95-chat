@@ -79,6 +79,12 @@ export default function reducer(state = {}, action) {
                 showChat: !state.showChat
             };
         }
+        if (action.windowName == "find") {
+            state = {
+                ...state,
+                showFinder: !state.showFinder
+            };
+        }
         if (action.windowName == "info") {
             state = {
                 ...state,

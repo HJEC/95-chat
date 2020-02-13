@@ -3,6 +3,7 @@
     height: 100%;
     max-width: 100%;
     margin: auto;
+    overflow: hidden;
 }
 .chat_container {
     height: 65%;

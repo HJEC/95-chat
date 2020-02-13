@@ -1,0 +1,45 @@
+/*  FIND FRIENDS */
+
+.find_container {
+    position: relative;
+    width: 95%;
+    height: 95%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.find_title {
+    margin: 10px auto;
+}
+.find_container input {
+    transform: translateX(20px);
+}
+
+.newbies,
+.find_container h2 {
+    font-size: 0.9rem;
+    padding: 5px;
+    text-decoration: underline;
+    margin: 20px;
+}
+
+.friends_row {
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+    width: 100%;
+}
+
+.individual_friend_block {
+    margin: 10px;
+}
+
+.find_image {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    border: 2px dotted #000;
+}
+
+.find_container p {
+}

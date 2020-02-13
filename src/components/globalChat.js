@@ -79,7 +79,7 @@ export default function Chat() {
         <Window
             compToRender={chatComponent}
             title="'95 CHAT"
-            default={{ x: 300, y: 200, width: 550, height: 450 }}
+            default={{ x: 785, y: 50, width: 550, height: 450 }}
             windowName="chat"
         />
     );

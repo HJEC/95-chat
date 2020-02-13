@@ -37,7 +37,7 @@ export default function Info() {
         <Window
             compToRender={infoComponent}
             title="INFO"
-            default={{ x: 300, y: 200, width: 400, height: 400 }}
+            default={{ x: 1350, y: 50, width: 400, height: 400 }}
             windowName="info"
         />
     );
