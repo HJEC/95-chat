@@ -47,11 +47,10 @@ export default function HeaderBar(props) {
     const selectBox = (
         <ul id="bmac_select">
             <li>connect four</li>
-            <li>mine-sweeper</li>
             <li>snake</li>
+            <li>mine-sweeper</li>
             <li>tetris</li>
             <li>asteroids</li>
-            <li>galaga</li>
         </ul>
     );
 
