@@ -91,7 +91,7 @@
 
 /* TRASH CAN ICON */
 .floating_can {
-    position: absolute;
+    position: fixed;
     bottom: 50px;
     right: 25px;
     display: flex;

@@ -31,7 +31,21 @@ export default function Friends(props) {
 
     useEffect(() => {
         dispatch(getFriendsWannabes());
-    }, []);
+    }, [friends]);
+
+    const dragStart = (event, id) => {
+        console.log("dragstart on div: ", id);
+        event.dataTransfer.setData("id", id);
+    };
+    const onDragOver = event => {
+        event.preventDefault();
+    };
+
+    const onDrop = event => {
+        let end_id = event.dataTransfer.getData("id");
+        console.log("drop id:", end_id);
+        dispatch(endFriendship(end_id));
+    };
 
     if (!friends || !requests || !penders) {
         return null;
@@ -41,19 +55,17 @@ export default function Friends(props) {
         <div className="relationships">
             {friends.map(friend => (
                 <div className="friend" key={friend.id}>
-                    <a href={`/user/${friend.id}`} key={friend.id}>
+                    <a
+                        href={`/user/${friend.id}`}
+                        key={friend.id}
+                        draggable="true"
+                        onDragStart={event => dragStart(event, friend.id)}
+                    >
                         <img src={friend.image} />
                         <p>
                             {friend.first} {friend.last}
                         </p>
                     </a>
-                    <div className="end">
-                        <button
-                            onClick={() => dispatch(endFriendship(friend.id))}
-                        >
-                            end friendship
-                        </button>
-                    </div>
                 </div>
             ))}
         </div>
@@ -123,7 +135,12 @@ export default function Friends(props) {
             {!!penders.length && <p>here are your pending requests</p>}
             {!!penders.length && pendingFriends}
             <div className="floating_can">
-                <div className="trashcan" />
+                <div
+                    className="trashcan"
+                    droppable="true"
+                    onDragOver={event => onDragOver(event)}
+                    onDrop={event => onDrop(event)}
+                />
                 <p className="trashcan_subtext">delete friend</p>
             </div>
         </div>
