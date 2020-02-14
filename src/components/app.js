@@ -31,9 +31,7 @@ export default function App() {
     }, []);
 
     const detectWindow = e => {
-        console.log("window clicked:", e);
         setTopWindow(e);
-        console.log("top window", topWindow);
     };
     if (!user) {
         return null;

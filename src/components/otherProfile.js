@@ -10,7 +10,6 @@ export default function OtherProfile(props) {
     useEffect(() => {
         (async () => {
             let { data } = await axios.get(`/api/user/${otherId}`);
-            console.log("found friend: ", data);
             setFriend(data);
             if (otherId == props.userId || otherId == null) {
                 props.history.push("/");

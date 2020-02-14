@@ -9,7 +9,6 @@ export default function Find(props) {
     useEffect(() => {
         (async () => {
             let { data } = await axios.get("/api/find/start");
-            console.log("new users: ", data);
             setUsers(data);
         })();
     }, []);
@@ -23,7 +22,6 @@ export default function Find(props) {
                     if (!ignore) {
                         setUsers(data);
                     }
-                    console.log("search results: ", users);
                 } catch (err) {
                     console.log("error in find find", err);
                 }
@@ -35,7 +33,6 @@ export default function Find(props) {
     }, [find]);
 
     const onChange = ({ target }) => {
-        console.log("target: ", target.value);
         if (target.value == " ") {
             target.value = target.value.replace(/ +/g, "");
         }

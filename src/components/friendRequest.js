@@ -9,7 +9,6 @@ export default function UseFriendRequest({ recipient, userId }) {
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`/is-friend/${recipient}`);
-            // console.log("is-friend data:", data);
             if (!data) {
                 setStatus("send friend request");
                 setUrl("/request-friendship");

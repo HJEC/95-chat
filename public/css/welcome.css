@@ -49,6 +49,12 @@ canvas {
     background-color: black;
 }
 
+.register_form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 /* RESET FORM */
 
 .form {

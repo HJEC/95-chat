@@ -34,7 +34,6 @@ export default function Friends(props) {
     }, [friends]);
 
     const dragStart = (event, id) => {
-        console.log("dragstart on div: ", id);
         event.dataTransfer.setData("id", id);
     };
     const onDragOver = event => {
@@ -43,7 +42,6 @@ export default function Friends(props) {
 
     const onDrop = event => {
         let end_id = event.dataTransfer.getData("id");
-        console.log("drop id:", end_id);
         var audio = new Audio("/delete.mp3");
         audio.play();
         dispatch(endFriendship(end_id));

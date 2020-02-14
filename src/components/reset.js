@@ -21,7 +21,6 @@ export default class Reset extends React.Component {
                 email: this.state.email
             })
             .then(({ data }) => {
-                console.log("login: ", data);
                 if (data) {
                     this.setState({
                         step: 2
@@ -40,7 +39,6 @@ export default class Reset extends React.Component {
                 newPassword: this.state.newPassword
             })
             .then(({ data }) => {
-                console.log("reset: ", data);
                 if (data) {
                     this.setState({
                         step: 3
@@ -52,7 +50,6 @@ export default class Reset extends React.Component {
     }
 
     resetScreen(step) {
-        console.log("State step:", step);
         if (step == 1) {
             return (
                 // RESET PASSWORD SCREEN
