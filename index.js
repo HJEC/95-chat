@@ -3,7 +3,9 @@ const express = require("express"),
     app = express(),
     compression = require("compression");
 const server = require("http").Server(app);
-const io = require("socket.io")(server, { origins: "localhost:8080" }); //<-Add heroku origin here: hjec.network.herokuapp:*
+const io = require("socket.io")(server, {
+    origins: "localhost:8080 hjec-95-chat.herokuapp.com"
+}); //<-Add heroku origin here: hjec.network.herokuapp:*
 
 // SECURITY //
 const cookieSession = require("cookie-session"),
@@ -307,7 +309,9 @@ app.get("*", function(req, res) {
 });
 
 //__ ROUTER __//
-server.listen(8080, () => console.log("See you space cowboy"));
+server.listen(process.env.PORT || 8080, () =>
+    console.log("See you space cowboy")
+);
 
 // __ SOCKETS __ //
 io.on("connection", async function(socket) {
