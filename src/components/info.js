@@ -7,8 +7,8 @@ export default function Info(props) {
             <h1 className="info_title">What is &apos;95-Chat?</h1>
             <p className="info_body">
                 {`
-                '95-chat is a love letter to Mac-OS 7. The greatest
-                operating system of all time. `}
+                '95-chat is a love letter to the greatest
+                operating system of all time. Mac-OS 7 `}
                 <br />
                 <br />
 
