@@ -9,7 +9,7 @@ const io = require("socket.io")(server, {
 
 // SECURITY //
 const cookieSession = require("cookie-session"),
-    secrets = require("./secrets.json"),
+    // secrets = require("./secrets.json"),
     csurf = require("csurf"),
     cryptoRandomString = require("crypto-random-string"),
     { hashPass, compare } = require("./bcrypt");
@@ -70,7 +70,10 @@ app.use(
         extended: false
     })
 );
-
+let secrets;
+process.env.NODE_ENV === "production"
+    ? (secrets = process.env)
+    : (secrets = require("./secrets"));
 const cookieSessionMiddleware = cookieSession({
     secret: secrets.SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 90
