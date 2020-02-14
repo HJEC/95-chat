@@ -2,7 +2,15 @@ import React from "react";
 import Bio from "./bio";
 import Window from "./window";
 
-export default function Profile({ first, last, profilePic, bio, setBio }) {
+export default function Profile({
+    first,
+    last,
+    profilePic,
+    bio,
+    setBio,
+    setIndex,
+    classThing
+}) {
     const profileComponent = (
         <div className="profileEditor">
             <div className="pic_wrapper">
@@ -21,7 +29,8 @@ export default function Profile({ first, last, profilePic, bio, setBio }) {
             title="YOUR PROFILE"
             default={{ x: 20, y: 220, width: 650, height: 375 }}
             windowName="profile"
-            setIndex={props.setIndex}
+            setIndex={setIndex}
+            classThing={classThing}
         />
     );
 }

@@ -39,6 +39,8 @@ export default function Info(props) {
             title="INFO"
             default={{ x: 450, y: 150, width: 400, height: 400 }}
             windowName="info"
+            setIndex={props.setIndex}
+            classThing={props.classThing}
         />
     );
 }

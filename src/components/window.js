@@ -9,8 +9,6 @@ export default function Window(props) {
     const [width, setWidth] = useState();
     const [height, setHeight] = useState();
     const [toggle, setToggle] = useState(false);
-    const [zIndex, setZIndex] = useState(false);
-    let elemRef = useRef();
 
     useEffect(() => {
         if (!toggle) {
@@ -25,11 +23,10 @@ export default function Window(props) {
 
     return (
         <Rnd
-            ref={elemRef}
             default={props.default}
             minWidth={!width ? 500 : 800}
             minHeight={!height ? 350 : 550}
-            className={zIndex ? "window_outer front" : "window_outer"}
+            className={props.classThing ? props.classThing : "window_outer"}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
             enableResizing={{
@@ -42,7 +39,7 @@ export default function Window(props) {
                 bottomLeft: false,
                 topLeft: false
             }}
-            onClick={() => setZIndex(!zIndex)}
+            onClick={() => props.setIndex(props.windowName)}
         >
             <div className="drag_header">
                 <span

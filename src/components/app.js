@@ -1,8 +1,8 @@
 // REACT //
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
-import { setUserId, setBio, toggleWindow } from "../actions";
+import { setUserId, setBio } from "../actions";
 // COMPONENTS //
 import Chat from "./globalChat";
 import Find from "./find";
@@ -24,10 +24,17 @@ export default function App() {
     const showInfo = useSelector(state => state.showInfo);
     const showProfile = useSelector(state => state.showProfile);
     const showUpload = useSelector(state => state.showUpload);
+    const [topWindow, setTopWindow] = useState();
 
     useEffect(() => {
         dispatch(setUserId());
     }, []);
+
+    const detectWindow = e => {
+        console.log("window clicked:", e);
+        setTopWindow(e);
+        console.log("top window", topWindow);
+    };
     if (!user) {
         return null;
     }
@@ -67,6 +74,12 @@ export default function App() {
                     setBio={bio => {
                         dispatch(setBio(bio));
                     }}
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "profile"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
                     profilePic={
                         <ProfilePic
                             className="profileImage"
@@ -78,10 +91,46 @@ export default function App() {
                     }
                 />
             )}
-            {showChat && <Chat />}
-            {showFinder && <Find />}
-            {showInfo && <Info />}
-            {showUpload && <Uploader />}
+            {showChat && (
+                <Chat
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "chat"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
+                />
+            )}
+            {showFinder && (
+                <Find
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "find"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
+                />
+            )}
+            {showInfo && (
+                <Info
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "info"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
+                />
+            )}
+            {showUpload && (
+                <Uploader
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "upload"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
+                />
+            )}
         </BrowserRouter>
     );
 }

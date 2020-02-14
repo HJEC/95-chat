@@ -84,6 +84,7 @@ export default function Find(props) {
             default={{ x: 20, y: 50, width: 750, height: 450 }}
             windowName="find"
             setIndex={props.setIndex}
+            classThing={props.classThing}
         />
     );
 }

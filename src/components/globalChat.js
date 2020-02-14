@@ -79,6 +79,7 @@ export default function Chat(props) {
             default={{ x: 785, y: 50, width: 550, height: 450 }}
             windowName="chat"
             setIndex={props.setIndex}
+            classThing={props.classThing}
         />
     );
 }

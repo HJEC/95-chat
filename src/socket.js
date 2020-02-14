@@ -13,7 +13,6 @@ export const init = store => {
 
         socket.on("incoming message", msg => {
             store.dispatch(postMessage(msg));
-            console.log("incoming message arrived: ", msg);
         });
     }
 };
