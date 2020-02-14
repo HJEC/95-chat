@@ -4,7 +4,7 @@ const express = require("express"),
     compression = require("compression");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
-    origins: "localhost:8080 hjec-95-chat.herokuapp.com"
+    origins: "localhost:8080 hjec-95-chat.herokuapp.com:*"
 }); //<-Add heroku origin here: hjec.network.herokuapp:*
 
 // SECURITY //
@@ -71,9 +71,11 @@ app.use(
     })
 );
 let secrets;
+
 process.env.NODE_ENV === "production"
     ? (secrets = process.env)
     : (secrets = require("./secrets"));
+
 const cookieSessionMiddleware = cookieSession({
     secret: secrets.SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 90
