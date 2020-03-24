@@ -226,8 +226,11 @@ app.post("/accept-friendship/:friend", async (req, res) => {
 // FRIEND/WANNABE DATA //
 app.get("/friends-wannabes", async (req, res) => {
     let data = await friendships(req.session.userId);
-    console.log("wannabe data:", data);
-    res.json(data);
+    if (data) {
+        res.json(data);
+    } else {
+        res.json({ data: "empty" });
+    }
 });
 
 //      UPDATE USER       //
