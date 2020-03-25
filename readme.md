@@ -3,7 +3,7 @@
 <h1 align="center"> '95-Chat, A Social Network</h1>
 <br>
 
-<p align="center"><img src="/public/gifs/overview.gif"/></p>
+<p align="center"><img src="/public/gif/overview.gif"/></p>
 
 > “I think a simple rule of business is, if you do the things that are easier first, then you can actually make a lot of progress." - Mark Zuckerberg
 
@@ -33,7 +33,7 @@
 
 ### Description:
 
-<p align="center"><img src="/public/gifs/macos.gif" width="50%"/></p>
+<p align="center"><img src="/public/gif/macos.gif" width="50%"/></p>
 <h4 align="center">Demonstration of the original MAC-OS 7 using <a href="http://jamesfriend.com.au/pce-js/pce-js-apps/">this emulator</a></h4>
 
 '95-Chat is a single-page web application built with React/Redux. The core principle of the project was to create a basic social network with account management and chat functionality, based on the visual aesthetic of the Apple MAC Operating System 7, released in 1991.'
@@ -74,7 +74,7 @@ I created this experiment with the singular focus of seeing what kind of product
 
 <br>
 
-<p align="center"><img src="/public/gifs/register.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/register.gif" width="70%"/></p>
 
 What does any good social-network site need? Valid account registration of course! The users are presented with a choice of registering a new account, or logging in to the site. All HTML input is fully sanitized and uploaded to the <strong>SQL</strong> database, which also checks for invalid/missing input. Duplicate emails will throw an error.
 The password provided is passed through <strong>Bcrypt</strong> to generate a hash password, which is then saved to the database.
@@ -83,7 +83,7 @@ Once registered, the user session cookies are applied with <strong>Cookie-Sessio
 #### 2. Log-In <a name="2"></a>
 
 <br>
-<p align="center"><img src="/public/gifs/login.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/login.gif" width="70%"/></p>
 
 If a user has an existing account with '95-chat, they can enter their email and password combination to log in. The password hash in the database (corresponding to the provided email) is cross-checked using <strong>Bcrypt compare</strong>. If incorrect, the user will be prompted with an error message to try again, otherwise the session cookies will be reapplied and the DOM will render the home page component again.
 
@@ -91,7 +91,7 @@ If a user has an existing account with '95-chat, they can enter their email and 
 
 <br>
 
-<p align="center"><img src="/public/gifs/reset.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/reset.gif" width="70%"/></p>
 
 Using the power of <strong>React component state</strong>, the reset password component is dynamically rendered based on the progress of the reset procedure. The first layout prompts the user for the email of the account. Once entered, the user's email is stored in the component state, then an <strong>Axios request</strong> is made to the server, triggering a function that:
 
@@ -118,34 +118,34 @@ Lastly, the state of the component is updated one last time on a successful rese
 
 <br>
 
-<p align="center"><img src="/public/gifs/modal.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/modal.gif" width="70%"/></p>
 
 #### 5. Upload/Change Profile Image <a name="5"></a>
 
 <br>
 
-<p align="center"><img src="/public/gifs/upload.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/upload.gif" width="70%"/></p>
 
 #### 6. Editing Personal Information <a name="6"></a>
 
 <br>
 
-<p align="center"><img src="/public/gifs/edit.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/edit.gif" width="70%"/></p>
 
 #### 7. Friend Finder <a name="7"></a>
 
 <br>
 
-<p align="center"><img src="/public/gifs/finder.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/finder.gif" width="70%"/></p>
 
 #### 8. Relationship Management <a name="8"></a>
 
 <br>
-<p align="center"><img src="/public/gifs/relationships.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/relationships.gif" width="70%"/></p>
 
 #### 9. Global Chatroom <a name="9"></a>
 
 <br>
-<p align="center"><img src="/public/gifs/chat.gif" width="70%"/></p>
+<p align="center"><img src="/public/gif/chat.gif" width="70%"/></p>
 
 # Future Features <a name="Future"></a>
