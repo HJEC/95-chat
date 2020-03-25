@@ -120,17 +120,40 @@ Lastly, the state of the component is updated one last time on a successful rese
 
 <p align="center"><img src="/public/gif/modal.gif" width="70%"/></p>
 
+This feature was one of my favourite parts to work on.
+A really important focus for me was to get as many of the details to carry across from the source material. In an attempt to emulate the original Operating-System, I wanted as much of my social network's functionality to operate inside pop-up modal windows.
+
+---
+
+Using the power of <strong>React's component structure and data flow</strong> in tandem with <strong>Redux state management</strong>, I constructed a template window component with elements that let the user manipulate the window. The horizontal lines act as a drag-bar. The bottom icon resizes, the top right expands and shrinks, and the top left icon closes the individual window. I even recreated the original icons for each of the interactive buttons in <strong>Adobe Illustrator</strong> to exactly match the originals, as well as the icon change when clicked on.
+
+---
+
+By passing information about the window down through the window component props, and then back into the state, each window was capable of opening/closing it's respective self through the use of Redux state.
+<br><br>
+A difficult problem I had with the approach I designed was fixing issues with <strong>Z-indexing</strong>. As I had created a single component that dynamically rendered other components inside of it, all the modal windows were <strong>fundamentally the same element</strong>. Applying a class to change the z-index on mouse-down wouldn't work in this instance, as the class would be applied to all open windows. I solved this with some tricky manipulation of the data flowing down through the <strong>component props</strong>, which would then feed back up to the top level via the apps local state to discern which specific window element had been clicked on. I can safely say: <em>It was a real head-scratcher!</em>
+
 #### 5. Upload/Change Profile Image <a name="5"></a>
 
 <br>
 
 <p align="center"><img src="/public/gif/upload.gif" width="70%"/></p>
 
+Upon initial registration, user's profiles will be given a default image for their profile. If they so choose they can upload their own image (up to 2.5mb's in size). This is achieved with <strong>multer</strong> and then uploaded to an <strong>AWS S3 bucket</strong>. The AWS address for that image is then sent to the server and stored in the database for reference.
+
 #### 6. Editing Personal Information <a name="6"></a>
 
 <br>
 
 <p align="center"><img src="/public/gif/edit.gif" width="70%"/></p>
+
+Users can also add information about themselves via a text-area element on their personal profile. The bio-editor component is re-rendered based on three different conditions:
+
+1. Do they have a pre-existing bio? If not, show an empty text area and prompt to add bio.
+2. If they do have a bio, change the submit button to say "change your bio".
+3. During the editing state, the button will display "submit your bio"
+
+these changes are accomplished with 3 different JSX elements, an indication value in local state, and a ternary operator inside the component return to watch the local state indicator value.
 
 #### 7. Friend Finder <a name="7"></a>
 
