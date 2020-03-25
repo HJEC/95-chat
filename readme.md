@@ -3,8 +3,8 @@
 <h1 align="center"> '95-Chat, A Social Network</h1>
 <br>
 
-<h3 style="color: rgb(180, 76, 0)" align="justify"> you can visit the live version of this project, hosted with Heroku at the link next to the repo description, or <a href="https://hjec-95-chat.herokuapp.com/">here</a>.
-<br> <div align="center">Jump in the chat like it's 1995 💾</div></h3>
+<h3> you can visit the live version of this project, hosted with Heroku at the link next to the repo description, or <a style="text-decoration: underline"href="https://hjec-95-chat.herokuapp.com/">here</a>.
+Jump in the chat like it's 1995! 💾</h3>
 <p align="center"><img src="/public/gif/overview.gif" width="80%" height="200%"/></p>
 
 > “I think a simple rule of business is, if you do the things that are easier first, then you can actually make a lot of progress." - Mark Zuckerberg
