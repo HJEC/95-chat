@@ -6,6 +6,7 @@
 <h3> you can visit the live version of this project, hosted with Heroku at the link next to the repo description, or <a style="text-decoration: underline"href="https://hjec-95-chat.herokuapp.com/">here</a>.
 Jump in the chat like it's 1995! 💾</h3>
 <p align="center"><img src="/public/gif/overview.gif" width="80%" height="200%"/></p>
+<h4 align="center">Overview demo of '95-Chat</h4>
 
 > “I think a simple rule of business is, if you do the things that are easier first, then you can actually make a lot of progress." - Mark Zuckerberg
 
