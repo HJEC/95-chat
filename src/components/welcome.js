@@ -21,15 +21,13 @@ export default function Welcome() {
                 <Pixelify
                     src={"dogcat.png"}
                     pixelSize={3}
-                    className="dogcat"
                     fillTransparencyColor="rgba(148, 143, 249, 0)"
                     width={280}
                     height={170}
-                    id="dogcat"
                 />
                 {showInfo && <Info />}
                 <HashRouter>
-                    <div className="welcome">
+                    <div className="">
                         <Route exact path="/" component={Registration} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/reset" component={Reset} />
