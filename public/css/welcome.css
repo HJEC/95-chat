@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 700px;
+    height: 100vh;
 }
 
 #chat_logo {

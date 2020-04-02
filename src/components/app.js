@@ -9,6 +9,7 @@ import Find from "./find";
 import Friends from "./friends";
 import HeaderBar from "./headerBar";
 import Info from "./info";
+import Intro from "./introscreen";
 import OtherProfile from "./otherProfile";
 import ProfilePic from "./profilePic";
 import Profile from "./profile";
@@ -18,6 +19,7 @@ import UserImage from "./userImage";
 export default function App() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    const introViz = useSelector(state => state.introViz);
     // state conditionals to open relevant modal windows
     const showChat = useSelector(state => state.showChat);
     const showFinder = useSelector(state => state.showFinder);
@@ -41,6 +43,7 @@ export default function App() {
             <div className="crt_black">
                 <div className="crt_window" />
             </div>
+            {!introViz && <Intro />}
             {user.length == 0 && (
                 <img src="/loading.gif" alt="loading.." className="loading" />
             )}

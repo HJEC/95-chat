@@ -72,6 +72,12 @@ export default function reducer(state = {}, action) {
             chatMessages: action.chatMessages
         };
     }
+    if (action.type == "INTRO_VISIBILITY") {
+        state = {
+            ...state,
+            introViz: true
+        };
+    }
     if (action.type == "WINDOW_VISIBILITY") {
         if (action.windowName == "chat") {
             state = {
@@ -79,6 +85,7 @@ export default function reducer(state = {}, action) {
                 showChat: !state.showChat
             };
         }
+
         if (action.windowName == "find") {
             state = {
                 ...state,

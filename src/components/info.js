@@ -44,18 +44,3 @@ export default function Info(props) {
         />
     );
 }
-// &apos;95-chat is a love letter to Mac-OS 7. The greatest
-// operating system of all time.
-// <a href="http://jamesfriend.com.au/pce-js/pce-js-apps/">
-//     (THIS LINK
-// </a>
-// will take you to a running emulator of MAC os-7)
-// <br />
-// It was designed with the intent purpose of creating a product
-// with excruciating attention to detail.
-// <br />
-// It was manically developed using react-redux in just over 2
-// weeks by a nostalgia nerd, permanently stuck in the 90&apos;s.{" "}
-// <br />
-// <br />
-// Thanks for coming. let&apos;s chat ;)

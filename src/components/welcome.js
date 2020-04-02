@@ -5,13 +5,18 @@ import HeaderBar from "./headerBar";
 import Login from "./login";
 import Info from "./info";
 import Reset from "./reset";
+import Intro from "./introscreen";
 import { HashRouter, Route } from "react-router-dom";
 import { Pixelify } from "react-pixelify";
 
 export default function Welcome() {
     const showInfo = useSelector(state => state.showInfo);
+    const introViz = useSelector(state => state.introViz);
+
+    console.log("this is state;", introViz);
     return (
         <div className="welcome">
+            {!introViz && <Intro />}
             <div className="crt_black">
                 <div className="crt_window" />
             </div>

@@ -1,4 +1,4 @@
-import { chatMessages, postMessage } from "./actions";
+import { chatMessages, postMessage, checkIntroTime } from "./actions";
 import * as io from "socket.io-client";
 
 export let socket;
@@ -13,6 +13,9 @@ export const init = store => {
 
         socket.on("incoming message", msg => {
             store.dispatch(postMessage(msg));
+        });
+        socket.on("check intro time", time => {
+            store.dispatch(checkIntroTime(time));
         });
     }
 };

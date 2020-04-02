@@ -83,3 +83,21 @@ export function toggleWindow(name) {
         windowName: name
     };
 }
+
+export function closeIntro() {
+    return {
+        type: "INTRO_VISIBILITY"
+    };
+}
+export function checkIntroTime(serverTime) {
+    let localStorageTime = localStorage.getItem("intro_closed");
+    console.log(
+        "serverTime:",
+        serverTime,
+        "localStorageTime",
+        localStorageTime
+    );
+    return {
+        type: "CHECK_INTRO_TIME"
+    };
+}

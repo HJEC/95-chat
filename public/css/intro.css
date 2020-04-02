@@ -1,0 +1,65 @@
+/* BACKGROUND */
+.intro-wrapper {
+    position: absolute;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+}
+.bar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.enter_site {
+    position: absolute;
+    color: snow;
+    bottom: 250px;
+    left: 700px;
+}
+/* Logo Components  */
+
+#Layer_1 {
+    background-color: orange;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 150;
+}
+
+#apostrophe {
+}
+
+#nine {
+}
+
+#five {
+}
+
+/* CHAT BLACK  */
+#cb {
+}
+
+#hb {
+}
+
+#ab {
+}
+
+#tb {
+}
+
+/* CHAT GREY  */
+
+#cg {
+}
+
+#hg {
+}
+
+#ag {
+}
+
+#tg {
+}

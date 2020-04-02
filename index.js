@@ -327,6 +327,9 @@ io.on("connection", async function(socket) {
         return socket.disconnect(true);
     }
     console.log("socket id:", socket.id);
+    let logged_in_time = new Date().getMinutes();
+    console.log("intro closed:", logged_in_time);
+    io.to(socket.id).emit("check intro time", logged_in_time);
 
     const userId = socket.request.session.userId;
 
