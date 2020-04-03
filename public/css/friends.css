@@ -54,7 +54,8 @@
 .relationships {
     display: flex;
     justify-content: flex-start;
-    /* width: 100%; */
+    flex-wrap: wrap;
+    width: 85%;
     height: auto;
     margin: 10px 20px;
 }
