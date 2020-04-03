@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { socket } from "../socket.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Window from "./window";
+import { selectedUser } from "../actions";
 
 export default function Chat(props) {
+    const dispatch = useDispatch();
     let chatMessages = useSelector(state => state && state.chatMessages);
     let user = useSelector(state => state.user.id);
 
@@ -39,7 +41,11 @@ export default function Chat(props) {
                                 }
                                 key={idx}
                             >
-                                <a href={`user/${i.sender_id}`}>
+                                <div
+                                    onClick={() =>
+                                        dispatch(selectedUser(i.sender_id))
+                                    }
+                                >
                                     <img
                                         src={i.image || "/default.png"}
                                         className={
@@ -51,7 +57,7 @@ export default function Chat(props) {
                                     <p className="chat_name">
                                         {i.first} {i.last}
                                     </p>
-                                </a>
+                                </div>
                                 <p
                                     className={
                                         i.sender_id == user

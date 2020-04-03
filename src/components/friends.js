@@ -39,7 +39,8 @@ export default function Friends(props) {
         console.log("image:", image);
         let img = document.createElement("img");
         img.src = image;
-        img.className = event.dataTransfer.setDragImage(img, 0, 0);
+        img.className = "relationship_image";
+        event.dataTransfer.setDragImage(img, -50, -50);
     };
     const onDragOver = event => {
         event.preventDefault();
@@ -68,7 +69,10 @@ export default function Friends(props) {
                             dragStart(event, friend.id, friend.image)
                         }
                     >
-                        <img src={friend.image} />
+                        <img
+                            src={friend.image}
+                            className="relationship_image"
+                        />
                         <p>
                             {friend.first} {friend.last}
                         </p>
@@ -86,7 +90,10 @@ export default function Friends(props) {
                         onClick={() => dispatch(selectedUser(request.id))}
                         key={request.id}
                     >
-                        <img src={request.image} />
+                        <img
+                            src={request.image}
+                            className="relationship_image"
+                        />
                         <p>
                             {request.first} {request.last}
                         </p>
@@ -113,7 +120,10 @@ export default function Friends(props) {
                         onClick={() => dispatch(selectedUser(penders.id))}
                         key={penders.id}
                     >
-                        <img src={penders.image} />
+                        <img
+                            src={penders.image}
+                            className="relationship_image"
+                        />
                         <p>
                             {penders.first} {penders.last}
                         </p>

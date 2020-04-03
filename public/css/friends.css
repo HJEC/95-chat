@@ -72,7 +72,7 @@
     font-size: 0.7rem;
     cursor: pointer;
 }
-.relationships img {
+.relationship_image {
     cursor: pointer;
     height: 100px;
     width: 100px;
