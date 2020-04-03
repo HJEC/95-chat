@@ -34,8 +34,12 @@ export default function Friends(props) {
         dispatch(getFriendsWannabes());
     }, [friends]);
 
-    const dragStart = (event, id) => {
+    const dragStart = (event, id, image) => {
         event.dataTransfer.setData("id", id);
+        console.log("image:", image);
+        let img = document.createElement("img");
+        img.src = image;
+        img.className = event.dataTransfer.setDragImage(img, 0, 0);
     };
     const onDragOver = event => {
         event.preventDefault();
@@ -60,7 +64,9 @@ export default function Friends(props) {
                         onClick={() => dispatch(selectedUser(friend.id))}
                         key={friend.id}
                         draggable="true"
-                        onDragStart={event => dragStart(event, friend.id)}
+                        onDragStart={event =>
+                            dragStart(event, friend.id, friend.image)
+                        }
                     >
                         <img src={friend.image} />
                         <p>
