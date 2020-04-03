@@ -31,6 +31,16 @@ export function setBio(bio) {
     };
 }
 
+// FIND FRIEND ACTION
+
+export async function selectedUser(id) {
+    let selected_user = await axios.get(`/api/user/${id}`);
+    return {
+        type: "SELECTED_USER",
+        sel_user: selected_user
+    };
+}
+
 // FRIENDSHIP ACTIONS //
 
 export async function getFriendsWannabes() {
@@ -83,6 +93,8 @@ export function toggleWindow(name) {
         windowName: name
     };
 }
+
+// INTRO ANIMATION ACTIONS
 
 export function closeIntro() {
     return {

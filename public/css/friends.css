@@ -1,5 +1,4 @@
 /*  FIND FRIENDS */
-
 .find_container {
     position: relative;
     width: 95%;
@@ -131,14 +130,15 @@
 }
 
 /* OTHER PROFILE */
-.other_profile {
-    padding: 50px;
+.otherProfileImg_Request {
+    display: flex;
+    flex-direction: column;
 }
-.other_profile_left h1 {
-    margin: 20px auto;
+.otherImage {
+    margin: 15px auto;
+    border-radius: 10px;
+    box-shadow: inset 1px 1px 0 0 #fff, 6px 6px 0 rgba(0, 0, 0, 0.2);
 }
-
-.other_profile p {
-    margin: 20px 0;
-    width: 250px;
+.request_button {
+    font-size: 0.8rem;
 }

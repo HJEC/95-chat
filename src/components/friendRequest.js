@@ -25,12 +25,16 @@ export default function UseFriendRequest({ recipient, userId }) {
                 setUrl("/cancel-friendship");
             }
         })();
-    }, [friendState]);
+    }, [friendState, recipient]);
 
     async function submit() {
         const { data } = await axios.post(`${url}/${recipient}`);
         setFriendState(data.friendState);
     }
 
-    return <button onClick={submit}>{status}</button>;
+    return (
+        <button onClick={submit} className="request_button">
+            {status}
+        </button>
+    );
 }

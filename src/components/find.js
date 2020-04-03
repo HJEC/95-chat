@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Window from "./window";
 import axios from "../axios";
+import { selectedUser } from "../actions";
 
 export default function Find(props) {
+    const dispatch = useDispatch();
     const [users, setUsers] = useState([]);
     const [find, setFind] = useState("");
 
@@ -48,8 +51,8 @@ export default function Find(props) {
             <div className="friends_row">
                 {users.map((i, idx) => {
                     return (
-                        <a
-                            href={`user/${i.id}`}
+                        <div
+                            onClick={() => dispatch(selectedUser(i.id))}
                             key={idx}
                             className="individual_friend_block"
                         >
@@ -62,7 +65,7 @@ export default function Find(props) {
                                     {i.first} {i.last}
                                 </p>
                             </div>
-                        </a>
+                        </div>
                     );
                 })}
             </div>

@@ -26,11 +26,14 @@ export default function App() {
     const showInfo = useSelector(state => state.showInfo);
     const showProfile = useSelector(state => state.showProfile);
     const showUpload = useSelector(state => state.showUpload);
+    const showSelected = useSelector(state => state.showSelected);
+    const setTop = useSelector(state => state.setTop);
     const [topWindow, setTopWindow] = useState();
 
     useEffect(() => {
         dispatch(setUserId());
-    }, []);
+        setTopWindow(setTop);
+    }, [setTop]);
 
     const detectWindow = e => {
         setTopWindow(e);
@@ -52,21 +55,22 @@ export default function App() {
                 <UserImage user={user} />
 
                 <Route
-                    path="/user/:id"
-                    render={props => (
-                        <OtherProfile
-                            userId={user.id}
-                            history={props.history}
-                            match={props.match}
-                        />
-                    )}
-                />
-                <Route
                     path="/friends"
                     render={() => <Friends userId={user.id} />}
                 />
             </div>
 
+            {showSelected && (
+                <OtherProfile
+                    userId={user.id}
+                    setIndex={e => detectWindow(e)}
+                    classThing={
+                        topWindow == "selected"
+                            ? "window_outer front"
+                            : "window_outer"
+                    }
+                />
+            )}
             {showProfile && (
                 <Profile
                     first={user.first}

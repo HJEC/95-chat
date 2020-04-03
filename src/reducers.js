@@ -33,6 +33,7 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    // FRIENDSHIP STATE REDUX ACTIONS
     if (action.type == "GET_FRIENDS_WANNABES") {
         //something
         state = {
@@ -60,6 +61,8 @@ export default function reducer(state = {}, action) {
             friends: state.friends.filter(i => i.id !== action.id)
         };
     }
+
+    // CHAT MESSAGE REDUX ACTIONS
     if (action.type == "POST_MESSAGE") {
         state = {
             ...state,
@@ -72,38 +75,61 @@ export default function reducer(state = {}, action) {
             chatMessages: action.chatMessages
         };
     }
+
+    // MODAL WINDOW REDUX ACTIONS
+
     if (action.type == "WINDOW_VISIBILITY") {
         if (action.windowName == "chat") {
             state = {
                 ...state,
-                showChat: !state.showChat
+                showChat: !state.showChat,
+                setTop: "chat"
             };
         }
 
         if (action.windowName == "find") {
             state = {
                 ...state,
-                showFinder: !state.showFinder
+                showFinder: !state.showFinder,
+                setTop: "find"
             };
         }
         if (action.windowName == "info") {
             state = {
                 ...state,
-                showInfo: !state.showInfo
+                showInfo: !state.showInfo,
+                setTop: "info"
             };
         }
         if (action.windowName == "profile") {
             state = {
                 ...state,
-                showProfile: !state.showProfile
+                showProfile: !state.showProfile,
+                setTop: "profile"
             };
         }
         if (action.windowName == "upload") {
             state = {
                 ...state,
-                showUpload: !state.showUpload
+                showUpload: !state.showUpload,
+                setTop: "upload"
             };
         }
+        if (action.windowName == "selected") {
+            state = {
+                ...state,
+                showSelected: !state.showSelected,
+                setTop: "selected"
+            };
+        }
+    }
+    if (action.type == "SELECTED_USER") {
+        state = {
+            ...state,
+            sel_user: action.sel_user,
+            showSelected: true,
+            setTop: "selected"
+        };
     }
     // SET INTRO SCREEN VISIBILITY
     if (action.type == "HIDE_INTRO") {

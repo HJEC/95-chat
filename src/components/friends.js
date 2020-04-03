@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     getFriendsWannabes,
     acceptFriendship,
-    endFriendship
+    endFriendship,
+    selectedUser
 } from "../actions";
 
 export default function Friends(props) {
@@ -55,8 +56,8 @@ export default function Friends(props) {
         <div className="relationships">
             {friends.map(friend => (
                 <div className="friend" key={friend.id}>
-                    <a
-                        href={`/user/${friend.id}`}
+                    <div
+                        onClick={() => dispatch(selectedUser(friend.id))}
                         key={friend.id}
                         draggable="true"
                         onDragStart={event => dragStart(event, friend.id)}
@@ -65,7 +66,7 @@ export default function Friends(props) {
                         <p>
                             {friend.first} {friend.last}
                         </p>
-                    </a>
+                    </div>
                 </div>
             ))}
         </div>
@@ -75,12 +76,15 @@ export default function Friends(props) {
         <div className="relationships">
             {requests.map(request => (
                 <div className="request" key={request.id}>
-                    <a href={`/user/${request.id}`} key={request.id}>
+                    <div
+                        onClick={() => dispatch(selectedUser(request.id))}
+                        key={request.id}
+                    >
                         <img src={request.image} />
                         <p>
                             {request.first} {request.last}
                         </p>
-                    </a>
+                    </div>
                     <div className="end">
                         <button
                             onClick={() =>
@@ -99,12 +103,15 @@ export default function Friends(props) {
         <div className="relationships">
             {penders.map(penders => (
                 <div className="friend" key={penders.id}>
-                    <a href={`/user/${penders.id}`} key={penders.id}>
+                    <div
+                        onClick={() => dispatch(selectedUser(penders.id))}
+                        key={penders.id}
+                    >
                         <img src={penders.image} />
                         <p>
                             {penders.first} {penders.last}
                         </p>
-                    </a>
+                    </div>
                     <div className="end">
                         <button
                             onClick={() => dispatch(endFriendship(penders.id))}

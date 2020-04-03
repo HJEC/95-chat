@@ -36,6 +36,7 @@ export default function Uploader(props) {
             default={{ x: 185, y: 220, width: 500, height: 300 }}
             windowName="upload"
             setIndex={props.setIndex}
+            classThing={props.classThing}
         />
     );
 }

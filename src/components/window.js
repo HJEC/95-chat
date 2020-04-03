@@ -25,8 +25,8 @@ export default function Window(props) {
         <Rnd
             default={props.default}
             minWidth={!width ? 500 : 800}
-            minHeight={!height ? 350 : 550}
-            className={props.classThing ? props.classThing : "window_outer"}
+            minHeight={!height ? 425 : 550}
+            className={props.classThing}
             resizeGrid={[25, 25]}
             dragHandleClassName="handle"
             enableResizing={{
