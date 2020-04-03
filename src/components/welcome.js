@@ -13,7 +13,6 @@ export default function Welcome() {
     const showInfo = useSelector(state => state.showInfo);
     const introViz = useSelector(state => state.introViz);
 
-    console.log("this is state;", introViz);
     return (
         <div className="welcome">
             {!introViz && <Intro />}

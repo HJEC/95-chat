@@ -72,12 +72,6 @@ export default function reducer(state = {}, action) {
             chatMessages: action.chatMessages
         };
     }
-    if (action.type == "INTRO_VISIBILITY") {
-        state = {
-            ...state,
-            introViz: true
-        };
-    }
     if (action.type == "WINDOW_VISIBILITY") {
         if (action.windowName == "chat") {
             state = {
@@ -111,5 +105,13 @@ export default function reducer(state = {}, action) {
             };
         }
     }
+    // SET INTRO SCREEN VISIBILITY
+    if (action.type == "HIDE_INTRO") {
+        state = {
+            ...state,
+            introViz: true
+        };
+    }
+
     return state;
 }

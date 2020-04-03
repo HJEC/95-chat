@@ -86,7 +86,7 @@ export function toggleWindow(name) {
 
 export function closeIntro() {
     return {
-        type: "INTRO_VISIBILITY"
+        type: "HIDE_INTRO"
     };
 }
 export function checkIntroTime(serverTime) {
@@ -97,7 +97,13 @@ export function checkIntroTime(serverTime) {
         "localStorageTime",
         localStorageTime
     );
-    return {
-        type: "CHECK_INTRO_TIME"
-    };
+    if (serverTime - localStorageTime > 1) {
+        return {
+            type: "SHOW_INTRO"
+        };
+    } else {
+        return {
+            type: "HIDE_INTRO"
+        };
+    }
 }
