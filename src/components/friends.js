@@ -37,9 +37,9 @@ export default function Friends(props) {
     const dragStart = (event, id, image) => {
         event.dataTransfer.setData("id", id);
         console.log("image:", image);
-        let img = document.createElement("img");
+        let img = new Image();
         img.src = image;
-        img.className = "relationship_image";
+        img.classList.add("relationship_image");
         event.dataTransfer.setDragImage(img, -50, -50);
     };
     const onDragOver = event => {
