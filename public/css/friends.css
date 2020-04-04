@@ -40,9 +40,6 @@
     border: 2px dotted #000;
 }
 
-.find_container p {
-}
-
 /*  FRIENDSHIPS PAGE */
 
 .friendship_screen {
@@ -57,7 +54,7 @@
     flex-wrap: wrap;
     width: 85%;
     height: auto;
-    margin: 10px 20px;
+    margin: 0px 20px;
 }
 .friend {
     display: flex;

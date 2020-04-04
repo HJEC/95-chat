@@ -54,6 +54,13 @@ export async function getFriendsWannabes() {
     };
 }
 
+export function setRequestState(state) {
+    return {
+        type: "UPDATE_REQUEST_STATE",
+        requestState: state
+    };
+}
+
 export async function acceptFriendship(id) {
     await axios.post("/accept-friendship/" + id);
     return {

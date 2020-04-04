@@ -15,6 +15,8 @@ export default function Info(props) {
                 <a
                     href="http://jamesfriend.com.au/pce-js/pce-js-apps/"
                     className="info_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     THIS LINK
                 </a>

@@ -207,19 +207,17 @@ app.get("/is-friend/:friend", async (req, res) => {
 
 app.post("/request-friendship/:friend", async (req, res) => {
     await requestFriendship(req.session.userId, req.params.friend);
-    res.json({ friendState: "requested" });
+    res.json({ requestState: "requested" });
 });
 
 app.post("/cancel-friendship/:friend", async (req, res) => {
     await cancelFriendship(req.session.userId, req.params.friend);
-    res.json({ friendState: "cancelled" });
+    res.json({ requestState: "cancelled" });
 });
 
 app.post("/accept-friendship/:friend", async (req, res) => {
-    let sender = req.params.friend,
-        recipient = req.session.userId;
-    await acceptFriendship(sender, recipient);
-    res.json({ friendState: "accepted" });
+    await acceptFriendship(req.params.friend, req.session.userId);
+    res.json({ requestState: "accepted" });
 });
 
 //          FRIENDSHIPS          //

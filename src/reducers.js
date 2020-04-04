@@ -35,15 +35,22 @@ export default function reducer(state = {}, action) {
 
     // FRIENDSHIP STATE REDUX ACTIONS
     if (action.type == "GET_FRIENDS_WANNABES") {
-        //something
         state = {
             ...state,
-            friends: action.friends
+            friends: action.friends,
+            friendshipState: true
+        };
+    }
+    if (action.type == "UPDATE_REQUEST_STATE") {
+        state = {
+            ...state,
+            requestState: action.requestState
         };
     }
     if (action.type == "ACCEPT_FRIENDSHIP") {
         state = {
             ...state,
+            friendshipState: !state.friendshipState,
             friends: state.friends.map(i => {
                 if (i.id == action.id) {
                     return {
@@ -58,7 +65,8 @@ export default function reducer(state = {}, action) {
     if (action.type == "END_FRIENDSHIP") {
         state = {
             ...state,
-            friends: state.friends.filter(i => i.id !== action.id)
+            friends: state.friends.filter(i => i.id !== action.id),
+            friendshipState: !state.friendshipState
         };
     }
 

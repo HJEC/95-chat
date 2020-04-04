@@ -9,6 +9,8 @@ import {
 
 export default function Friends(props) {
     const dispatch = useDispatch();
+    const friendshipState = useSelector(state => state.friendshipState);
+    const requestState = useSelector(state => state.requestState);
     const friends = useSelector(
         state =>
             state.friends && state.friends.filter(friend => friend.accepted)
@@ -31,8 +33,9 @@ export default function Friends(props) {
     );
 
     useEffect(() => {
+        console.log("changed!");
         dispatch(getFriendsWannabes());
-    }, [friends]);
+    }, [friendshipState, requestState]);
 
     const dragStart = (event, id, image) => {
         event.dataTransfer.setData("id", id);

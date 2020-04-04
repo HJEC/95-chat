@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setRequestState } from "../actions";
 import axios from "../axios";
 
 export default function UseFriendRequest({ recipient, userId }) {
+    const dispatch = useDispatch();
     const [status, setStatus] = useState();
     const [url, setUrl] = useState();
-    const [friendState, setFriendState] = useState("");
+    const requestState = useSelector(state => state.requestState);
+    // const [friendState, setFriendState] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -25,11 +29,11 @@ export default function UseFriendRequest({ recipient, userId }) {
                 setUrl("/cancel-friendship");
             }
         })();
-    }, [friendState, recipient]);
+    }, [requestState, recipient]);
 
     async function submit() {
         const { data } = await axios.post(`${url}/${recipient}`);
-        setFriendState(data.friendState);
+        dispatch(setRequestState(data.requestState));
     }
 
     return (

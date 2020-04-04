@@ -141,6 +141,7 @@ header {
 }
 .info_link {
     font-size: 0.7rem;
+    cursor: pointer;
 }
 .info_body {
     max-width: 375px;

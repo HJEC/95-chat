@@ -28,6 +28,7 @@ export default function Window(props) {
             minHeight={!height ? 425 : 550}
             className={props.classThing}
             resizeGrid={[25, 25]}
+            bounds={"parent"}
             dragHandleClassName="handle"
             enableResizing={{
                 top: false,
