@@ -146,6 +146,12 @@ export default function reducer(state = {}, action) {
             introViz: true
         };
     }
+    if (action.type == "SHOW_INTRO") {
+        state = {
+            ...state,
+            introViz: false
+        };
+    }
 
     return state;
 }

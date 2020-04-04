@@ -26,7 +26,9 @@ export default function Window(props) {
             default={props.default}
             minWidth={!width ? 500 : 800}
             minHeight={!height ? 425 : 550}
-            className={props.classThing}
+            className={
+                props.classThing ? props.classThing : "window_outer front"
+            }
             resizeGrid={[25, 25]}
             bounds={"parent"}
             dragHandleClassName="handle"

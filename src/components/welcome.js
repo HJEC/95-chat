@@ -16,6 +16,7 @@ export default function Welcome() {
     return (
         <div className="welcome">
             {!introViz && <Intro />}
+            {showInfo && <Info setIndex={() => {}} />}
             <div className="crt_black">
                 <div className="crt_window" />
             </div>
@@ -29,13 +30,10 @@ export default function Welcome() {
                     width={280}
                     height={170}
                 />
-                {showInfo && <Info />}
                 <HashRouter>
-                    <div className="">
-                        <Route exact path="/" component={Registration} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/reset" component={Reset} />
-                    </div>
+                    <Route exact path="/" component={Registration} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/reset" component={Reset} />
                 </HashRouter>
             </div>
         </div>

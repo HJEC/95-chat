@@ -4,6 +4,10 @@
     justify-content: center;
     height: 100vh;
 }
+.route_container {
+    width: 100%;
+    height: 100%;
+}
 
 #chat_logo {
     height: 300px;

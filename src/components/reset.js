@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../axios";
+import { Link } from "react-router-dom";
 
 export default class Reset extends React.Component {
     constructor(props) {
@@ -63,7 +64,7 @@ export default class Reset extends React.Component {
                     <button onClick={() => this.checkEmail()}>
                         reset password
                     </button>
-                    <a href="/register">go back to register</a>
+                    <Link to="/">go back to register</Link>
                 </div>
             );
         } else if (step == 2) {
@@ -87,7 +88,7 @@ export default class Reset extends React.Component {
                     <button onClick={() => this.resetPassword()}>
                         reset password
                     </button>
-                    <a href="/login">go back to register</a>
+                    <Link to="/">go back to register</Link>
                 </div>
             );
         } else if (step == 3) {
@@ -98,7 +99,7 @@ export default class Reset extends React.Component {
                     <p>
                         You can now{" "}
                         <span>
-                            <a href="/login">log in</a>
+                            <Link to="/login">log in</Link>
                         </span>{" "}
                         with your new password
                     </p>
@@ -109,13 +110,13 @@ export default class Reset extends React.Component {
     render() {
         return (
             <div className="reset">
+                <h1>Reset Password</h1>
+                {this.resetScreen(this.state.step)}
                 {this.state.error && (
                     <div className="error">
                         Something went wrong. Please try again.
                     </div>
                 )}
-                <h1>Reset Password</h1>
-                {this.resetScreen(this.state.step)}
             </div>
         );
     }
