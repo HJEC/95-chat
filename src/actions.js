@@ -10,6 +10,7 @@ export async function setUserId() {
             id: data.id,
             first: data.first,
             last: data.last,
+            email: data.email,
             image: data.image,
             bio: data.bio
         }

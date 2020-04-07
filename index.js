@@ -16,6 +16,7 @@ const cookieSession = require("cookie-session"),
 // FUNCTIONS //
 const {
     addUser,
+    deleteAccount,
     updateImage,
     updateBio,
     getUser,
@@ -159,11 +160,26 @@ app.get("/user", async (req, res) => {
             first: rows[0].first,
             last: rows[0].last,
             id: rows[0].id,
+            email: req.session.email,
             image: rows[0].image || "/default.jpg",
             bio: rows[0].bio
         });
     } catch (err) {
         console.log("failed to get user on app load", err);
+    }
+});
+// DELETE USER ACCOUNT //
+app.post("/delete-account", async (req, res) => {
+    let email = req.session.email;
+    console.log("email is: ", email);
+    try {
+        let { data } = await deleteAccount(email);
+        console.log("delete result: ", data);
+        req.session = null;
+        res.json({ success: data.success });
+    } catch (err) {
+        console.log("failed to delete account:", err);
+        res.json({ success: false });
     }
 });
 

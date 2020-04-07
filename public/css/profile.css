@@ -58,12 +58,12 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIUlEQVQYV2
 }
 
 .profile_form p {
-    margin: 0px 0px 15px 0px;
+    margin: 0px;
     width: 100%;
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-    padding: 2px;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+    padding: 5px;
 }
 .delete_button {
     font-size: 0.7rem;

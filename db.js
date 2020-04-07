@@ -14,6 +14,14 @@ exports.addUser = (first, last, email, password) => {
         )
         .then(({ rows }) => rows);
 };
+// DELETE USER ACCOUNT
+exports.deleteAccount = email => {
+    return db.query(
+        `DELETE FROM users
+        WHERE email = $1`,
+        [email]
+    );
+};
 // UPDATE USER PROFILE IMAGE
 exports.updateImage = (image, email) => {
     return db
