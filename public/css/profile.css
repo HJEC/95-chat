@@ -50,6 +50,27 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIUlEQVQYV2
     margin: 15px;
 }
 
+/* PROFILE LEFT-SIDE FORM */
+.profile_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile_form p {
+    margin: 0px 0px 15px 0px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    padding: 2px;
+}
+.delete_button {
+    font-size: 0.7rem;
+    margin: 0px auto;
+    max-height: 35px;
+}
+
 .profile_info button {
     font-size: 0.7rem;
     position: absolute;

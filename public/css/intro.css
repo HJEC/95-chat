@@ -20,34 +20,48 @@
 }
 /* Logo Components  */
 
+.intro_big {
+}
+.chat_black {
+}
+.chat_grey {
+}
 #Layer_1 {
     background-color: orange;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 30%;
+    top: 20%;
     z-index: 150;
+    transform: scale(2.5);
 }
 
 #apostrophe {
+    fill: #fffafa;
 }
 
 #nine {
+    fill: #fffafa;
 }
 
 #five {
+    fill: #fffafa;
 }
 
 /* CHAT BLACK  */
 #cb {
+    fill: #e7e1e1;
 }
 
 #hb {
+    fill: #e7e1e1;
 }
 
 #ab {
+    fill: #e7e1e1;
 }
 
 #tb {
+    fill: #e0e0e0;
 }
 
 /* CHAT GREY  */
