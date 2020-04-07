@@ -13,30 +13,40 @@ export default function Profile({
     classThing
 }) {
     const [checkedState, setCheckedState] = useState(false);
+    const [disclaimer, setDisclaimer] = useState(false);
+
     async function deleteAccount() {
-        setCheckedState(true);
-        let result = window.confirm(
-            "Are you sure you want to delete your account?"
-        );
-        if (result == true) {
-            let delete_result = await axios.post("/delete-account");
-            console.log("delete result:", delete_result);
-            if (delete_result.success) {
-                window.alert(
-                    "Your account has been deleted. You will now be redirected to the registration page."
-                );
-                console.log("state:", checkedState);
-                setTimeout(() => {
-                    location.replace("/");
-                }, 1000);
-            }
+        let { data } = await axios.post("/delete-account");
+        if (data.success) {
+            setDisclaimer(2);
+            setTimeout(() => {
+                location.replace("/");
+            }, 1000);
         } else {
-            console.log("after", checkedState);
             setCheckedState(false);
+            setDisclaimer(false);
         }
     }
+
+    const disclaimerComponent = (
+        <div className="disclaimer_wrapper">
+            {disclaimer == 1 ? (
+                <div>
+                    <p>Are you sure you want to delete your account?</p>
+                    <button onClick={() => deleteAccount()}>Yes</button>
+                    <button onClick={() => setDisclaimer(false)}>cancel</button>
+                </div>
+            ) : (
+                <p>
+                    You are now being redirected back to the registration page
+                </p>
+            )}
+        </div>
+    );
+
     const profileComponent = (
         <div className="profileEditor">
+            {disclaimer && disclaimerComponent}
             <div className="pic_wrapper">
                 <div className="profile_form">
                     {profilePic}
@@ -45,7 +55,7 @@ export default function Profile({
                         <input
                             type="checkbox"
                             name="delete_checkbox"
-                            onChange={() => deleteAccount()}
+                            onChange={() => setDisclaimer(1)}
                             checked={checkedState}
                         />
                     </p>

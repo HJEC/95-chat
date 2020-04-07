@@ -171,12 +171,11 @@ app.get("/user", async (req, res) => {
 // DELETE USER ACCOUNT //
 app.post("/delete-account", async (req, res) => {
     let email = req.session.email;
-    console.log("email is: ", email);
     try {
-        let { data } = await deleteAccount(email);
-        console.log("delete result: ", data);
-        req.session = null;
-        res.json({ success: data.success });
+        deleteAccount(email).then(() => {
+            req.session = null;
+            res.json({ success: true });
+        });
     } catch (err) {
         console.log("failed to delete account:", err);
         res.json({ success: false });
