@@ -10,13 +10,16 @@
     width: 100%;
     height: 100%;
     background-color: black;
+    pointer-events: none;
 }
 
 .enter_site {
+    visibility: hidden;
     position: absolute;
     color: snow;
     bottom: 250px;
     left: 700px;
+    pointer-events: none;
 }
 /* Logo Components  */
 
@@ -27,12 +30,12 @@
 .chat_grey {
 }
 #Layer_1 {
-    background-color: orange;
+    /* background-color: orange;
     position: absolute;
-    left: 30%;
-    top: 20%;
+    left: 45%;
+    top: 30%;
     z-index: 150;
-    transform: scale(2.5);
+    transform: scale(2.5); */
 }
 
 #apostrophe {
@@ -76,4 +79,38 @@
 }
 
 #tg {
+}
+
+/* INTRO TEXT */
+
+.intro_text_wrapper {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    color: rgb(224, 254, 255);
+    z-index: 151;
+    width: 900px;
+    line-height: 25px;
+}
+#typeIt,
+#filled_text {
+    font-size: 1.25rem;
+    font-family: "MorePerfectDOSVGA";
+}
+
+#filled_text {
+    background-color: rgb(224, 254, 255);
+    color: #000;
+}
+
+#ascii,
+pre {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    font-size: 1rem;
+    font-family: "MorePerfectDOSVGA";
+    color: rgb(224, 254, 255);
+    line-height: 20px;
+    white-space: pre;
 }

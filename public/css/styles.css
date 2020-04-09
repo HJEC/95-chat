@@ -9,6 +9,10 @@
     font-family: "chicagoFLF";
     src: url("/fonts/ChicagoFLF.ttf") format("woff");
 }
+@font-face {
+    font-family: "MorePerfectDOSVGA";
+    src: url("/fonts/MorePerfectDOSVGA.ttf") format("woff");
+}
 main {
     min-height: 100vh;
     height: 100%;
