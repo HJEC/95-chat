@@ -110,7 +110,11 @@ export default function IntroText() {
                             )
                             .empty()
                             .exec(() => {
-                                setAscii(true), setLocation(false);
+                                setAscii(true),
+                                    setLocation(false),
+                                    setTimeout(() => {
+                                        setChat(true);
+                                    }, 4900);
                             });
                         return instance;
                     }}
@@ -144,9 +148,7 @@ export default function IntroText() {
                             nextStringDelay: 1
                         }}
                         getBeforeInit={instance => {
-                            instance.type(ascii95).exec(() => {
-                                setChat(true);
-                            });
+                            instance.type(ascii95);
                             return instance;
                         }}
                     ></TypeIt>
