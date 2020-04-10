@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import TypeIt from "typeit-react";
 import axios from "../axios";
-const asciiLogo = require("../../public/ascii");
+// const ascii = require("../../public/ascii");
+const ascii95 = require("../../public/ascii95");
+const ascii_chat = require("../../public/ascii_chat");
 
 export default function IntroText() {
     const [widthHeight, setWidthHeight] = useState("1920 x 1080");
     const [location, setLocation] = useState();
     const [ascii, setAscii] = useState(false);
+    const [chat, setChat] = useState(false);
     let dateText = new Date();
     const fillText = string => {
         return `<span id="filled_text">${string}</span>`;
@@ -74,7 +77,11 @@ export default function IntroText() {
                                 fillText(
                                     dateText.toLocaleTimeString() +
                                         " " +
-                                        fillText(dateText.toLocaleDateString())
+                                        fillText(
+                                            dateText
+                                                .toLocaleDateString()
+                                                .slice(0, 6) + "1995"
+                                        )
                                 )
                             )
                             .break()
@@ -121,7 +128,7 @@ export default function IntroText() {
                         }}
                         getBeforeInit={instance => {
                             instance.type(
-                                "Welcome to ...<br /> <br/> <br/> <br/>"
+                                "Welcome to: <br /> <br/> <br/> <br/>"
                             );
                             return instance;
                         }}
@@ -133,13 +140,32 @@ export default function IntroText() {
                             speed: 1,
                             lifeLike: false,
                             cursor: false,
-                            html: true
+                            html: true,
+                            nextStringDelay: 1
                         }}
                         getBeforeInit={instance => {
-                            instance.type(asciiLogo);
+                            instance.type(ascii95).exec(() => {
+                                setChat(true);
+                            });
                             return instance;
                         }}
                     ></TypeIt>
+                    {chat && (
+                        <TypeIt
+                            id="ascii"
+                            options={{
+                                speed: 1,
+                                lifeLike: false,
+                                cursor: false,
+                                html: true,
+                                nextStringDelay: 1
+                            }}
+                            getBeforeInit={instance => {
+                                instance.type(ascii_chat);
+                                return instance;
+                            }}
+                        ></TypeIt>
+                    )}
                 </div>
             )}
         </div>

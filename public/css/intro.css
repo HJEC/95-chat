@@ -103,14 +103,20 @@
     color: #000;
 }
 
-#ascii,
 pre {
     position: absolute;
-    top: 30%;
-    left: 40%;
     font-size: 1rem;
     font-family: "MorePerfectDOSVGA";
     color: rgb(224, 254, 255);
     line-height: 20px;
-    white-space: pre;
+}
+
+#ascii95 {
+    top: 30%;
+    left: 40%;
+}
+#ascii_chat {
+    position: absolute;
+    top: 450px;
+    left: 650px;
 }
