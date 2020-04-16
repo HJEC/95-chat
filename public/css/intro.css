@@ -4,6 +4,7 @@
     z-index: 110;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 .bar {
     position: absolute;
@@ -13,14 +14,78 @@
     pointer-events: none;
 }
 
-.enter_site {
+/* INTRO TEXT */
+
+.intro_text_wrapper {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    color: rgb(224, 254, 255);
+    z-index: 151;
+    width: 900px;
+    line-height: 25px;
+}
+#typeIt,
+#filled_text {
+    font-size: 1.25rem;
+    font-family: "MorePerfectDOSVGA";
+}
+
+#filled_text {
+    background-color: rgb(224, 254, 255);
+    color: #000;
+}
+
+pre {
+    position: absolute;
+    font-size: 1rem;
+    font-family: "MorePerfectDOSVGA";
+    color: rgb(224, 254, 255);
+    line-height: 20px;
+}
+
+#ascii95 {
+    top: 30%;
+    left: 40%;
+}
+#ascii_chat {
+    position: absolute;
+    top: 450px;
+    left: 650px;
+}
+
+/* SCREEN FLASH */
+
+.flash {
+    position: absolute;
     visibility: hidden;
+    left: 50%;
+    top: 50%;
+    width: 25px;
+    height: 25px;
+    z-index: 250;
+    border-radius: 100px;
+    background-color: #e8e8e8;
+    box-shadow: 0 0 100px 0 #e8e8e8;
+    animation: flash 2s 1 ease-in-out;
+}
+
+@keyframes flash {
+    50% {
+        visibility: visible;
+        transform: scale(100);
+    }
+}
+
+.enter_site {
+    /* visibility: hidden; */
     position: absolute;
     color: snow;
     bottom: 250px;
     left: 700px;
     pointer-events: none;
 }
+
 /* Logo Components  */
 
 .intro_big {
@@ -30,12 +95,12 @@
 .chat_grey {
 }
 #Layer_1 {
-    /* background-color: orange;
+    background-color: orange;
     position: absolute;
     left: 45%;
     top: 30%;
     z-index: 150;
-    transform: scale(2.5); */
+    transform: scale(2.5);
 }
 
 #apostrophe {
@@ -79,44 +144,4 @@
 }
 
 #tg {
-}
-
-/* INTRO TEXT */
-
-.intro_text_wrapper {
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    color: rgb(224, 254, 255);
-    z-index: 151;
-    width: 900px;
-    line-height: 25px;
-}
-#typeIt,
-#filled_text {
-    font-size: 1.25rem;
-    font-family: "MorePerfectDOSVGA";
-}
-
-#filled_text {
-    background-color: rgb(224, 254, 255);
-    color: #000;
-}
-
-pre {
-    position: absolute;
-    font-size: 1rem;
-    font-family: "MorePerfectDOSVGA";
-    color: rgb(224, 254, 255);
-    line-height: 20px;
-}
-
-#ascii95 {
-    top: 30%;
-    left: 40%;
-}
-#ascii_chat {
-    position: absolute;
-    top: 450px;
-    left: 650px;
 }

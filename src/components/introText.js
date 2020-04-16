@@ -5,7 +5,7 @@ import axios from "../axios";
 const ascii95 = require("../../public/ascii95");
 const ascii_chat = require("../../public/ascii_chat");
 
-export default function IntroText() {
+export default function IntroText({ changeIntro }) {
     const [widthHeight, setWidthHeight] = useState("1920 x 1080");
     const [location, setLocation] = useState();
     const [ascii, setAscii] = useState(false);
@@ -85,15 +85,19 @@ export default function IntroText() {
                                 )
                             )
                             .break()
-                            .type("Fetching location:  ")
-                            .type(" ...", {
-                                speed: 100,
-                                delay: 300
+                            .type("Fetching location  ")
+                            .type(" ....", {
+                                speed: 200,
+                                delay: 300,
+                                cursor: false
                             })
-                            .type(" ...", {
-                                speed: 100,
-                                delay: 300
+                            .delete(5)
+                            .type(" ....", {
+                                speed: 200,
+                                delay: 300,
+                                cursor: false
                             })
+                            .delete(5, { delay: 200 })
                             .type("<br/> <br />")
                             .type(fillText(location.country + "<br/>"), {
                                 speed: 50
@@ -163,7 +167,10 @@ export default function IntroText() {
                                 nextStringDelay: 1
                             }}
                             getBeforeInit={instance => {
-                                instance.type(ascii_chat);
+                                instance
+                                    .type(ascii_chat)
+                                    .pause(2000)
+                                    .exec(async () => changeIntro());
                                 return instance;
                             }}
                         ></TypeIt>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "./Logo.js";
 import { useDispatch } from "react-redux";
 import { closeIntro } from "../actions";
@@ -6,6 +6,8 @@ import IntroText from "./introText";
 
 export default function Intro() {
     const dispatch = useDispatch();
+    const [flash, setFlash] = useState(false);
+    const [swapLogo, setSwapLogo] = useState(false);
 
     const close = () => {
         // dispatch(closeIntro());
@@ -19,12 +21,26 @@ export default function Intro() {
                 close();
             }}
         >
-            <IntroText />
+            {!swapLogo && (
+                <IntroText
+                    changeIntro={() => {
+                        setFlash(true);
+                        setTimeout(() => {
+                            setSwapLogo(true);
+                        }, 1000);
+                    }}
+                />
+            )}
             <div className="bar"></div>
-            <Logo />
-            <h5 className="enter_site">
-                Click anywhere or press a key to enter &apos;95-chat.
-            </h5>
+            {flash && <div className="flash"></div>}
+            {swapLogo && (
+                <div>
+                    <Logo />
+                    <h5 className="enter_site">
+                        Click anywhere or press a key to enter &apos;95-chat.
+                    </h5>
+                </div>
+            )}
         </div>
     );
 }
