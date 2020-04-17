@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Logo from "./Logo.js";
 import { useDispatch } from "react-redux";
 import { closeIntro } from "../actions";
 import IntroText from "./introText";
-
 export default function Intro() {
     const dispatch = useDispatch();
     const [flash, setFlash] = useState(false);
     const [swapLogo, setSwapLogo] = useState(false);
 
     const close = () => {
-        // dispatch(closeIntro());
+        dispatch(closeIntro());
         let time = new Date().getMinutes();
         localStorage.setItem("intro_closed", time);
     };
@@ -21,6 +20,7 @@ export default function Intro() {
                 close();
             }}
         >
+            <audio src="/boot_sequence.mp3" autoPlay></audio>
             {!swapLogo && (
                 <IntroText
                     changeIntro={() => {
@@ -34,11 +34,14 @@ export default function Intro() {
             <div className="bar"></div>
             {flash && <div className="flash"></div>}
             {swapLogo && (
-                <div>
+                <div className="logo_wrapper">
                     <Logo />
-                    <h5 className="enter_site">
-                        Click anywhere or press a key to enter &apos;95-chat.
-                    </h5>
+                    <div className="star_wrapper">
+                        <h1 id="star_text">2.0!</h1>
+                        <img src="/svgs/intro/red_star.png" id="red_star" />
+                    </div>
+                    <img src="/svgs/intro/sun.svg" id="orange_sun" />
+                    <h5 className="enter_site">Click to enter</h5>
                 </div>
             )}
         </div>

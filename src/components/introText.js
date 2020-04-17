@@ -39,6 +39,7 @@ export default function IntroText({ changeIntro }) {
                     getBeforeInit={instance => {
                         instance
                             .type("PREBOOT... <br /> <br/>", { speed: 10 })
+                            .exec(async () => changeIntro())
                             .type(
                                 "Video initializing... OSD_LAYER_INIT <br/>",
                                 {
@@ -118,7 +119,7 @@ export default function IntroText({ changeIntro }) {
                                     setLocation(false),
                                     setTimeout(() => {
                                         setChat(true);
-                                    }, 4900);
+                                    }, 5000);
                             });
                         return instance;
                     }}

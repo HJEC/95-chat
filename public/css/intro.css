@@ -21,7 +21,7 @@
     top: 100px;
     left: 50px;
     color: rgb(224, 254, 255);
-    z-index: 151;
+    z-index: 140;
     width: 900px;
     line-height: 25px;
 }
@@ -38,20 +38,20 @@
 
 pre {
     position: absolute;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-family: "MorePerfectDOSVGA";
     color: rgb(224, 254, 255);
-    line-height: 20px;
+    line-height: 15px;
 }
 
 #ascii95 {
-    top: 30%;
-    left: 40%;
+    top: 50px;
+    left: 450px;
 }
 #ascii_chat {
     position: absolute;
-    top: 450px;
-    left: 650px;
+    top: 350px;
+    left: 675px;
 }
 
 /* SCREEN FLASH */
@@ -67,81 +67,174 @@ pre {
     border-radius: 100px;
     background-color: #e8e8e8;
     box-shadow: 0 0 100px 0 #e8e8e8;
-    animation: flash 2s 1 ease-in-out;
+    animation: flash 1.5s 1 ease-in-out;
 }
 
 @keyframes flash {
-    50% {
+    0% {
         visibility: visible;
-        transform: scale(100);
+    }
+    50% {
+        transform: scale(120);
     }
 }
 
 .enter_site {
-    /* visibility: hidden; */
     position: absolute;
     color: snow;
-    bottom: 250px;
-    left: 700px;
+    bottom: 125px;
+    left: 750px;
+    font-size: 1.25rem;
     pointer-events: none;
 }
 
 /* Logo Components  */
 
-.intro_big {
-}
-.chat_black {
-}
-.chat_grey {
-}
 #Layer_1 {
-    background-color: orange;
     position: absolute;
-    left: 45%;
-    top: 30%;
+    top: 300px;
+    left: 750px;
     z-index: 150;
     transform: scale(2.5);
 }
 
+/* big letters  */
 #apostrophe {
-    fill: #fffafa;
+    animation-delay: 0.2s;
+    fill: none;
 }
-
 #nine {
-    fill: #fffafa;
+    animation-delay: 0.4s;
+    fill: none;
+}
+#five {
+    animation-delay: 0.6s;
+    fill: none;
+}
+.big_letter {
+    animation: big_letter_stroke 3s linear infinite;
+    stroke: #fffafa;
+    stroke-width: 1;
+    stroke-dasharray: 1.5 1.5;
 }
 
-#five {
-    fill: #fffafa;
+@keyframes big_letter_stroke {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dashoffset: 20;
+    }
 }
 
 /* CHAT BLACK  */
 #cb {
+    /* fill: #e7e1e1; */
     fill: #e7e1e1;
+    animation-delay: 0s;
 }
 
 #hb {
     fill: #e7e1e1;
+    animation-delay: 0.2s;
 }
 
 #ab {
     fill: #e7e1e1;
+    animation-delay: 0.4s;
 }
 
 #tb {
     fill: #e0e0e0;
+    animation-delay: 0.6s;
 }
 
 /* CHAT GREY  */
 
 #cg {
+    animation-delay: 0s;
 }
 
 #hg {
+    animation-delay: 0.2s;
 }
 
 #ag {
+    animation-delay: 0.4s;
 }
 
 #tg {
+    animation-delay: 0.6s;
+}
+.chat_black {
+    animation: chat_move_black 2s ease-in-out infinite;
+}
+.chat_grey {
+    transform: translateY(-6px);
+    animation: chat_move_grey 2s ease-in-out infinite;
+}
+@keyframes chat_move_black {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(+10px);
+    }
+}
+
+@keyframes chat_move_grey {
+    50% {
+        transform: translateY(+10px);
+    }
+}
+
+/* RED STAR */
+
+.star_wrapper {
+    position: relative;
+    top: 260px;
+    left: 975px;
+}
+#red_star {
+    animation: star_rotate 8s linear infinite;
+    image-rendering: crisp-edges;
+    filter: none;
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(0px 0px 5px rgba(233, 233, 233, 0.91));
+}
+#star_text {
+    animation: star_scale 1.5s linear infinite;
+    color: #fffafa;
+    position: absolute;
+    top: 50px;
+    left: 45px;
+    z-index: 160;
+}
+@keyframes star_rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes star_scale {
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ORANGE BOX  */
+
+#orange_sun {
+    image-rendering: crisp-edges;
+    filter: none;
+    width: 370px;
+    height: 370px;
+    position: absolute;
+    left: 570px;
+    top: 150px;
+    filter: drop-shadow(0px 0px 30px hsla(26, 91%, 52%, 0.8));
 }
