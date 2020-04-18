@@ -113,11 +113,15 @@ export function checkIntroTime(serverTime) {
     let localStorageTime = localStorage.getItem("intro_closed");
     console.log(
         "serverTime:",
-        serverTime,
+        serverTime / 60000,
         "localStorageTime",
-        localStorageTime
+        localStorageTime / 60000
     );
-    if (serverTime - localStorageTime > 1) {
+    let diffMins = Math.round(
+        (((serverTime - localStorageTime) % 86400000) % 3600000) / 60000
+    );
+    console.log("diff:", diffMins);
+    if (diffMins > 5) {
         return {
             type: "SHOW_INTRO"
         };

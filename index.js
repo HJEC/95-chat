@@ -340,7 +340,7 @@ io.on("connection", async function(socket) {
         return socket.disconnect(true);
     }
     console.log("socket id:", socket.id);
-    let logged_in_time = new Date().getMinutes();
+    let logged_in_time = Date.now();
     io.to(socket.id).emit("check intro time", logged_in_time);
 
     const userId = socket.request.session.userId;

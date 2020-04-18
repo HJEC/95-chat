@@ -10,9 +10,10 @@ export default function Intro() {
 
     const close = () => {
         dispatch(closeIntro());
-        let time = new Date().getMinutes();
+        let time = Date.now();
         localStorage.setItem("intro_closed", time);
     };
+    console.log(/Chrome/.test(navigator.userAgent));
     return (
         <div
             className="intro-wrapper"
@@ -20,7 +21,17 @@ export default function Intro() {
                 close();
             }}
         >
-            <audio src="/boot_sequence.mp3" autoPlay></audio>
+            {/Chrome/.test(navigator.userAgent) && (
+                <iframe
+                    src="/boot_sequence.mp3"
+                    allow="autoplay"
+                    style={{ display: "none" }}
+                ></iframe>
+            )}
+            {!/Chrome/.test(navigator.userAgent) && (
+                <audio src="/boot_sequence.mp3" autoPlay></audio>
+            )}
+
             {!swapLogo && (
                 <IntroText
                     changeIntro={() => {

@@ -39,7 +39,6 @@ export default function IntroText({ changeIntro }) {
                     getBeforeInit={instance => {
                         instance
                             .type("PREBOOT... <br /> <br/>", { speed: 10 })
-                            .exec(async () => changeIntro())
                             .type(
                                 "Video initializing... OSD_LAYER_INIT <br/>",
                                 {
