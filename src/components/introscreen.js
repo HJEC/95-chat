@@ -13,7 +13,6 @@ export default function Intro() {
         let time = Date.now();
         localStorage.setItem("intro_closed", time);
     };
-    console.log(/Chrome/.test(navigator.userAgent));
     return (
         <div
             className="intro-wrapper"

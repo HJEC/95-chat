@@ -18,7 +18,7 @@ export default function IntroText({ changeIntro }) {
     useEffect(() => {
         setWidthHeight(window.screen.width + " x " + window.screen.height);
         axios
-            .get("http://ip-api.com/json")
+            .get("/find-ip")
             .then(({ data }) => {
                 console.log("response is: ", data);
                 setLocation(data);

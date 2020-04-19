@@ -2,6 +2,7 @@
 const express = require("express"),
     app = express(),
     compression = require("compression");
+const axios = require("axios");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     origins: "localhost:8080 hjec-95-chat.herokuapp.com:*"
@@ -107,6 +108,24 @@ app.use(function(req, res, next) {
     next();
 });
 // __USE__
+
+// Find users location
+
+app.get("/find-ip", async (req, res) => {
+    let response;
+    if (process.env.NODE_ENV == "production") {
+        response = await axios.post(
+            "http://api.ipstack.com/" +
+                req.headers["x-forwarded-for"] +
+                "?access_key=" +
+                secrets.IP_STACK
+        );
+    } else {
+        response = await axios.get("http://ip-api.com/json");
+    }
+    console.log("Here is address response:", response.data);
+    res.json(response.data);
+});
 
 // REGISTRATION PAGE //
 app.get("/registration", (req, res) => {
