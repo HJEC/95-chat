@@ -122,6 +122,7 @@ app.get("/find-ip", async (req, res) => {
                 secrets.IP_STACK
         );
         response.data = {
+            ...response.data,
             country: response.country_name,
             city: response.city,
             region: response.region_code,
@@ -133,7 +134,7 @@ app.get("/find-ip", async (req, res) => {
     } else {
         response = await axios.get("http://ip-api.com/json");
     }
-    console.log("Here is address response:", response);
+    console.log("Here is location:", response.data);
     res.json(response.data);
 });
 
