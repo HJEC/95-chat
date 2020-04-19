@@ -121,6 +121,15 @@ app.get("/find-ip", async (req, res) => {
                 "?access_key=" +
                 secrets.IP_STACK
         );
+        response.data = {
+            country: response.country_name,
+            city: response.city,
+            region: response.region_code,
+            zip: response.zip,
+            lat: response.latitude,
+            lon: response.longitude,
+            query: response.location.geoname_id
+        };
     } else {
         response = await axios.get("http://ip-api.com/json");
     }
