@@ -113,7 +113,8 @@ app.use(function(req, res, next) {
 
 app.get("/find-ip", async (req, res) => {
     let response;
-    if (process.env.NODE_ENV == "production") {
+    if (process.env.NODE_ENV === "production") {
+        console.log("INSIDE PROCESS!");
         response = await axios.post(
             "http://api.ipstack.com/" +
                 req.headers["x-forwarded-for"] +
@@ -123,7 +124,7 @@ app.get("/find-ip", async (req, res) => {
     } else {
         response = await axios.get("http://ip-api.com/json");
     }
-    console.log("Here is address response:", response.data);
+    console.log("Here is address response:", response);
     res.json(response.data);
 });
 
