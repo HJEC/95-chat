@@ -20,7 +20,6 @@ export default function IntroText({ changeIntro }) {
         axios
             .get("/find-ip")
             .then(({ data }) => {
-                console.log("response is: ", data);
                 setLocation(data);
             })
             .catch(err => setLocation("a n o n y m o u s."));
