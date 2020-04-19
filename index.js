@@ -342,7 +342,6 @@ process.on("uncaughtException", function(err) {
 });
 // THIS MUST BE THE LAST ROUTE //
 app.get("*", function(req, res) {
-    console.log("headers", req.headers);
     if (!req.session.userId) {
         res.redirect("/registration");
     } else {
