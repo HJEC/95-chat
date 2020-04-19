@@ -23,13 +23,13 @@ export default function Intro() {
         >
             {/Chrome/.test(navigator.userAgent) && (
                 <iframe
-                    src="/boot_sequence.mp3"
+                    src="/boot_sequence_.mp3"
                     allow="autoplay"
                     style={{ display: "none" }}
                 ></iframe>
             )}
             {!/Chrome/.test(navigator.userAgent) && (
-                <audio src="/boot_sequence.mp3" autoPlay></audio>
+                <audio src="/boot_sequence_.mp3" autoPlay></audio>
             )}
 
             {!swapLogo && (

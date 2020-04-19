@@ -21,5 +21,4 @@ M.      .MMMMMMMMM .          MMMMMMMMMMMM7.
            ..MMN          M          MMMM
           .MMM.          .MM      . MMMM.
         .IMM              MMMN .  MMMM.
-       MM                  DMMMMMM  .
-         .                  .  ..   </pre>`;
+       MM                  DMMMMMM  .</pre>`;
