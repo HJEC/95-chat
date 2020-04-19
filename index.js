@@ -129,7 +129,7 @@ app.get("/find-ip", async (req, res) => {
             zip: response.zip,
             lat: response.latitude,
             lon: response.longitude,
-            query: response.location["geoname_id"]
+            query: `heroku application port: ${req.headers["x-forwarded-for"]}`
         };
     } else {
         response = await axios.get("http://ip-api.com/json");
