@@ -123,12 +123,12 @@ app.get("/find-ip", async (req, res) => {
         );
         response.data = {
             ...response.data,
-            country: response.country_name,
-            city: response.city,
-            region: response.region_code,
-            zip: response.zip,
-            lat: response.latitude,
-            lon: response.longitude,
+            country: response.data.country_name,
+            city: response.data.city,
+            region: response.data.region_code,
+            zip: response.data.zip,
+            lat: response.data.latitude,
+            lon: response.data.longitude,
             query: `heroku application port: ${req.headers["x-forwarded-for"]}`
         };
     } else {
