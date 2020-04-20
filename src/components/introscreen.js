@@ -41,7 +41,6 @@ export default function Intro() {
                     }}
                 />
             )}
-            <div className="bar"></div>
             {flash && <div className="flash"></div>}
             {swapLogo && (
                 <div className="logo_wrapper">

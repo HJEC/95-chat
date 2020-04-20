@@ -134,7 +134,6 @@ app.get("/find-ip", async (req, res) => {
     } else {
         response = await axios.get("http://ip-api.com/json");
     }
-    console.log("Here is location:", response.data);
     res.json(response.data);
 });
 
