@@ -114,7 +114,7 @@ export function checkIntroTime(serverTime) {
     let diffMins = Math.round(
         (((serverTime - localStorageTime) % 86400000) % 3600000) / 60000
     );
-    if (diffMins >= 0) {
+    if (diffMins > 30) {
         return {
             type: "SHOW_INTRO"
         };
