@@ -1,6 +1,7 @@
 <p align="center"><img  width="100"src="/public/svgs/bmac.svg"/></p>
 
 <h1 align="center"> '95-Chat, A Social Network</h1>
+<h4 align="center">(now unofficially official version 2.0!)<h4>
 <br>
 
 <h3> you can visit the live version of this project, hosted with Heroku at the link next to the repo description, or <a style="text-decoration: underline"href="https://hjec-95-chat.herokuapp.com/">here</a>.
@@ -23,15 +24,17 @@ Jump in the chat like it's 1995! 💾</h3>
 3. [Technologies](#Technologies)
 4. [Design Packages](#Design)
 5. [Features](#Features)
-   <br>[- Registration](#1)
-   <br>[- Log-In](#2)
-   <br>[- Password Reset](#3)
-   <br>[- Modal Pop-Up Windows](#4)
-   <br>[- Upload Image](#5)
-   <br>[- Edit Info](#6)
-   <br>[- Friend Finder](#7)
-   <br>[- Relationship Management](#8)
-   <br>[- Global Chatroom](#9)
+   <br>[- Intro animation](#1)
+   <br>[- Registration](#2)
+   <br>[- Log-In](#3)
+   <br>[- Password Reset](#4)
+   <br>[- Delete Account](#5)
+   <br>[- Modal Pop-Up Windows](#6)
+   <br>[- Upload Image](#7)
+   <br>[- Edit Info](#8)
+   <br>[- Friend Finder](#9)
+   <br>[- Relationship Management](#10)
+   <br>[- Global Chatroom](#11)
 6. [Future Features](#future)
 
 ### Description:
@@ -60,10 +63,13 @@ I created this experiment with the singular focus of seeing what kind of product
 -   Crypto-random-string
 -   express
 -   Multer
+-   Typeit
 -   Bundle.js
 -   Socket.io
 -   Webpack
 -   Amazon Web Services (S3, SES)
+-   ipstack location API service
+-   Heroku
 
 ### Design Packages <a name="Design"></a>
 
@@ -73,7 +79,80 @@ I created this experiment with the singular focus of seeing what kind of product
 
 # Features:
 
-#### 1. Account Registration: <a name="1"></a>
+#### 1. Intro animation: <a name="1"></a>
+
+<br>
+
+<p align="center"><img src="/public/gif/intro.gif" width="70%"/></p>
+
+<dl>
+    <dt>The boot sequence.</dt>
+<dd>This recent addition was a very interesting challenge for me. I wanted to add a feature that would build upon the character of the theme I had chosen for the project. I started small and built a react component using the <strong>typeit</strong> library to recreate a vintage pc boot-sequence.</dd>
+
+<dt>The user data</dt>
+<dd>Initially I began filling the boot sequence with some techno-jargon Inspired from classical "hollywood OS" style scenes from movies with footage of impressive but meaningless computer system data running across the screen. Fairly soon I realised that I had the opportunity to do something cool by adding relevant information about the user somewhere they wouldn't expect to see it.</dd>
+<br>
+<dd>First of all, using the global window object, I could detect what the size of the screen the user has, and then the browser user-agent that they are viewing the site on. The next challenge was to display the user's location, which I achieved via a third-party API called <strong>Ipstack</strong></dd>
+
+<dt>The audio</dt>
+<dd>To add to the authentic experience of logging into a chat-room based on a 90's operating system, I created a mp3 file with the sounds of a vintage pc booting up, and with some royalty-free sound effects based on the 1978 "Alien" film for the retro feel. I edited all the clips to trigger at the appropriate time for the intro animation.</dd>
+
+<br>
+
+<dd>I encountered an issue with the audio file not always playing when the page starts due to browser differences, so I added a conditional to check what type of browser is viewing the page and then either an iframe containing the audio file source, or just a plain audio tag would load. I achieved it like this: </dd>
+
+```
+    {/Chrome/.test(navigator.userAgent) && (
+        <iframe
+            src="/boot*sequence*.mp3"
+            allow="autoplay"
+            style={{ display: "none" }} ></iframe>
+    )}
+    {!/Chrome/.test(navigator.userAgent) && (
+        <audio src="/boot_sequence_.mp3" autoPlay></audio>
+    )}
+```
+
+<br>
+
+<dt>The flash and the reveal</dt>
+
+<dd>I wanted to use this chance to test my creativity and gain more experience with animating <strong>SVGs</strong>, so I created a redesigned version of the site intro to surprise users on their first visit. This was a simple design with a couple CSS animations but I am already looking forward to experimenting with more.</dd>
+
+<br>
+
+<dt>The repeat</dt>
+<dd>After spending so much time creating the animation, I felt like it would be a shame if it could only be seen when a user first visits the website before registering, so I set the intro to play again after the user has been away for a set period of time.
+The way I achieved this was by saving a UNIX timestamp from the moment that they first see the introduction and click to enter, and then compare that with a timestamp from the next time they revisit the website. Using some simple math relating to UNIX time, if 30 minutes has elapsed, the next time they visit the site the intro will be played again:
+
+```
+function checkIntroTime(serverTime) {
+    let localStorageTime = localStorage.getItem("intro_closed");
+    let diffMins = Math.round(
+        (((serverTime - localStorageTime) % 86400000) % 3600000) / 60000
+    );
+    if (diffMins > 30) {
+        return {
+            type: "SHOW_INTRO"
+        };
+    } else {
+        return {
+            type: "HIDE_INTRO"
+        };
+    }
+}
+```
+
+<dt>The problems</dt>
+
+<dd> I was adamant that I wanted to display the website logo in <strong>ASCII</strong> art form, but the typeit library struggled to print so many characters with all the whitespace. I even contacted the author of typeit to open an issue which was then resolved using an experimental work-around. </dd>
+
+<br>
+
+<dd>I also became aware after deploying the new version of the site to Heroku, that the API I was using to determining the user's location and add the data to the boot sequence was incompatible with Heroku, as the platform initially forwards the traffic from the user's IP address through their server. This meant that I had to tear down this part of the sequence and rebuild it using a different API. After spending some time getting familiar with the Heroku and Ipstack documentation, I found a way to get the user's IP address from the heroku server, build a get request to send to ipstack and then use the returned object to render the text for the intro sequence</dd>
+</dl>
+
+#### 2. Account Registration: <a name="2"></a>
 
 <br>
 
@@ -83,14 +162,14 @@ What does any good social-network site need? Valid account registration of cours
 The password provided is passed through <strong>Bcrypt</strong> to generate a hash password, which is then saved to the database.
 Once registered, the user session cookies are applied with <strong>Cookie-Session</strong> and the DOM is re-rendered with the home page react component.
 
-#### 2. Log-In <a name="2"></a>
+#### 3. Log-In <a name="3"></a>
 
 <br>
 <p align="center"><img src="/public/gif/login.gif" width="70%"/></p>
 
 If a user has an existing account with '95-chat, they can enter their email and password combination to log in. The password hash in the database (corresponding to the provided email) is cross-checked using <strong>Bcrypt compare</strong>. If incorrect, the user will be prompted with an error message to try again, otherwise the session cookies will be reapplied and the DOM will render the home page component again.
 
-#### 3. Password Reset <a name="3"></a>
+#### 4. Password Reset <a name="4"></a>
 
 <br>
 
@@ -117,7 +196,15 @@ Once the reset email is sent, the user will find in their inbox an email contain
 
 Lastly, the state of the component is updated one last time on a successful reset, informing the user that their password has been changed. They can now relocate back to the start to log-in using their new credentials.
 
-#### 4. Modal Pop-up Windows <a name="4"></a>
+#### 5. Delete Account <a name="5"></a>
+
+<br>
+<p align="center"><img src="/public/gif/delete.gif" width="70%"/></p>
+
+This was a feature I had initially missed out on due to time constraints, and why should anyone really want to leave '95-chat? But it seemed like a necessary feature. The user's email is stored in session when they are logged in to the site, which is then used to build a SQL query to remove their account from the database. <br>
+I also added a conditionally rendered window to make sure the user wants to delete their account after they fill the checkbox to avoid accidental deletion. After they confirm, the user session is removed and the url location is then replaced sending them back to the registration page, with the intro.
+
+#### 6. Modal Pop-up Windows <a name="6"></a>
 
 <br>
 
@@ -136,7 +223,7 @@ By passing information about the window down through the window component props,
 <br><br>
 A difficult problem I had with the approach I designed was fixing issues with <strong>Z-indexing</strong>. As I had created a single component that dynamically rendered other components inside of it, all the modal windows were <b>fundamentally the same element</b>. Applying a class to change the z-index on mouse-down wouldn't work in this instance, as the class would be applied to all open windows. I solved this with some tricky manipulation of the data flowing down through the <strong>component props</strong>, which would then feed back up to the top level via the apps local state to discern which specific window element had been clicked on. I can safely say, <em>"It was a real melon-twister!"</em>
 
-#### 5. Upload/Change Profile Image <a name="5"></a>
+#### 7. Upload/Change Profile Image <a name="7"></a>
 
 <br>
 
@@ -144,7 +231,7 @@ A difficult problem I had with the approach I designed was fixing issues with <s
 
 Upon initial registration, user's profiles will be given a default image for their profile. If they so choose they can upload their own image (up to 2.5mb's in size). This is achieved with <strong>multer</strong> and then uploaded to an <strong>AWS S3 bucket</strong>. The AWS address for that image is then sent to the server and stored in the database for reference.
 
-#### 6. Editing Personal Information <a name="6"></a>
+#### 8. Editing Personal Information <a name="8"></a>
 
 <br>
 
@@ -158,7 +245,7 @@ Users can also add information about themselves via a text-area element on their
 
 these changes are accomplished with 3 different JSX elements, an indication value in local state, and a ternary operator inside the component return to watch the local state indicator value.
 
-#### 7. Friend Finder <a name="7"></a>
+#### 9. Friend Finder <a name="9"></a>
 
 <br>
 
@@ -191,7 +278,7 @@ An essential part of any social network is to be social, right? This window comp
 This is a simple but effective demonstration of the power of using a framework that uses a virtual DOM to render the content on the page, without having to reload all the content to display new information.
 Simply put, frameworks like React are awesome.
 
-#### 8. Relationship Management <a name="8"></a>
+#### 10. Relationship Management <a name="10"></a>
 
 <br>
 <p align="center"><img src="/public/gif/relationships.gif" width="70%"/></p>
@@ -199,7 +286,7 @@ Simply put, frameworks like React are awesome.
 Yes, friendships! Users can send, receive, accept, and deny friendship requests from other users. The Friendship management portal allows you to manage all of these relationships, and what's even more exciting: Just like dragging files into the Mac OS 7 trashcan, you can now pickup your relevant friend's and <b>dump them in the trash!</b>
 The draggable container for each friendship can be pulled over to the trashcan svg I designed, and when the mouse-up event is detected, will delete the friendship relation, change the icon of the trashcan and play a short "bloop" audio clip I created, based on sounds from the original OS.
 
-#### 9. Global Chatroom <a name="9"></a>
+#### 11. Global Chatroom <a name="11"></a>
 
 <br>
 <p align="center"><img src="/public/gif/chat.gif" width="70%"/></p>
@@ -224,12 +311,12 @@ First of all, I would like to say <b>thank you</b> for taking an interest in my 
 
 #### Ideas for future features are, in no particular order:
 
-1. Introduction screen animation
-   <br> - This is something I wanted to work on from the beginning, but felt like more of a flourish than a necessary feature. I look forward to adding that extra nostalgic touch with a vintage inspired <strong> pure CSS animation</strong> to round off the project.
+1. ~Introduction screen animation~ <strong>Completed!</strong>
+   <br>
 2. Music radio with controls
    <br> - Expect all the biggest hits and classics from 1995 with a custom site audio player built into the header. This would be a great opportunity to experiment with audio formats and bring some more functionality to the site.
-3. Account deletion / Extra information field editing.
-   <br> - Due to time constraints these features were put aside to make way for the main functions, but they are just as essential to a full fledged product as anything else.
+3. ~Account deletion~ <strong>Completed!</strong>
+   <br>
 4. Private chat messaging.
    <br> - For the extra touch of class, users on the site should be able to enjoy messaging one-to-one with their friends.
 5. Message Notifications.
