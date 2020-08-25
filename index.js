@@ -38,7 +38,7 @@ const {
 } = require("./db");
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
-
+const { createProxyMiddleware } = require("http-proxy-middleware");
 // IMAGE UPLOAD BOILER PLATE //
 const multer = require("multer"),
     uidSafe = require("uid-safe"),
@@ -94,7 +94,7 @@ app.use(csurf());
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
-        require("http-proxy-middleware")({
+        createProxyMiddleware({
             target: "http://localhost:8081/"
         })
     );
