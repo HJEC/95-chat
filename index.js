@@ -90,14 +90,13 @@ io.use(function(socket, next) {
 
 app.use(csurf());
 
+let options = {
+    target: "http://localhost:8081/",
+    changeOrigin: true
+};
 // SERVE FILE IN DEVELOPMENT OR PRODUCTION //
 if (process.env.NODE_ENV != "production") {
-    app.use(
-        "/bundle.js",
-        createProxyMiddleware({
-            target: "http://localhost:8081/"
-        })
-    );
+    app.use("/bundle.js", createProxyMiddleware(options));
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
