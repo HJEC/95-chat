@@ -1,7 +1,7 @@
 // EXPRESS / COMPRESSION //
-const express = require("express"),
-    app = express(),
-    compression = require("compression");
+const express = require("express");
+const app = express();
+const compression = require("compression");
 const axios = require("axios");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
@@ -10,7 +10,6 @@ const io = require("socket.io")(server, {
 
 // SECURITY //
 const cookieSession = require("cookie-session"),
-    // secrets = require("./secrets.json"),
     csurf = require("csurf"),
     cryptoRandomString = require("crypto-random-string"),
     { hashPass, compare } = require("./bcrypt");
@@ -39,6 +38,7 @@ const {
 const { sendEmail } = require("./ses");
 const { upload } = require("./s3");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+
 // IMAGE UPLOAD BOILER PLATE //
 const multer = require("multer"),
     uidSafe = require("uid-safe"),
@@ -72,11 +72,11 @@ app.use(
         extended: false
     })
 );
-let secrets;
 
+let secrets;
 process.env.NODE_ENV === "production"
     ? (secrets = process.env)
-    : (secrets = require("./secrets"));
+    : (secrets = require("./secrets.json"));
 
 const cookieSessionMiddleware = cookieSession({
     secret: secrets.SESSION_SECRET,
@@ -330,6 +330,7 @@ app.post("/reset", async (req, res) => {
     let { email, code, newPassword } = req.body;
     try {
         let data = await verify(email);
+
         if (code == data[0].code) {
             let hash = await hashPass(newPassword);
             await updatePassword(hash, email);

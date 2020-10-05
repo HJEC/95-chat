@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TypeIt from "typeit-react";
 import axios from "../axios";
-// const ascii = require("../../public/ascii");
 const ascii95 = require("../../public/ascii95");
 const ascii_chat = require("../../public/ascii_chat");
 
@@ -48,12 +47,10 @@ export default function IntroText({ changeIntro }) {
                             .type(fillText(widthHeight), { delay: 600 })
                             .options({ speed: 4 })
                             .break()
-                            .type("video bbp is 24...<br/>")
                             .type(
                                 "LCD SCREEN clear... hdmi tx power init <br/>"
                             )
                             .type("mode - 4 ..  vic = 21 <br/>")
-                            .type("mode is: 3 <br/> viu chan = 1 <br/>")
                             .type("CONFIG HPLL <br/><br/>")
                             .type("reboot_mode=charging <br/> <br/>")
                             .type("system platform is... ", {

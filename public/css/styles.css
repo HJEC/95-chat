@@ -16,7 +16,6 @@
 main {
     min-height: 100vh;
     height: 100%;
-    /* TODO: download this png */
     background: url(/background.png) repeat;
 }
 img {
