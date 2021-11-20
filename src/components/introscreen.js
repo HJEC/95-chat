@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "./Logo.js";
+import Logo from "./logo.js";
 import { useDispatch } from "react-redux";
 import { closeIntro } from "../actions";
 import IntroText from "./introText";
